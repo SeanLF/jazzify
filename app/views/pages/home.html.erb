@@ -2,9 +2,9 @@
   <h1>Welcome to Jazzify!</h1>
   <p>Apply to volunteer at the Ottawa Jazz Festival.</p>
   <p>
-  	<a class="btn btn-primary btn-lg" href="/volunteer" role="button">Learn more</a>
+  	<a class="btn btn-primary btn-lg" href="/about" role="button">Learn more</a>
   	<% if user_signed_in? %>
-  	<a class="btn btn-success btn-lg" href="/volunteer/apply" role="button">Apply</a>
+  	<a class="btn btn-success btn-lg" href="/volunteer_positions" role="button">Apply</a>
   	<%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-danger btn-lg'  %>
   	<% else %>
 	<%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-primary btn-lg'  %>
