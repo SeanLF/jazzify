@@ -8,9 +8,7 @@
 ['registered', 'banned', 'moderator', 'admin'].each do |role|
   Role.find_or_create_by({name: role})
 
-sean = User.find_or_create_by(email: 'sfloy029@uottawa.ca', 
-             password: 'nun6spaP!', 
-             password_confirmation: 'nun6spaP!')
+sean = User.find_by({email: 'sfloy029@uottawa.ca'})
 
 sean.role_id = 4
 sean.save!
