@@ -1,4 +1,5 @@
 class VolunteerPositionPolicy < ApplicationPolicy
+
   class Scope < Scope
     def resolve
       scope
@@ -13,11 +14,11 @@ class VolunteerPositionPolicy < ApplicationPolicy
 	end
 
 	def create?
-		return new?
+		return new? unless user.nil?
 	end
 
 	def edit?
-		return update?
+		return update? unless user.nil?
 	end
 
 	def new?
@@ -25,10 +26,10 @@ class VolunteerPositionPolicy < ApplicationPolicy
 	end
 
 	def update?
-		user.is_admin? or user.is_moderator?
+		user.is_admin? or user.is_moderator? unless user.nil?
 	end
 
 	def destroy?
-		user.is_admin?
+		return user.is_admin? unless user.nil?
 	end
 end
