@@ -21,3 +21,15 @@
 
 en:
   hello: "Hello world"
+
+
+  activerecord:
+    attributes:
+      user_application:
+        volunteer_position: "Position"
+    errors:
+      models:
+        user_application:
+          attributes:
+            volunteer_position:
+              taken: "already applied to."

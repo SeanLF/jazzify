@@ -17,5 +17,9 @@ class ApplicationController < ActionController::Base
   def permission_denied
     head 403
   end
+
+  def not_authorized
+    redirect_to volunteer_positions_url, :alert => "You are not authorized to perform the requested action!"
+  end
  
 end

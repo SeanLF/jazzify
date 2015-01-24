@@ -19,7 +19,8 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Volunteer<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="/volunteer_positions">Volunteer Positions</a></li>
+            <li><%= link_to "Volunteer Positions", volunteer_positions_path, :class => 'navbar-link'  %></li>
+            <li><%= link_to "Applications", user_applications_path, :class => 'navbar-link'  %></li>
           </ul>
         </li>
         <!-- <li><a href="mailto:sfloy029@uottawa.ca">Contact Us</a></li> -->

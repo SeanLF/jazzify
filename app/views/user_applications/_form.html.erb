@@ -1,0 +1,40 @@
+<%= form_for(@user_application, :html => { :class => "form-horizontal", :role => "form" }) do |f| %>
+  <% if @user_application.errors.any? %>
+    <div class="alert alert-danger alert-dismissable" role="alert">
+      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+      <h4>Please fix the following <%= pluralize(@user_application.errors.count, "error") %>:</h4>
+
+      <ul>
+      <% @user_application.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="form-group hidden">
+    <%= f.label :user_id, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.hidden_field :user_id, :class => "form-control" %>
+    </div>
+  </div>
+  <div class="form-group hidden">
+    <%= f.label :user_application_status_id, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.hidden_field :user_application_status_id, :class => "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :volunteer_position_id, :class => "col-sm-2 control-label" %>
+    <div class="col-sm-10">    
+    <%= f.select :volunteer_position_id, options_from_collection_for_select(@volunteer_positions, 'id', 'title', @user_application.volunteer_position_id), {}, { :class => "form-control selectpicker" } %>
+    </div>
+  </div>
+      
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit "Submit", :class => "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>
+
+<!-- if application position is equal to current in iteration, add select -->

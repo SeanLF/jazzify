@@ -1,0 +1,44 @@
+<h1>Application</h1>
+
+<div class="panel-body">
+  <form class="form-horizontal">
+
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Application status</label>
+      <div class="col-sm-10">
+        <div class="well well-sm" name="user_application[User application status]">
+          <%= simple_format(@user_application.user_application_status.status) %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Title</label>
+      <div class="col-sm-10">
+        <div class="well well-sm" name="user_application[Volunteer position]">
+          <%= simple_format(@user_application.volunteer_position.title) %>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<div class="" role="group" aria-label="...">
+  <%= link_to user_applications_path, :class => 'btn btn-default' do %>
+  <span class="glyphicon glyphicon-list-alt"></span>
+  Back
+  <% end %>
+  <% if policy(@user_application).edit? %>
+    <%= link_to edit_user_application_path(@user_application), :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+    <% end %>
+  <% end %>
+  <% if policy(@user_application).destroy? %>
+  <%= link_to 'Delete', @user_application, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %>
+  <% end %>
+</div>
+</div>

@@ -1,14 +1,16 @@
 <h1>Volunteer Positions</h1>
 <% if policy(@volunteer_positions).create? %>
 <p>
-<%= link_to 'Create', new_volunteer_position_path, :class => 'btn btn-success' %>
+  <%= link_to 'Create', new_volunteer_position_path, :class => 'btn btn-success' %>
 </p>
 <% end %>
 
 <% if @volunteer_positions.count > 0 %>
 <p>Please select one of the following positions.</p>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
   <% @volunteer_positions.each_with_index do |volunteer_position, index| %>
+
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="<%= "heading#{index}" %>">
       <h4 class="panel-title">
@@ -19,40 +21,43 @@
     </div>
     <div id="<%= "collapse#{index}" %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="<%= "heading#{index}" %>">
       <div class="panel-body">
-      <form class="form-horizontal">
-        <div class="form-group">
-        <label for="<%= "objective#{index}" %>" class="col-sm-2 control-label">Objective</label>
-          <div class="col-sm-10">
-            <div class="well well-sm" id="<%= "objective#{index}" %>" name="volunteer_position[objective]"><%= simple_format(volunteer_position.objective) %></div>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label for="<%= "description#{index}" %>" class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-10">
+              <div class="well well-sm" id="<%= "description#{index}" %>" name="volunteer_position[description]" ><%= simple_format(volunteer_position.description) %></div>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label for="<%= "duties#{index}" %>" class="col-sm-2 control-label">Duties & Responsibilities</label>
-          <div class="col-sm-10">
-            <div class="well well-sm" id="<%= "duties#{index}" %>" name="volunteer_position[duties]"><%= simple_format(volunteer_position.duties) %></div>
+          <div class="form-group">
+            <label for="<%= "objective#{index}" %>" class="col-sm-2 control-label">Objective</label>
+            <div class="col-sm-10">
+              <div class="well well-sm" id="<%= "objective#{index}" %>" name="volunteer_position[objective]" ><%= simple_format(volunteer_position.objective) %></div>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label for="<%= "requirements#{index}" %>" class="col-sm-2 control-label">Qualifications & Requirements</label>
-          <div class="col-sm-10">
-            <div class="well well-sm" id="<%= "requirements#{index}" %>" name="volunteer_position[requirements]"><%= simple_format(volunteer_position.requirements) %></div>
+          <div class="form-group">
+            <label for="<%= "duties#{index}" %>" class="col-sm-2 control-label">Duties & Responsibilities</label>
+            <div class="col-sm-10">
+              <div class="well well-sm" id="<%= "duties#{index}" %>" name="volunteer_position[duties]" ><%= simple_format(volunteer_position.duties) %></div>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label for="<%= "contact#{index}" %>" class="col-sm-2 control-label">Contact Info</label>
-          <div class="col-sm-10">
-            <div class="well well-sm" id="<%= "contact#{index}" %>" name="volunteer_position[contact]"><%= simple_format(volunteer_position.contact) %></div>
+          <div class="form-group">
+            <label for="<%= "requirements#{index}" %>" class="col-sm-2 control-label">Qualifications & Requirements</label>
+            <div class="col-sm-10">
+              <div class="well well-sm" id="<%= "requirements#{index}" %>" name="volunteer_position[requirements]" ><%= simple_format(volunteer_position.requirements) %></div>
+            </div>
           </div>
-        </div>
         </form>
         <div class="btn-group" role="group" aria-label="...">
-            <%= link_to 'View', volunteer_position, :class => 'btn btn-default' %>
-            <% if policy(@volunteer_positions).edit? %>
-            <%= link_to 'Edit', edit_volunteer_position_path(volunteer_position), :class => 'btn btn-default' %>
-            <% end %>
-            <% if policy(@volunteer_positions).destroy? %>
-            <%= link_to 'Delete', volunteer_position, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %>
-            <% end %>
+          <%= link_to 'View', volunteer_position, :class => 'btn btn-default' %>
+          <% if !current_user.nil? %>
+            <%= link_to 'Apply',  new_volunteer_position_user_application_path(volunteer_position), :class => 'btn btn-default' %>
+          <% end %>
+          <% if policy(@volunteer_positions).edit? %>
+          <%= link_to 'Edit', edit_volunteer_position_path(volunteer_position), :class => 'btn btn-default' %>
+          <% end %>
+          <% if policy(@volunteer_positions).destroy? %>
+          <%= link_to 'Delete', volunteer_position, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %>
+          <% end %>
         </div>
       </div>
     </div>

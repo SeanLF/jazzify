@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150123004955) do
+ActiveRecord::Schema.define(version: 20150124162150) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,22 @@ ActiveRecord::Schema.define(version: 20150123004955) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "user_application_statuses", force: true do |t|
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "user_applications", force: true do |t|
+    t.string   "user_id"
+    t.string   "user_application_status_id"
+    t.string   "volunteer_position_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_applications", ["user_id", "volunteer_position_id"], name: "index_user_applications_on_user_id_and_volunteer_position_id", unique: true, using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -42,7 +58,7 @@ ActiveRecord::Schema.define(version: 20150123004955) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "volunteer_positions", force: true do |t|
-    t.text     "title"
+    t.text     "title",         null: false
     t.text     "objective"
     t.text     "duties"
     t.text     "requirements"
@@ -50,7 +66,7 @@ ActiveRecord::Schema.define(version: 20150123004955) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "contact_email"
-    t.text     "description"
+    t.text     "description",   null: false
   end
 
 end

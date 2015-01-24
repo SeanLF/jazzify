@@ -15,4 +15,5 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require sweet-alert.min
+//= require bootstrap-select.min
 //= require_tree .

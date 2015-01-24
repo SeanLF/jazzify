@@ -3,3 +3,15 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "sweet-alert";
+@import "bootstrap-select.min";
+
+// Index and Show -> get rid of margins
+.form-group .col-sm-10 .well-sm{
+	margin-bottom: 0px;
+	min-height: 40px;
+
+	p{
+		margin-bottom: 0px;
+	}
+
+}

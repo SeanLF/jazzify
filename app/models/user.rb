@@ -5,7 +5,11 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :role
+  belongs_to :volunteer_application
+  has_many :volunteer_application
   before_create :set_default_role
+
+  validates :email, presence: true, uniqueness: true
 
   def is_admin?
     self.role == Role.find_by_name('admin')
@@ -13,6 +17,10 @@ class User < ActiveRecord::Base
 
   def is_moderator?
     self.role == Role.find_by_name('moderator')
+  end
+
+  def is_valid_user?
+    self.role != Role.find_by_name('registered')
   end
 
   private

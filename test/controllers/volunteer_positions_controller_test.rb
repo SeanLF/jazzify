@@ -2,7 +2,10 @@ require 'test_helper'
 
 class VolunteerPositionsControllerTest < ActionController::TestCase
   setup do
+    @user = users(:one)
+    @user.role_id = 4
     @volunteer_position = volunteer_positions(:one)
+    sign_in :user, @user
   end
 
   test "should get index" do
