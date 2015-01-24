@@ -25,10 +25,15 @@ class UserApplicationPolicy < ApplicationPolicy
 	end
 
 	def update?
-		@user.is_admin? or user == @user unless @user.nil?
+		grant_access?
 	end
 
 	def destroy?
-		@user.is_admin? or user == @user unless @user.nil?
+		grant_access?
+	end
+
+	private
+	def grant_access?
+		@user.is_admin? or @user_application.user == @user unless @user.nil?
 	end
 end
