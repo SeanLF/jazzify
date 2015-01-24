@@ -65,7 +65,7 @@ class UserApplicationsController < ApplicationController
         @user_applications = UserApplication.all #.where(user_application_status: "Incomplete")
         @count = UserApplication.all.count
       else
-        @user_applications = UserApplication.where(:user == @user)
+        @user_applications = UserApplication.where({user_id: "#{@user.id}"})
       end
     end
 
