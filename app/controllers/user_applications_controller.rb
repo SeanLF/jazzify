@@ -1,14 +1,15 @@
 class UserApplicationsController < ApplicationController
+  before_filter :authenticate_user!
   before_action :set_user
   before_action :set_user_application, except: [:new, :create]
   before_action :set_user_applications, except: [:destroy]
   before_action :set_volunteer_positions
-  before_filter :authenticate_user!
-  after_action :verify_authorized, :except => :index
+  after_action :verify_authorized
   rescue_from Pundit::NotAuthorizedError, :with => :not_authorized
   respond_to :html
 
   def index
+    authorize @user_applications
     respond_with(@user_applications)
   end
 

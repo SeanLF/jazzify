@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails'
+gem 'rails', '>= 4.1'
 
 # Use sqlite3 as the database for Active Record
 gem 'pg'
 
 # Use SCSS for stylesheets
-gem 'sass-rails'
+gem 'sass-rails', '>= 3.2'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
@@ -30,13 +30,19 @@ gem 'jbuilder'
 gem 'font-awesome-sass'
 
 gem 'devise'
-gem 'bootstrap-sass'
+
+# Autoprefixer
+gem 'autoprefixer-rails'
+
+# Bootstrap oriented gems
+gem 'bootstrap-sass', '~> 3.3.3'
 gem 'bootstrap-generators'
 gem 'devise-bootstrap-views'
+gem 'sprockets-rails'
 
 gem 'pundit'
 
-gem 'byebug'
+gem 'upmin-admin'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -47,10 +53,11 @@ end
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+ gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
 
 # Use debugger
-# gem 'debugger', group: [:development, :test]
+# not compatible with required version of ruby/rails gem 'debugger', group: [:development, :test]
+ gem 'byebug', group: [:development, :test]

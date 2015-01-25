@@ -12,6 +12,10 @@ class UserApplicationPolicy < ApplicationPolicy
 		@user_application = user_application
   end
 
+  def index?
+    !@user.nil?
+  end
+
   def show?
   	@user_application.user == @user or @user.is_elevated?
   end

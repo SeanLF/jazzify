@@ -13,7 +13,7 @@ class User < ActiveRecord::Base
 
   def is_admin?
     self.role == Role.find_by_name('Admin')
-  end  
+  end
 
   def is_moderator?
     self.role == Role.find_by_name('Moderator')
