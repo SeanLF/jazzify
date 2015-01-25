@@ -7,7 +7,7 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 # Add roles
-['registered', 'banned', 'moderator', 'admin'].each do |role|
+['Registered', 'Banned', 'Moderator', 'Admin'].each do |role|
   Role.find_or_create_by({name: role})
 end
 
@@ -18,5 +18,5 @@ end
 
 sean = User.find_or_create_by({email: "sfloy029@uottawa.ca"})
 sean.password = "1234567890"
-sean.role = Role.find_by({name: "admin"})
+sean.role = Role.find_by({name: "Admin"})
 sean.save!

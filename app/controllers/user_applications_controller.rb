@@ -59,7 +59,7 @@ class UserApplicationsController < ApplicationController
     end
 
     def set_user_applications
-      if @user.is_admin? or @user.is_moderator?
+      if @user.is_elevated?
       # Don't show incomplete applications by other users
       # @user_applications = UserApplication.where("user_application_status_id != \'#{incomplete_id}\' or user_id == \'#{@user.id}\'")
         @user_applications = UserApplication.all #.where(user_application_status: "Incomplete")
@@ -75,9 +75,5 @@ class UserApplicationsController < ApplicationController
 
     def user_application_params
       params.require(:user_application).permit(:user_id, :user_application_status_id, :volunteer_position_id)
-    end
-
-    def set_user
-      @user = current_user
     end
 end

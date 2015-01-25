@@ -26,7 +26,7 @@ class VolunteerPositionPolicy < ApplicationPolicy
 	end
 
 	def update?
-		user.is_admin? or user.is_moderator? unless user.nil?
+		user.is_elevated? unless user.nil?
 	end
 
 	def destroy?

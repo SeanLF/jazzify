@@ -1,0 +1,26 @@
+<div class="panel panel-primary">
+  <!-- Default panel contents -->
+  <div class="panel-heading"><h4>Jazzify Permissions</h4></div>
+  <div class="panel-body">
+    <p>Here is a breakdown of all the permissions per role</p>
+  </div>
+	<table class="table table-hover table-striped table-bordered">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Admin</th>
+				<th>Moderator</th>
+				<th>Registed User</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @permissions.each do |permission| %><tr>
+				<td><%= permission[:name] %></td>
+				<td><%= permission[:admin] %></td>
+				<td><%= permission[:mod] %></td>
+				<td><%= permission[:user] %></td></tr>
+			<% end %>
+		</tbody>
+
+	</table>
+</div>

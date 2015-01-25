@@ -4,4 +4,15 @@ class UserPolicy < ApplicationPolicy
       scope
     end
   end
+
+	attr_reader :user
+
+	def initialize(user, record)
+		@user = user
+		@record = record
+	end
+
+	def permissions?
+		@user.is_elevated? unless @user.nil?
+	end
 end

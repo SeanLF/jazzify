@@ -12,19 +12,23 @@ class User < ActiveRecord::Base
   validates :email, presence: true, uniqueness: true
 
   def is_admin?
-    self.role == Role.find_by_name('admin')
+    self.role == Role.find_by_name('Admin')
   end  
 
   def is_moderator?
-    self.role == Role.find_by_name('moderator')
+    self.role == Role.find_by_name('Moderator')
   end
 
   def is_valid_user?
-    self.role != Role.find_by_name('registered')
+    self.role != Role.find_by_name('Registered')
+  end
+
+  def is_elevated?
+    self.is_admin? or self.is_moderator?
   end
 
   private
   def set_default_role
-    self.role = Role.find_by_name('registered')
+    self.role = Role.find_by_name('Registered')
   end
 end

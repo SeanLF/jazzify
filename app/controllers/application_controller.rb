@@ -11,7 +11,6 @@ class ApplicationController < ActionController::Base
   # Returning 403 Forbidden if permission is denied
   rescue_from Pundit::NotAuthorizedError, with: :permission_denied
  
- 
   private
  
   def permission_denied
@@ -20,6 +19,10 @@ class ApplicationController < ActionController::Base
 
   def not_authorized
     redirect_to volunteer_positions_url, :alert => "You are not authorized to perform the requested action!"
+  end
+
+  def set_user
+    @user = current_user
   end
  
 end

@@ -13,7 +13,7 @@ class UserApplicationPolicy < ApplicationPolicy
   end
 
   def show?
-  	@user_application.user == @user or @user.is_admin? or @user.is_moderator?
+  	@user_application.user == @user or @user.is_elevated?
   end
 
   def create?
