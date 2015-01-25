@@ -5,13 +5,15 @@
 @import "font-awesome";
 @import "sweet-alert";
 @import "bootstrap-select.min";
-@import 'bootswatch/lumen/bootstrap.min';
 
-// "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import "sweet-alert";
-@import "bootstrap-select.min";
+// Bootswatch theme
+//@import 'bootswatch/cosmo/bootstrap.min';
+//@import 'bootswatch/cyborg/bootstrap.min';
+//@import 'bootswatch/darkly/bootstrap.min';
+//@import 'bootswatch/flatly/bootstrap.min';
+@import 'bootswatch/lumen/bootstrap.min';
+//@import 'bootswatch/paper/bootstrap.min';
+//@import 'bootswatch/readable/bootstrap.min';
 
 // Index and Show -> get rid of margins
 .form-group .col-sm-10 .well-sm{
