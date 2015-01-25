@@ -1,28 +1,14 @@
-== README
+This application is compatible with the latest version of rails and all gems in the Gemfile.
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To run this application, install postgresql on your machine.
 
-Things you may want to cover:
+Currently deployed at https://ottawajazzify.herokuapp.com/
 
-* Ruby version
+-- Once you have this repository cloned on your machine --
+1) go to the root folder
+2) bundle install
+3) rake db:migrate (rake db:create if needed)
+4) rake db:seed (for code tables)
+5) rails s (rails server)
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+To publish your own version on heroku, read their documentation and install their command line tool.
