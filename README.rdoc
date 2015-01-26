@@ -12,3 +12,5 @@ Currently deployed at https://ottawajazzify.herokuapp.com/
 5) rails s (rails server)
 
 To publish your own version on heroku, read their documentation and install their command line tool.
+
+Generate Entity-Relationship Diagram: rake erd. Please don't commit the resulting PDF.

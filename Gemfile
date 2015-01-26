@@ -49,6 +49,14 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+group :development do
+  gem "rails-erd"
+  gem 'byebug'
+  gem 'did_you_mean'
+end
+
+# gem 'puma'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
@@ -57,7 +65,3 @@ end
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
-
-# Use debugger
-# not compatible with required version of ruby/rails gem 'debugger', group: [:development, :test]
- gem 'byebug', group: [:development, :test]
