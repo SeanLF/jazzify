@@ -1,0 +1,23 @@
+.navbar.navbar-default.navbar-static-top
+  .container
+    .navbar-header
+      %a.navbar-brand{href: root_path}
+        Upmin Admin
+      %button.navbar-toggle{"data-target" => "#navbar-main", "data-toggle" => "collapse", type: "button"}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+    #navbar-main.navbar-collapse.collapse
+      %ul.nav.navbar-nav
+        %li
+          %a{href: main_app.root_path}
+            Jazzify
+        %li.dropdown
+          %a.dropdown-toggle{href: "#", "data-toggle" => "dropdown", "role" => "button", "aria-expanded" => "false"}
+            Models
+            %span.caret
+          %ul.dropdown-menu{"role" => "menu"}
+            - Upmin::Model.all.each do |m|
+              %li
+                %a{href: m.search_path}
+                  = m.humanized_name(:plural)
