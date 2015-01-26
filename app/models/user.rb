@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   belongs_to :role, class_name: Role, foreign_key: "role_id"
-  belongs_to :volunteer_application
-  has_many :volunteer_application, :dependent => :destroy
+  belongs_to :volunteer_position
+  has_many :user_application, :dependent => :destroy
   before_create :set_default_role
 
   validates :email, presence: true, uniqueness: true
