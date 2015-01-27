@@ -4,6 +4,7 @@ class UserApplicationsController < ApplicationController
   before_action :set_user_application, except: [:new, :create]
   before_action :set_user_applications, except: [:destroy]
   before_action :set_volunteer_positions
+  before_action :set_user_application_statuses, except: [:destroy]
   after_action :verify_authorized
   rescue_from Pundit::NotAuthorizedError, :with => :not_authorized
   respond_to :html
@@ -34,7 +35,6 @@ class UserApplicationsController < ApplicationController
 
   def edit
     authorize @user_application
-    set_user_application_statuses
   end
 
   def update
