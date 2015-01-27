@@ -17,19 +17,19 @@
       <%= f.hidden_field :user_id, :class => "form-control" %>
     </div>
   </div>
-  <div class="form-group hidden">
+  <div class="form-group">
     <%= f.label :user_application_status_id, :class => "col-sm-2 control-label" %>
     <div class="col-sm-10">
-      <%= f.hidden_field :user_application_status_id, :class => "form-control" %>
+    <%= f.select :user_application_status_id, options_from_collection_for_select(@user_application_statuses, 'id', 'status', @user_application.user_application_status_id), {}, { :class => "form-control selectpicker" } %>
     </div>
   </div>
   <div class="form-group">
     <%= f.label :volunteer_position_id, :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">    
+    <div class="col-sm-10">
     <%= f.select :volunteer_position_id, options_from_collection_for_select(@volunteer_positions, 'id', 'title', @user_application.volunteer_position_id), {}, { :class => "form-control selectpicker" } %>
     </div>
   </div>
-      
+
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <%= f.submit "Submit", :class => "btn btn-primary" %>

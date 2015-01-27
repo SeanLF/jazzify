@@ -58,4 +58,9 @@ class VolunteerPositionsController < ApplicationController
       @user_application.user = @user
       @user_application.volunteer_position = @volunteer_position
     end
+
+  def not_authorized
+    redirect_to volunteer_positions_url, :alert => "You are not authorized to perform the requested action!"
+  end
+
 end

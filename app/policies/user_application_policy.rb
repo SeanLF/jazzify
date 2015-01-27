@@ -13,19 +13,23 @@ class UserApplicationPolicy < ApplicationPolicy
   end
 
   def index?
-    !@user.nil?
+    true
+  end
+
+  def new?
+    true
+  end
+
+  def create?
+    grant_access?
   end
 
   def show?
   	@user_application.user == @user or @user.is_elevated?
   end
 
-  def create?
-		true unless @user.nil?
-	end
-
 	def edit?
-		update? unless @user.nil?
+		@user.is_admin? or @user.is_moderator? or @user_application.user == @user
 	end
 
 	def update?
@@ -33,11 +37,23 @@ class UserApplicationPolicy < ApplicationPolicy
 	end
 
 	def destroy?
-		grant_access?
+		@user.is_admin? or @user_application.user == @user
 	end
 
 	private
 	def grant_access?
-		@user.is_admin? or @user_application.user == @user unless @user.nil?
+    if @user.is_admin?
+      return true
+    elsif @user.is_moderator?
+      unchanged_application = UserApplication.find(@user_application.id)
+      granted = @user_application.user_id == unchanged_application.user_id
+      granted = granted and @user_application.volunteer_position_id == unchanged_application.volunteer_position_id
+      return granted
+    else
+      user_application_statuses_for_user = UserApplicationStatus.where(status: ["Pending", "Incomplete"])
+      granted = user_application_statuses_for_user.include?(@user_application.user_application_status)
+      granted = granted and @user.id == @user_application.user_id
+      return granted
+    end
 	end
 end
