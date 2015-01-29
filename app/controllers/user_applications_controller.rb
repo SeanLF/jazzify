@@ -17,7 +17,7 @@ class UserApplicationsController < ApplicationController
   def new
     new_user_application
     authorize @user_application
-    @user_application_statuses = UserApplicationStatus.where(status: ["Pending", "Incomplete"])
+    @user_application_statuses = UserApplicationStatus.where(status: ['Pending', 'Incomplete'])
     respond_with(@user_application)
   end
 
@@ -68,7 +68,7 @@ class UserApplicationsController < ApplicationController
         @user_applications = UserApplication.all #.where(user_application_status: "Incomplete")
         @count = UserApplication.all.count
       elsif @user.is_moderator?
-        incomplete = UserApplicationStatus.find_by(status: "Incomplete").id.to_s
+        incomplete = UserApplicationStatus.find_by(status: 'Incomplete').id.to_s
         @user_applications = UserApplication.where.not(user_application_status_id: incomplete)
       else
         @user_applications = UserApplication.where({user_id: "#{@user.id}"})
@@ -87,7 +87,7 @@ class UserApplicationsController < ApplicationController
       if @user.is_elevated?
         return @user_application_statuses = UserApplicationStatus.all
       else
-        return @user_application_statuses = UserApplicationStatus.where(status: ["Pending", "Incomplete"])
+        return @user_application_statuses = UserApplicationStatus.where(status: ['Pending', 'Incomplete'])
       end
     end
 
@@ -95,10 +95,10 @@ class UserApplicationsController < ApplicationController
       @user_application = UserApplication.new
       @user_application.user_id = @user.id
       @user_application.volunteer_position_id = VolunteerPosition.find(params[:volunteer_position_id]).id
-      @user_application.user_application_status_id = UserApplicationStatus.find_by(status: "Incomplete").id
+      @user_application.user_application_status_id = UserApplicationStatus.find_by(status: 'Incomplete').id
     end
 
     def not_authorized
-    redirect_to user_applications_url, :alert => "You are not authorized to perform the requested action!"
+    redirect_to user_applications_url, :alert => 'You are not authorized to perform the requested action!'
   end
 end
