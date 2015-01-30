@@ -9,11 +9,13 @@ class UserApplicationsController < ApplicationController
   rescue_from Pundit::NotAuthorizedError, :with => :not_authorized
   respond_to :html
 
+  # Show all
   def index
     authorize @user_applications
     respond_with(@user_applications)
   end
 
+  # Apply to position page
   def new
     new_user_application
     authorize @user_application
@@ -21,11 +23,13 @@ class UserApplicationsController < ApplicationController
     respond_with(@user_application)
   end
 
+  # Show an application
   def show
     authorize @user_application
     respond_with(@user_application)
   end
 
+  # Confirmation of the application
   def create
     @user_application = UserApplication.new(user_application_params)
     authorize @user_application
@@ -33,10 +37,12 @@ class UserApplicationsController < ApplicationController
     respond_with(@user_application)
   end
 
+  # Edit an application
   def edit
     authorize @user_application
   end
 
+  # Submit edited changes
   def update
     @user_application = UserApplication.find(params[:id])
     @user_application.attributes = user_application_params
@@ -45,12 +51,14 @@ class UserApplicationsController < ApplicationController
     respond_with(@user_application)
   end
 
+  # Delete application
   def destroy
     authorize @user_application
     @user_application.destroy
     respond_with(@user_application)
   end
 
+  # Private helper methods
   private
     def set_user_application
       if ! params[:id].nil?

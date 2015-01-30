@@ -50,8 +50,11 @@ group :doc do
 end
 
 group :development do
+  # This makes an entity relation diagram in PDF format
   gem "rails-erd"
+  # Debugging the application
   gem 'byebug'
+  # To help debugging
   gem 'did_you_mean'
 end
 

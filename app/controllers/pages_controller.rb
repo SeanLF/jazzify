@@ -5,13 +5,14 @@ class PagesController < ApplicationController
   rescue_from Pundit::NotAuthorizedError, :with => :not_authorized
   respond_to :html
 
+  # This method is used to show admins and mods all of the Jazzify permissions
 	def permissions
 		authorize @user
 		@permissions = []
 		only_theirs = "Only theirs"
 		yes = "Yes"
 		no = "No"
-		names = ["View positions", "Create positions", "Edit positions", "Delete positions", 
+		names = ["View positions", "Create positions", "Edit positions", "Delete positions",
 		 "Apply", "View applications", "Edit applications", "Delete applications",
 		 "Change application submission status"]
 		admin_permissions = [yes, yes, yes, yes, yes, "All", yes, yes, yes]
