@@ -1,6 +1,8 @@
 class UserApplication < ActiveRecord::Base
 	belongs_to :user, class_name: User, foreign_key: "user_id"
-	belongs_to :volunteer_position, class_name: VolunteerPosition, foreign_key: "volunteer_position_id"
+  belongs_to :volunteer_position, class_name: VolunteerPosition, foreign_key: "fist_choice_volunteer_position_id"
+  belongs_to :volunteer_position, class_name: VolunteerPosition, foreign_key: "second_choice_volunteer_position_id"
+	belongs_to :volunteer_position, class_name: VolunteerPosition, foreign_key: "third_choice_volunteer_position_id"
 	belongs_to :user_application_status, class_name: UserApplicationStatus, foreign_key: "user_application_status_id"
 	before_create :set_default_status
 

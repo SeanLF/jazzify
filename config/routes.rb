@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
+  resources :user_informations
+
   resources :user_applications
 
-  resources :volunteer_positions do
-    resources :user_applications, except: [:index]
-  end
+  resources :volunteer_positions
 
   devise_for :users
 

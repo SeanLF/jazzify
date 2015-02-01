@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150124162150) do
+ActiveRecord::Schema.define(version: 20150201190822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,12 +31,33 @@ ActiveRecord::Schema.define(version: 20150124162150) do
   create_table "user_applications", force: true do |t|
     t.string   "user_id"
     t.string   "user_application_status_id"
-    t.string   "volunteer_position_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "first_choice_volunteer_position_id"
+    t.string   "second_choice_volunteer_position_id"
+    t.string   "third_choice_volunteer_position_id"
   end
 
-  add_index "user_applications", ["user_id", "volunteer_position_id"], name: "index_user_applications_on_user_id_and_volunteer_position_id", unique: true, using: :btree
+  create_table "user_informations", force: true do |t|
+    t.string   "user_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "address"
+    t.string   "city"
+    t.string   "province"
+    t.string   "postal_code"
+    t.string   "home_phone_number"
+    t.string   "work_phone_number"
+    t.string   "cell_phone_number"
+    t.string   "t_shirt_size"
+    t.string   "age_group"
+    t.string   "emergency_contact_name"
+    t.string   "emergency_contact_number"
+    t.text     "notes"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "availability"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

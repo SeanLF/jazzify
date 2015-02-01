@@ -19,6 +19,10 @@ class UserApplicationsController < ApplicationController
   def new
     new_user_application
     authorize @user_application
+    @user_information = UserInformation.find_by :user_id == @user.id
+    if @user_information.nil?
+      redirect_to new_user_information_url and return
+    end
     @user_application_statuses = UserApplicationStatus.where(status: ['Pending', 'Incomplete'])
     respond_with(@user_application)
   end
@@ -102,7 +106,6 @@ class UserApplicationsController < ApplicationController
     def new_user_application
       @user_application = UserApplication.new
       @user_application.user_id = @user.id
-      @user_application.volunteer_position_id = VolunteerPosition.find(params[:volunteer_position_id]).id
       @user_application.user_application_status_id = UserApplicationStatus.find_by(status: 'Incomplete').id
     end
 

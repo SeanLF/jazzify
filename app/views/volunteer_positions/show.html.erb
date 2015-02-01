@@ -44,6 +44,7 @@
     <span class="glyphicon glyphicon-list-alt"></span>
     Back
     <% end %>
+    <%= link_to 'Apply',  new_user_application_path, :class => 'btn btn-default' %>
     <% if policy(@volunteer_position).edit? %>
     <%= link_to edit_volunteer_position_path(@volunteer_position), :class => 'btn btn-default' do %>
     <span class="glyphicon glyphicon-pencil"></span>

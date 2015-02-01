@@ -49,7 +49,7 @@
         </form>
         <div class="btn-group" role="group" aria-label="...">
           <%= link_to 'View', volunteer_position, :class => 'btn btn-default' %>
-          <%= link_to 'Apply',  new_volunteer_position_user_application_path(volunteer_position), :class => 'btn btn-default' %>
+          <%= link_to 'Apply',  new_user_application_path, :class => 'btn btn-default' %>
           <% if policy(@volunteer_positions).edit? %>
           <%= link_to 'Edit', edit_volunteer_position_path(volunteer_position), :class => 'btn btn-default' %>
           <% end %>

@@ -1,0 +1,174 @@
+<h1>Show user_information</h1>
+
+<div class="panel-body">
+  <form class="form-horizontal">
+
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">User</label>
+      <div class="col-sm-10">
+        <div class="well well-sm" name="user_information[User]">
+          <%= simple_format(@user_information.user_id) %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">First name</label>
+      <div class="col-sm-10">
+        <div class="well well-sm" name="user_information[First name]">
+          <%= simple_format(@user_information.first_name) %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Last name</label>
+      <div class="col-sm-10">
+        <div class="well well-sm" name="user_information[Last name]">
+          <%= simple_format(@user_information.last_name) %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Address</label>
+      <div class="col-sm-10">
+        <div class="well well-sm" name="user_information[Address]">
+          <%= simple_format(@user_information.address) %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">City</label>
+      <div class="col-sm-10">
+        <div class="well well-sm" name="user_information[City]">
+          <%= simple_format(@user_information.city) %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Province</label>
+      <div class="col-sm-10">
+        <div class="well well-sm" name="user_information[Province]">
+          <%= simple_format(@user_information.province) %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Postal code</label>
+      <div class="col-sm-10">
+        <div class="well well-sm" name="user_information[Postal code]">
+          <%= simple_format(@user_information.postal_code) %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Home phone number</label>
+      <div class="col-sm-10">
+        <div class="well well-sm" name="user_information[Home phone number]">
+          <%= simple_format(@user_information.home_phone_number) %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Work phone number</label>
+      <div class="col-sm-10">
+        <div class="well well-sm" name="user_information[Work phone number]">
+          <%= simple_format(@user_information.work_phone_number) %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Cell phone number</label>
+      <div class="col-sm-10">
+        <div class="well well-sm" name="user_information[Cell phone number]">
+          <%= simple_format(@user_information.cell_phone_number) %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">T shirt size</label>
+      <div class="col-sm-10">
+        <div class="well well-sm" name="user_information[T shirt size]">
+          <%= simple_format(@user_information.t_shirt_size) %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Age group</label>
+      <div class="col-sm-10">
+        <div class="well well-sm" name="user_information[Age group]">
+          <%= simple_format(@user_information.age_group) %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Emergency contact name</label>
+      <div class="col-sm-10">
+        <div class="well well-sm" name="user_information[Emergency contact name]">
+          <%= simple_format(@user_information.emergency_contact_name) %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Emergency contact number</label>
+      <div class="col-sm-10">
+        <div class="well well-sm" name="user_information[Emergency contact number]">
+          <%= simple_format(@user_information.emergency_contact_number) %>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Notes</label>
+      <div class="col-sm-10">
+        <div class="well well-sm" name="user_information[Notes]">
+          <%= simple_format(@user_information.notes) %>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<div class="" role="group" aria-label="...">
+  <%= link_to user_informations_path, :class => 'btn btn-default' do %>
+  <span class="glyphicon glyphicon-list-alt"></span>
+  Back
+  <% end %>
+  <% if policy(@user_information).edit? %>
+    <%= link_to edit_user_information_path(@user_information), :class => 'btn btn-primary' do %>
+    <span class="glyphicon glyphicon-pencil"></span>
+    Edit
+    <% end %>
+  <% end %>
+  <% if policy(@user_information).destroy? %>
+  <%= link_to 'Delete', @user_information, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %>
+  <% end %>
+</div>
+</div>
