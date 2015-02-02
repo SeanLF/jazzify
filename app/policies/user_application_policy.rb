@@ -13,7 +13,7 @@ class UserApplicationPolicy < ApplicationPolicy
   end
 
   def index?
-    true
+    @user.is_elevated?
   end
 
   def new?

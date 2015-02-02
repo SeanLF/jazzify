@@ -1,116 +1,161 @@
 <%= form_for(@user_information, :html => { :class => "form-horizontal", :role => "form" }) do |f| %>
-  <% if @user_information.errors.any? %>
-    <div class="alert alert-danger alert-dismissable" role="alert">
-      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <h4><%= pluralize(@user_information.errors.count, "error") %> prohibited this user_information from being saved:</h4>
+<% if @user_information.errors.any? %>
+<div class="alert alert-danger alert-dismissable" role="alert">
+  <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+  <h4><%= pluralize(@user_information.errors.count, "error") %> prohibited this user_information from being saved:</h4>
 
-      <ul>
-      <% @user_information.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <ul>
+    <% @user_information.errors.full_messages.each do |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
 
-  <div class="form-group hidden">
-    <%= f.label :user_id, :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :user_id, :class => "form-control" %>
-    </div>
+<div class="form-group hidden">
+  <%= f.label :user_id, :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :user_id, :class => "form-control"%>
   </div>
-  <div class="form-group">
-    <%= f.label :first_name, :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :first_name, :class => "form-control" %>
-    </div>
+</div>
+
+<div class="form-group">
+  <%= f.label :first_name, :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :first_name, :class => "form-control" %>
   </div>
-  <div class="form-group">
-    <%= f.label :last_name, :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :last_name, :class => "form-control" %>
-    </div>
+</div>
+<div class="form-group">
+  <%= f.label :last_name, :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :last_name, :class => "form-control" %>
   </div>
-  <div class="form-group">
-    <%= f.label :address, :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :address, :class => "form-control" %>
-    </div>
+</div>
+<div class="form-group">
+  <%= f.label :address, :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :address, :class => "form-control" %>
   </div>
-  <div class="form-group">
-    <%= f.label :city, :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :city, :class => "form-control" %>
-    </div>
+</div>
+<div class="form-group">
+  <%= f.label :city, :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :city, :class => "form-control" %>
   </div>
-  <div class="form-group">
-    <%= f.label :province, :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :province, :class => "form-control" %>
-    </div>
+</div>
+<div class="form-group">
+  <%= f.label :province, :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.select :province, ['Ontario','Quebec','Nova Scotia','New Brunswick','Manitoba',
+    'British Columbia','Price Edward Island','Saskatchewan','Alberta','Newfoundland and Labrador',
+    'Northwest Territories','Nunavut','Yukon'
+  ], {}, :class => "form-control" %>
   </div>
-  <div class="form-group">
-    <%= f.label :postal_code, :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :postal_code, :class => "form-control" %>
-    </div>
+</div>
+<div class="form-group">
+  <%= f.label :postal_code, :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :postal_code, :class => "form-control" %>
   </div>
-  <div class="form-group">
-    <%= f.label :home_phone_number, :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :home_phone_number, :class => "form-control" %>
-    </div>
+</div>
+<div class="form-group">
+  <%= f.label :home_phone_number, :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :home_phone_number, :class => "form-control" %>
   </div>
-  <div class="form-group">
-    <%= f.label :work_phone_number, :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :work_phone_number, :class => "form-control" %>
-    </div>
+</div>
+<div class="form-group">
+  <%= f.label :work_phone_number, :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :work_phone_number, :class => "form-control" %>
   </div>
-  <div class="form-group">
-    <%= f.label :cell_phone_number, :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :cell_phone_number, :class => "form-control" %>
-    </div>
+</div>
+<div class="form-group">
+  <%= f.label :cell_phone_number, :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :cell_phone_number, :class => "form-control" %>
   </div>
-  <div class="form-group">
-    <%= f.label :t_shirt_size, :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :t_shirt_size, :class => "form-control" %>
-    </div>
+</div>
+<div class="form-group">
+  <%= f.label :t_shirt_size, :class => "col-sm-2 control-label", :id => 't_shirt_size' %>
+  <div class="col-sm-10">
+    <label class="radio-inline">
+      <%= f.radio_button :t_shirt_size, 'Small' %>
+      Small
+    </label>
+    <label class="radio-inline">
+      <%= f.radio_button :t_shirt_size, 'Medium' %>
+      Medium
+    </label>
+    <label class="radio-inline">
+      <%= f.radio_button :t_shirt_size, 'Large' %>
+      Large
+    </label>
+    <label class="radio-inline">
+      <%= f.radio_button :t_shirt_size, 'XL' %>
+      XL
+    </label>
+    <label class="radio-inline">
+      <%= f.radio_button :t_shirt_size, 'XXL' %>
+      XXL
+    </label>
+    <label class="radio-inline">
+      <%= f.radio_button :t_shirt_size, 'XXXL' %>
+      XXXL
+    </label>
   </div>
-  <div class="form-group">
-    <%= f.label :age_group, :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :age_group, :class => "form-control" %>
-    </div>
+</div>
+<div class="form-group">
+  <%= f.label :age_group, :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+  <label class="radio-inline">
+      <%= f.radio_button :age_group, 'Under 16' %>
+      Under 16
+    </label>
+    <label class="radio-inline">
+      <%= f.radio_button :age_group, '16 - 24' %>
+      16 - 24
+    </label>
+    <label class="radio-inline">
+      <%= f.radio_button :age_group, '25 - 55' %>
+      25 - 55
+    </label>
+    <label class="radio-inline">
+      <%= f.radio_button :age_group, '55+' %>
+      55+
+    </label>
   </div>
-  <div class="form-group">
-    <%= f.label :emergency_contact_name, :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :emergency_contact_name, :class => "form-control" %>
-    </div>
+</div>
+<div class="form-group">
+  <%= f.label :emergency_contact_name, :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :emergency_contact_name, :class => "form-control",
+    :'data-toggle' => 'popover', :'data-trigger' => 'focus',
+    :title => 'Why we ask...', :'data-content'=>"You need to be 25 for transportation, 18 to be in beer or VIP...", :'data-placement' => "top" %>
+
   </div>
-  <div class="form-group">
-    <%= f.label :emergency_contact_number, :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_field :emergency_contact_number, :class => "form-control" %>
-    </div>
+</div>
+<div class="form-group">
+  <%= f.label :emergency_contact_number, :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_field :emergency_contact_number, :class => "form-control" %>
   </div>
-  <div class="form-group">
-    <%= f.label :notes, :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_area :notes, :class => "form-control" %>
-    </div>
+</div>
+<div class="form-group">
+  <%= f.label :notes, :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_area :notes, :class => "form-control" %>
   </div>
-  <div class="form-group">
-    <%= f.label :availability, :class => "col-sm-2 control-label" %>
-    <div class="col-sm-10">
-      <%= f.text_area :availability, :class => "form-control" %>
-    </div>
+</div>
+<div class="form-group">
+  <%= f.label :availability, :class => "col-sm-2 control-label" %>
+  <div class="col-sm-10">
+    <%= f.text_area :availability, :class => "form-control" %>
   </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <%= f.submit :class => "btn btn-primary" %>
-    </div>
+</div>
+<div class="form-group">
+  <div class="col-sm-offset-2 col-sm-10">
+    <%= f.submit :class => "btn btn-primary" %>
   </div>
+</div>
 <% end %>

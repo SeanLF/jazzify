@@ -17,3 +17,13 @@
 //= require sweet-alert.min
 //= require bootstrap-select.min
 //= require_tree .
+
+$(function () {
+  $('[data-toggle="popover"]').popover({html: true})
+})
+
+
+$(':radio').click(function(){
+   var elems = $(this).parents('tr').find(':checkbox');
+   elems.not($(this)).attr('disabled',$(this).is(':checked'));
+});

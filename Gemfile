@@ -58,6 +58,8 @@ group :development do
   gem 'did_you_mean'
 end
 
+# todo look into codeclimate gem
+
 # gem 'puma'
 
 # Use ActiveModel has_secure_password

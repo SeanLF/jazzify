@@ -36,6 +36,6 @@ class UserInformationPolicy < ApplicationPolicy
 
   private
   def has_access?
-    @user_information.user_id == @user.id or @user.is_elevated?
+    @user_information.user_id.to_f == @user.id or @user.is_elevated?
   end
 end

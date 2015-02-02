@@ -1,23 +1,29 @@
 class UserInformationsController < ApplicationController
   before_filter :authenticate_user!
-  before_action :set_user_information, only: [:show, :edit, :update, :destroy]
   before_action :set_user
+  before_action :set_user_information, only: [:show, :edit, :update, :destroy]
 
-  after_action :verify_authorized
+  after_action :verify_authorized, except: :index
   rescue_from Pundit::NotAuthorizedError, :with => :not_authorized
   respond_to :html
 
   def index
-    if @user.is_elevated?
-      @user_informations = UserInformation.all
+    registered_user_information = UserInformation.find_by(user_id: "#{@user.id}")
+    if !@user.is_elevated?
+      if registered_user_information.nil?
+        redirect_to new_user_information_url
+      else
+        redirect_to user_information_url registered_user_information.id
+      end
     else
-      @user_informations = UserInformation.where(:user_id == @user.id)
+      @user_informations = UserInformation.all
+      authorize @user_informations
+      respond_with(@user_informations)
     end
-    authorize @user_informations
-    respond_with(@user_informations)
   end
 
   def show
+    set_user_information
     authorize @user_information
     respond_with(@user_information)
   end
@@ -25,18 +31,30 @@ class UserInformationsController < ApplicationController
   def new
     @user_information = UserInformation.new
     authorize @user_information
+    if session[:origin]
+      @back = session[:origin]
+    else
+      @back = user_informations_path
+    end
     @user_information.user_id = @user.id
     respond_with(@user_information)
   end
 
   def edit
+    authorize @user_information
   end
 
   def create
     @user_information = UserInformation.new(user_information_params)
     authorize @user_information
     @user_information.save
-    respond_with(@user_information)
+    if session[:return_to] and @user_information.valid?
+      link = session[:return_to]
+      session[:return_to] = nil
+      redirect_to link
+    else
+      respond_with(@user_information)
+    end
   end
 
   def update

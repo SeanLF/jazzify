@@ -5,12 +5,22 @@ class UserApplicationsController < ApplicationController
   before_action :set_user_applications, except: [:destroy]
   before_action :set_volunteer_positions
   before_action :set_user_application_statuses, except: [:destroy]
-  after_action :verify_authorized
+  after_action :verify_authorized, except: :index
   rescue_from Pundit::NotAuthorizedError, :with => :not_authorized
   respond_to :html
 
   # Show all
   def index
+    # If the user is registered, redirect to their application
+    if !@user.is_elevated?
+      registered_user_application = UserApplication.find_by(user_id: "#{@user.id}")
+      if registered_user_application.nil?
+        redirect_to volunteer_positions_url
+      else
+        redirect_to user_application_url registered_user_application.id
+      end
+      return
+    end
     authorize @user_applications
     respond_with(@user_applications)
   end
@@ -19,8 +29,10 @@ class UserApplicationsController < ApplicationController
   def new
     new_user_application
     authorize @user_application
-    @user_information = UserInformation.find_by :user_id == @user.id
+    @user_information = UserInformation.find_by(user_id: "#{@user.id}")
     if @user_information.nil?
+      session[:return_to] = new_user_application_url
+      session[:origin] = URI(request.referer).path unless request.referer.nil?
       redirect_to new_user_information_url and return
     end
     @user_application_statuses = UserApplicationStatus.where(status: ['Pending', 'Incomplete'])
@@ -30,6 +42,7 @@ class UserApplicationsController < ApplicationController
   # Show an application
   def show
     authorize @user_application
+    get_application_volunteer_choices
     respond_with(@user_application)
   end
 
@@ -82,8 +95,6 @@ class UserApplicationsController < ApplicationController
       elsif @user.is_moderator?
         incomplete = UserApplicationStatus.find_by(status: 'Incomplete').id.to_s
         @user_applications = UserApplication.where.not(user_application_status_id: incomplete)
-      else
-        @user_applications = UserApplication.where({user_id: "#{@user.id}"})
       end
     end
 
@@ -92,7 +103,7 @@ class UserApplicationsController < ApplicationController
     end
 
     def user_application_params
-      params.require(:user_application).permit(:user_id, :user_application_status_id, :volunteer_position_id)
+      params.require(:user_application).permit(:user_id, :user_application_status_id, :first_choice_volunteer_position_id, :second_choice_volunteer_position_id, :third_choice_volunteer_position_id)
     end
 
     def set_user_application_statuses
@@ -111,5 +122,11 @@ class UserApplicationsController < ApplicationController
 
     def not_authorized
     redirect_to user_applications_url, :alert => 'You are not authorized to perform the requested action!'
+  end
+
+  def get_application_volunteer_choices
+    @first_choice_volunteer_position = VolunteerPosition.find(@user_application.first_choice_volunteer_position_id) unless @user_application.first_choice_volunteer_position_id.nil?
+    @second_choice_volunteer_position = VolunteerPosition.find(@user_application.second_choice_volunteer_position_id) unless @user_application.second_choice_volunteer_position_id.nil?
+    @third_choice_volunteer_position = VolunteerPosition.find(@user_application.third_choice_volunteer_position_id) unless @user_application.third_choice_volunteer_position_id.nil?
   end
 end
