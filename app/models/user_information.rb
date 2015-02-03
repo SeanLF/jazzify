@@ -10,19 +10,22 @@ class UserInformation < ActiveRecord::Base
   validates_uniqueness_of :user_id
 
   validates :postal_code, format: { with: /\A[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1}[ ]?\d{1}[A-Z]{1}\d{1}\z/i,
-    message: "has the wrong format: K1W1E2 or K1W 1E2" }
+  message: "has the wrong format: K1W1E2 or K1W 1E2" }
 
   validates :home_phone_number, :work_phone_number, :cell_phone_number, :emergency_contact_number, format: { with: /\A\d{3}[-]?\d{3}[-]?\d{4}\z/,
-    message: 'has the wrong format: 6131111111, 613-111-1111' }
+  message: 'has the wrong format: 6131111111, 613-111-1111' }, allow_blank: true
 
   validates :t_shirt_size, inclusion: { in: %w(Small Medium Large XL XXL XXXL),
-    message: "%{value} is not a valid size" }
+    message: "%{value} is not a valid size"
+  }
+
+  validate :any_phone_present?
 
   #validates :age_group, inclusion: { in: %w('Under 16' '16 - 24' '25 - 55' '55+'),
   #  message: "%{value} is not a valid age group" }
 
   # Require all but the phone # fields
-  validates :user_id, :first_name, :last_name, :address, :city, :province, :postal_code, :home_phone_number, :work_phone_number, :cell_phone_number, :t_shirt_size, :age_group, :emergency_contact_name, :emergency_contact_number, :notes, :availability, presence: true
+  validates :user_id, :first_name, :last_name, :address, :city, :province, :postal_code, :t_shirt_size, :age_group, :emergency_contact_name, :emergency_contact_number, :notes, :availability, presence: true
 
   def postal_code=(val)
     self[:postal_code] = val.upcase
@@ -42,6 +45,13 @@ class UserInformation < ActiveRecord::Base
   end
   def emergency_contact_name=(val)
     self[:emergency_contact_name] = val.titleize
+  end
+
+  private
+  def any_phone_present?
+    if [self.home_phone_number, self.work_phone_number, self.cell_phone_number].reject(&:blank?).size == 0
+      errors.add :base, "Please enter at least one phone number."
+    end
   end
 
 end

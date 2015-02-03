@@ -7,6 +7,7 @@ class UserApplication < ActiveRecord::Base
 	before_create :set_default_status
 
 	validates_uniqueness_of :user_id, message: "has already applied"
+  validate :choices_distinct?
   validates :first_choice_volunteer_position_id, :second_choice_volunteer_position_id, :third_choice_volunteer_position_id, presence: true
 
   private
@@ -15,4 +16,10 @@ class UserApplication < ActiveRecord::Base
       self.user_application_status = UserApplicationStatus.find_by({status: 'Pending'})
     end
 	end
+
+  def choices_distinct?
+    if self.first_choice_volunteer_position_id == self.second_choice_volunteer_position_id or self.first_choice_volunteer_position_id == self.third_choice_volunteer_position_id or self.second_choice_volunteer_position_id == self.third_choice_volunteer_position_id
+        errors.add :base, "You must select three distinct choices."
+    end
+  end
 end
