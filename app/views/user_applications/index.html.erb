@@ -1,23 +1,16 @@
-<% if @user.is_elevated? %>
-  <h1>All user applications</h1>
-<% else %>
-  <h1>My applications</h1>
-<% end %>
+<h1>Volunteer Applications</h1>
+
 <% if @user_applications.nil? or @user_applications.count == 0 %>
-  <% if @user.is_admin? or @user.is_moderator? %>
-    <h3>No one has applied to any positions yet.</h3>
-  <% else %>
-    <h3>You haven't applied to any positions yet.</h3>
-    <%= link_to "Apply", volunteer_positions_path, :class => 'btn btn-primary' %>
-  <% end %>
+
+  <h3>No one has applied yet. <i class="fa fa-frown-o">&nbsp;</i></h3>
+
 <% else %>
+
   <div class="table-responsive">
-    <table class="table table-striped table-bordered table-hover">
+    <table class="table table-striped table-hover">
       <thead>
         <tr>
-        <% if @user.is_elevated? %>
           <th>User</th>
-        <% end %>
           <th>First choice</th>
           <th>Second choice</th>
           <th>Third choice</th>
@@ -30,20 +23,23 @@
       </thead>
 
       <tbody>
+
         <%= content_tag_for(:tr, @user_applications) do |user_application| %>
-        <% if @user.is_elevated? %>
-        <td><%= user_application.user.email %></td>
+
+          <td><%= user_application.user.email %></td>
+          <td><%= user_application.first_choice_volunteer_position.title %></td>
+          <td><%= user_application.second_choice_volunteer_position.title %></td>
+          <td><%= user_application.third_choice_volunteer_position.title %></td>
+          <td><%= user_application.user_application_status.status %></td>
+          <td><%= user_application.updated_at %></td>
+          <td><%= link_to 'Show', user_application %></td>
+          <td><%= link_to 'Edit', edit_user_application_path(user_application) %></td>
+          <td><%= link_to 'Delete', user_application, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
         <% end %>
-        <td><%= user_application.first_choice_volunteer_position.title %></td>
-        <td><%= user_application.second_choice_volunteer_position.title %></td>
-        <td><%= user_application.third_choice_volunteer_position.title %></td>
-        <td><%= user_application.user_application_status.status %></td>
-        <td><%= user_application.updated_at %></td>
-        <td><%= link_to 'Show', user_application %></td>
-        <td><%= link_to 'Edit', edit_user_application_path(user_application) %></td>
-        <td><%= link_to 'Delete', user_application, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% end %>
+
       </tbody>
     </table>
   </div>
+
 <% end %>
