@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   root 'pages#home'
   get '/about' => 'pages#about'
-  get 'permissions' => 'pages#permissions'
+  get '/permissions' => 'pages#permissions'
+  get '/codeofconduct' => 'pages#code_of_conduct'
 
 end

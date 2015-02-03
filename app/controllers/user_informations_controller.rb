@@ -75,7 +75,7 @@ class UserInformationsController < ApplicationController
     end
 
     def user_information_params
-      params.require(:user_information).permit(:user_id, :first_name, :last_name, :address, :city, :province, :postal_code, :home_phone_number, :work_phone_number, :cell_phone_number, :t_shirt_size, :age_group, :emergency_contact_name, :emergency_contact_number, :notes, :availability)
+      params.require(:user_information).permit(:user_id, :first_name, :last_name, :address, :city, :province, :postal_code, :home_phone_number, :work_phone_number, :cell_phone_number, :t_shirt_size, :age_group, :emergency_contact_name, :emergency_contact_number, :notes, :availability, :code_of_conduct)
     end
 
     def not_authorized
