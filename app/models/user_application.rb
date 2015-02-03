@@ -1,12 +1,13 @@
 class UserApplication < ActiveRecord::Base
 	belongs_to :user, class_name: User, foreign_key: "user_id"
-  belongs_to :volunteer_position, class_name: VolunteerPosition, foreign_key: "fist_choice_volunteer_position_id"
-  belongs_to :volunteer_position, class_name: VolunteerPosition, foreign_key: "second_choice_volunteer_position_id"
-	belongs_to :volunteer_position, class_name: VolunteerPosition, foreign_key: "third_choice_volunteer_position_id"
+  belongs_to :first_choice_volunteer_position, class_name: VolunteerPosition, primary_key: "id"
+  belongs_to :second_choice_volunteer_position, class_name: VolunteerPosition, primary_key: "id"
+	belongs_to :third_choice_volunteer_position, class_name: VolunteerPosition, primary_key: "id"
 	belongs_to :user_application_status, class_name: UserApplicationStatus, foreign_key: "user_application_status_id"
 	before_create :set_default_status
 
-	validates_uniqueness_of :volunteer_position, :scope => [:user_id]
+	validates_uniqueness_of :user_id, message: "has already applied"
+  validates :first_choice_volunteer_position_id, :second_choice_volunteer_position_id, :third_choice_volunteer_position_id, presence: true
 
   private
 	def set_default_status

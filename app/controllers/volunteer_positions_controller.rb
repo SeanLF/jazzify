@@ -1,7 +1,6 @@
 class VolunteerPositionsController < ApplicationController
   after_action :verify_authorized, :except => [:index, :show]
   before_action :set_volunteer_position, only: [:show, :edit, :update, :destroy]
-  before_action :set_user_application, only: [:index, :show]
   before_filter :authenticate_user!, :except => [:index, :show]
   rescue_from Pundit::NotAuthorizedError, :with => :not_authorized
   respond_to :html
@@ -51,12 +50,6 @@ class VolunteerPositionsController < ApplicationController
 
     def volunteer_position_params
       params.require(:volunteer_position).permit(:title, :description, :objective, :duties, :requirements, :contact, :contact_email)
-    end
-
-    def set_user_application
-      @user_application = UserApplication.new
-      @user_application.user = @user
-      @user_application.volunteer_position = @volunteer_position
     end
 
   def not_authorized

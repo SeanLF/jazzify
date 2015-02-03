@@ -18,7 +18,9 @@
         <% if @user.is_elevated? %>
           <th>User</th>
         <% end %>
-          <th>First Choice Volunteer position</th>
+          <th>First choice</th>
+          <th>Second choice</th>
+          <th>Third choice</th>
           <th>Status</th>
           <th>Last Updated</th>
           <th></th>
@@ -32,7 +34,9 @@
         <% if @user.is_elevated? %>
         <td><%= user_application.user.email %></td>
         <% end %>
-        <td><%= user_application.volunteer_position.title %></td>
+        <td><%= user_application.first_choice_volunteer_position.title %></td>
+        <td><%= user_application.second_choice_volunteer_position.title %></td>
+        <td><%= user_application.third_choice_volunteer_position.title %></td>
         <td><%= user_application.user_application_status.status %></td>
         <td><%= user_application.updated_at %></td>
         <td><%= link_to 'Show', user_application %></td>

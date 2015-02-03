@@ -50,7 +50,7 @@ class UserApplicationPolicy < ApplicationPolicy
     elsif @user.is_moderator?
       unchanged_application = UserApplication.find(@user_application.id)
       granted = @user_application.user_id == unchanged_application.user_id
-      granted = granted and @user_application.volunteer_position_id == unchanged_application.volunteer_position_id
+      #granted = granted and @user_application.volunteer_position_id == unchanged_application.volunteer_position_id
       return granted
 
     # The user can't apply on behalf of another user, and cannot accept or deny their own application
