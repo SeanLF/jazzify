@@ -1,9 +1,4 @@
 <h1>Volunteer Positions</h1>
-<% if policy(@volunteer_positions).create? %>
-<p>
-  <%= link_to 'Create', new_volunteer_position_path, :class => 'btn btn-success' %>
-</p>
-<% end %>
 
 <% if @volunteer_positions.count > 0 %>
 <p>Please select one of the following positions.</p>

@@ -1,10 +1,10 @@
 class UserInformation < ActiveRecord::Base
 
   # Tied to a user by their ID
-  has_one :user, class_name: User, foreign_key: "user_id"
+  has_one :user, class_name: User, foreign_key: "id", primary_key: "user_id"
 
   # Someone cannot have the same name (first/last) and have the same postal/address
-  validates_uniqueness_of [:postal_code, :address], :scope => [:first_name, :last_name]
+  validates_uniqueness_of [:postal_code, :address], scope: [:first_name, :last_name]
 
   # User cannot make more than one user information (tied to their ID)
   validates_uniqueness_of :user_id
@@ -21,8 +21,8 @@ class UserInformation < ActiveRecord::Base
 
   validate :any_phone_present?
 
-  #validates :age_group, inclusion: { in: %w('Under 16' '16 - 24' '25 - 55' '55+'),
-  #  message: "%{value} is not a valid age group" }
+  validates :age_group, inclusion: { in: ['Under 16', '16 - 24', '25 - 55', '55+'],
+    message: "%{value} is not a valid age group" }
 
   validates :code_of_conduct, acceptance: "1"
 
@@ -55,5 +55,4 @@ class UserInformation < ActiveRecord::Base
       errors.add :base, "Please enter at least one phone number."
     end
   end
-
 end

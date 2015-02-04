@@ -11,8 +11,8 @@ class User < ActiveRecord::Base
   belongs_to :volunteer_position
 
   # When a user is deleted, delete all dependencies
-  has_many :user_application, :dependent => :destroy
-  has_one :user_information, :dependent => :destroy
+  has_many :user_application, dependent: :destroy
+  has_one :user_information, dependent: :destroy
 
   # Upon signing up, a user is assigned the default role
   before_create :set_default_role
