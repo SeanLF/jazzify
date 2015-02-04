@@ -2,6 +2,7 @@ class UserInformationsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_user
   before_action :set_user_information, only: [:show, :edit, :update, :destroy]
+  before_action :set_festival_dates, except: :destroy
 
   after_action :verify_authorized, except: :index
   rescue_from Pundit::NotAuthorizedError, :with => :not_authorized
@@ -88,5 +89,11 @@ class UserInformationsController < ApplicationController
 
     def not_authorized
     redirect_to user_informations_url, :alert => 'You are not authorized to perform the requested action!'
+  end
+
+  def set_festival_dates
+    year = Time.new.year
+    @festivalStartDate = "20/06/#{year}"
+    @festivalEndDate = "01/07/#{year}"
   end
 end

@@ -3,7 +3,10 @@
     <span class="glyphicon glyphicon-list-alt"></span>
     Back
   <% end %>
-  <h1>My information</h1>
+  <h1>
+    My information
+    <small>We've filled in an <%= link_to "example", fake_user_info_path, target: "_BLANK" %>.</small>
+  </h1>
 </div>
 
 <%= render 'form' %>

@@ -10,7 +10,7 @@ class UserInformation < ActiveRecord::Base
   validates_uniqueness_of :user_id
 
   validates :postal_code, format: { with: /\A[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1}[ ]?\d{1}[A-Z]{1}\d{1}\z/i,
-  message: "has the wrong format: K1W1E2 or K1W 1E2" }, allow_blank: true
+  message: "has the wrong format: K1A1A1 or K1A 1A1" }, allow_blank: true
 
   validates :home_phone_number, :work_phone_number, :cell_phone_number, :emergency_contact_number, format: { with: /\A\d{3}[-]?\d{3}[-]?\d{4}\z/,
   message: 'has the wrong format: 6131111111, 613-111-1111' }, allow_blank: true

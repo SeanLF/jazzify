@@ -2,7 +2,7 @@
 <% if @user_information.errors.any? %>
 <div class="alert alert-danger alert-dismissable" role="alert">
   <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-  <h4><%= pluralize(@user_information.errors.count, "error") %> prohibited this user_information from being saved:</h4>
+  <h4><%= pluralize(@user_information.errors.count, "error") %>:</h4>
 
   <ul>
     <% @user_information.errors.full_messages.each do |msg| %>
@@ -11,13 +11,6 @@
   </ul>
 </div>
 <% end %>
-
-<div class="form-group hidden">
-  <%= f.label :user_id, :class => "col-sm-2 control-label" %>
-  <div class="col-sm-10">
-    <%= f.text_field :user_id, :class => "form-control"%>
-  </div>
-</div>
 
 <div class="form-group hidden">
   <%= f.label :user_id, :class => "col-sm-2 control-label" %>
@@ -68,19 +61,25 @@
 <div class="form-group">
   <%= f.label :home_phone_number, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.text_field :home_phone_number, :class => "form-control" %>
+    <%= f.text_field :home_phone_number, :class => "form-control",
+    :'data-toggle' => 'popover', :'data-trigger' => 'focus',
+    :title => 'Optional requirement', :'data-content' => "You must enter at least one of the 3 telephone fields.", :'data-placement' => "top" %>
   </div>
 </div>
 <div class="form-group">
   <%= f.label :work_phone_number, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.text_field :work_phone_number, :class => "form-control" %>
+    <%= f.text_field :work_phone_number, :class => "form-control",
+    :'data-toggle' => 'popover', :'data-trigger' => 'focus',
+    :title => 'Optional requirement', :'data-content' => "You must enter at least one of the 3 telephone fields.", :'data-placement' => "top" %>
   </div>
 </div>
 <div class="form-group">
   <%= f.label :cell_phone_number, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.text_field :cell_phone_number, :class => "form-control" %>
+    <%= f.text_field :cell_phone_number, :class => "form-control",
+    :'data-toggle' => 'popover', :'data-trigger' => 'focus',
+    :title => 'Optional requirement', :'data-content' => "You must enter at least one of the 3 telephone fields.", :'data-placement' => "top" %>
   </div>
 </div>
 <div class="form-group">
@@ -138,26 +137,40 @@
   <div class="col-sm-10">
     <%= f.text_field :emergency_contact_name, :class => "form-control",
     :'data-toggle' => 'popover', :'data-trigger' => 'focus',
-    :title => 'Why we ask...', :'data-content'=>"You need to be 25 for transportation, 18 to be in beer or VIP...", :'data-placement' => "top" %>
+    :'data-content'=>"Let's hope we never need to call them.", :'data-placement' => "top" %>
 
   </div>
 </div>
 <div class="form-group">
   <%= f.label :emergency_contact_number, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.text_field :emergency_contact_number, :class => "form-control" %>
+    <%= f.text_field :emergency_contact_number, :class => "form-control",
+    :'data-toggle' => 'popover', :'data-trigger' => 'focus',
+    :'data-content'=>"Just in case, we need their number.", :'data-placement' => "top" %>
   </div>
 </div>
 <div class="form-group">
   <%= f.label :notes, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.text_area :notes, :class => "form-control" %>
+    <%= f.text_area :notes, :class => "form-control",
+    :'data-toggle' => 'popover', :'data-trigger' => 'focus',
+    :'data-content'=>"Please note (comma seperated) any skill that you have that is relevant.<br/>For example: SmartServe certification", :'data-placement' => "top" %>
   </div>
 </div>
 <div class="form-group">
   <%= f.label :availability, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.text_area :availability, :class => "form-control" %>
+    <%= f.text_area :availability, :class => "form-control",
+    :'data-toggle' => 'popover', :'data-trigger' => 'focus',
+    :'data-content'=>"Please indicate at least 4 days for which you are available to volunteer; and if applicable, days you absolutely CANNOT volunteer.", :'data-placement' => "top" %>
+  </div>
+</div>
+<div class="row form-horizontal hidden">
+  <div class="col-sm-offset-2 col-md-4" id="sandbox-container">
+    <div class="datepicker"></div>
+  </div>
+  <div class="col-md-4" id="sandbox-container">
+    <div class="datepicker"></div>
   </div>
 </div>
 <div class="form-group">
@@ -176,3 +189,15 @@
   </div>
 </div>
 <% end %>
+<script type="text/javascript">
+  $(function() {
+    $('.datepicker').datepicker({
+    format: "dd/mm/yyyy",
+    weekStart: 1,
+    startDate: '<%= @festivalStartDate %>',
+    endDate: '<%= @festivalEndDate %>',
+    multidate: true,
+    todayHighlight: true
+  })
+})
+</script>

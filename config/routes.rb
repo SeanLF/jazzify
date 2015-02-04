@@ -16,5 +16,6 @@ Rails.application.routes.draw do
   get '/about' => 'pages#about'
   get '/permissions' => 'pages#permissions'
   get '/codeofconduct' => 'pages#code_of_conduct'
+  get '/fake_user_info' => 'pages#fake_user_info'
 
 end
