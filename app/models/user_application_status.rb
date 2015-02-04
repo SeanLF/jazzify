@@ -13,8 +13,4 @@ class UserApplicationStatus < ActiveRecord::Base
     self.status == "Pending"
   end
 
-  def is_incomplete?
-    self.status == "Incomplete"
-  end
-
 end

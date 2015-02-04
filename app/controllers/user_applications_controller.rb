@@ -35,7 +35,7 @@ class UserApplicationsController < ApplicationController
       session[:origin] = URI(request.referer).path unless request.referer.nil?
       redirect_to new_user_information_url and return
     end
-    @user_application_statuses = UserApplicationStatus.where(status: ['Pending', 'Incomplete'])
+    @user_application_statuses = UserApplicationStatus.find_by status: 'Pending'
     respond_with(@user_application)
   end
 
@@ -86,46 +86,39 @@ class UserApplicationsController < ApplicationController
   end
 
   def set_user_applications
-    if @user.is_admin?
-      # Don't show incomplete applications by other users
-      # @user_applications = UserApplication.where("user_application_status_id != \'#{incomplete_id}\' or user_id == \'#{@user.id}\'")
-        @user_applications = UserApplication.all #.where(user_application_status: "Incomplete")
-        @count = UserApplication.all.count
-      elsif @user.is_moderator?
-        incomplete = UserApplicationStatus.find_by(status: 'Incomplete').id.to_s
-        @user_applications = UserApplication.where.not(user_application_status_id: incomplete)
-      end
-    end
+    @user_applications = UserApplication.all
+    @count = UserApplication.all.count
+  end
 
-    def set_volunteer_positions
-      @volunteer_positions = VolunteerPosition.all.order(:title)
-    end
+  def set_volunteer_positions
+    @volunteer_positions = VolunteerPosition.all.order(:title)
+  end
 
-    def user_application_params
-      params.require(:user_application).permit(:user_id, :user_application_status_id, :first_choice_volunteer_position_id, :second_choice_volunteer_position_id, :third_choice_volunteer_position_id)
-    end
+  def user_application_params
+    params.require(:user_application).permit(:user_id, :user_application_status_id, :first_choice_volunteer_position_id, :second_choice_volunteer_position_id, :third_choice_volunteer_position_id)
+  end
 
-    def set_user_application_statuses
-      if @user.is_elevated?
-        return @user_application_statuses = UserApplicationStatus.all
-      else
-        return @user_application_statuses = UserApplicationStatus.where(status: ['Pending', 'Incomplete'])
-      end
-    end
-
-    def new_user_application
-      @user_application = UserApplication.new
-      @user_application.user_id = @user.id
-      @user_application.user_application_status_id = UserApplicationStatus.find_by(status: 'Incomplete').id
-    end
-
-    def not_authorized
-      redirect_to user_applications_url, :alert => 'You are not authorized to perform the requested action!'
-    end
-
-    def get_application_volunteer_choices
-      @first_choice_volunteer_position = VolunteerPosition.find(@user_application.first_choice_volunteer_position_id) unless @user_application.first_choice_volunteer_position_id.nil?
-      @second_choice_volunteer_position = VolunteerPosition.find(@user_application.second_choice_volunteer_position_id) unless @user_application.second_choice_volunteer_position_id.nil?
-      @third_choice_volunteer_position = VolunteerPosition.find(@user_application.third_choice_volunteer_position_id) unless @user_application.third_choice_volunteer_position_id.nil?
+  def set_user_application_statuses
+    if @user.is_elevated?
+      return @user_application_statuses = UserApplicationStatus.all.order(:status)
+    else
+      return @user_application_statuses = UserApplicationStatus.find_by(status: 'Pending')
     end
   end
+
+  def new_user_application
+    @user_application = UserApplication.new
+    @user_application.user_id = @user.id
+    @user_application.user_application_status_id = UserApplicationStatus.find_by(status: 'Pending').id
+  end
+
+  def not_authorized
+    redirect_to user_applications_url, :alert => 'You are not authorized to perform the requested action!'
+  end
+
+  def get_application_volunteer_choices
+    @first_choice_volunteer_position = VolunteerPosition.find(@user_application.first_choice_volunteer_position_id) unless @user_application.first_choice_volunteer_position_id.nil?
+    @second_choice_volunteer_position = VolunteerPosition.find(@user_application.second_choice_volunteer_position_id) unless @user_application.second_choice_volunteer_position_id.nil?
+    @third_choice_volunteer_position = VolunteerPosition.find(@user_application.third_choice_volunteer_position_id) unless @user_application.third_choice_volunteer_position_id.nil?
+  end
+end

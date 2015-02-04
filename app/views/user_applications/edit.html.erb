@@ -6,6 +6,10 @@
     <span class="glyphicon glyphicon-info-sign"></span>
     Show
   <% end %>
-  <h1>Edit my application</h1>
+  <% if @user_application.user_id == "#{@user.id}" %>
+    <h1>Edit my application</h1>
+  <% else %>
+    <h1>Edit Application</h1>
+  <% end %>
 
-<%= render 'form' %>
+  <%= render 'form' %>

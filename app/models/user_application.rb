@@ -12,9 +12,7 @@ class UserApplication < ActiveRecord::Base
 
   private
 	def set_default_status
-    if !UserApplicationStatus.where({status: ['Incomplete', "Pending"]}).include?(self.user_application_status)
       self.user_application_status = UserApplicationStatus.find_by({status: 'Pending'})
-    end
 	end
 
   def choices_distinct?
