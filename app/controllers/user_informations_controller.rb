@@ -66,7 +66,7 @@ class UserInformationsController < ApplicationController
 
   def destroy
     authorize @user_information
-    if !@user_information.user.user_application.nil?
+    if @user_information.user.user_application.count > 0
       if @user.is_elevated? and @user_information.user != @user
         flash[:warning] = "The user has an application that depends on this. Delete it first."
       else

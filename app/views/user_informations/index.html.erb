@@ -1,5 +1,11 @@
 <h1>User Information forms</h1>
 
+<% if @user_informations.nil? or @user_informations.count == 0 %>
+
+  <h3>No one has filled out an info form. <i class="fa fa-frown-o">&nbsp;</i></h3>
+
+<% else %>
+
 <div class="table-responsive">
   <table class="table table-striped table-hover">
     <thead>
@@ -26,3 +32,4 @@
     </tbody>
   </table>
 </div>
+<% end %>
