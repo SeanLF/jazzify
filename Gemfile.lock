@@ -187,7 +187,7 @@ DEPENDENCIES
   jquery-rails
   pg
   pundit
-  rails (>= 4.1)
+  rails (>= 4.1.8)
   rails-erd
   rails_12factor
   sass-rails (>= 3.2)
