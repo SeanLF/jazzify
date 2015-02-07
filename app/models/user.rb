@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   before_create :set_default_role
 
   # Email is mandatory and unique
-  validates :email, presence: true, uniqueness: true
+  validates :email, uniqueness: true
 
   def is_admin?
     self.role == Role.find_by_name('Admin')
