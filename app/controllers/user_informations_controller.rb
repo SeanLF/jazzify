@@ -2,7 +2,6 @@ class UserInformationsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_user
   before_action :set_user_information, only: [:show, :edit, :update, :destroy]
-  before_action :set_festival_dates, except: :destroy
 
   after_action :verify_authorized, except: :index
   rescue_from Pundit::NotAuthorizedError, :with => :not_authorized
@@ -84,16 +83,10 @@ class UserInformationsController < ApplicationController
     end
 
     def user_information_params
-      params.require(:user_information).permit(:user_id, :first_name, :last_name, :address, :city, :province, :postal_code, :home_phone_number, :work_phone_number, :cell_phone_number, :t_shirt_size, :age_group, :emergency_contact_name, :emergency_contact_number, :notes, :availability, :code_of_conduct)
+      params.require(:user_information).permit(:user_id, :first_name, :last_name, :address, :city, :province, :postal_code, :home_phone_number, :work_phone_number, :cell_phone_number, :t_shirt_size, :age_group, :emergency_contact_name, :emergency_contact_number, :notes, :availability, :unavailability, :code_of_conduct)
     end
 
     def not_authorized
     redirect_to user_informations_url, :alert => 'You are not authorized to perform the requested action!'
-  end
-
-  def set_festival_dates
-    year = Time.new.year
-    @festivalStartDate = "20/06/#{year}"
-    @festivalEndDate = "01/07/#{year}"
   end
 end

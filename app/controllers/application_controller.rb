@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
 
   # Includes Authorization mechanism
   include Pundit
+  before_action :set_festival_dates
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -23,6 +24,12 @@ class ApplicationController < ActionController::Base
 
   def set_user
     @user = current_user
+  end
+
+  def set_festival_dates
+    year = Time.new.year
+    @festivalStartDate = "20/06/#{year}"
+    @festivalEndDate = "01/07/#{year}"
   end
 
 end
