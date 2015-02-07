@@ -28,8 +28,8 @@ class ApplicationController < ActionController::Base
 
   def set_festival_dates
     year = Time.new.year
-    @festivalStartDate = "20/06/#{year}"
-    @festivalEndDate = "01/07/#{year}"
+    @festivalStartDate = "#{year}/06/20"
+    @festivalEndDate = "#{year}/07/01"
   end
 
 end

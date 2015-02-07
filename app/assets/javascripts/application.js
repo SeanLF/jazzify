@@ -28,5 +28,3 @@ $(':radio').click(function(){
    var elems = $(this).parents('tr').find(':checkbox');
    elems.not($(this)).attr('disabled',$(this).is(':checked'));
 });
-
-

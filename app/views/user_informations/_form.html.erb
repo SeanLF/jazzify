@@ -46,10 +46,7 @@
 <div class="form-group">
   <%= f.label :province, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.select :province, ['Ontario','Quebec','Nova Scotia','New Brunswick','Manitoba',
-    'British Columbia','Price Edward Island','Saskatchewan','Alberta','Newfoundland and Labrador',
-    'Northwest Territories','Nunavut','Yukon'
-  ], {}, :class => "form-control" %>
+    <%= f.select :province, ['Ontario','Quebec','Nova Scotia','New Brunswick','Manitoba', 'British Columbia','Price Edward Island','Saskatchewan','Alberta','Newfoundland and Labrador', 'Northwest Territories','Nunavut','Yukon'], {}, :class => "form-control" %>
   </div>
 </div>
 <div class="form-group">
@@ -112,9 +109,10 @@
   </div>
 </div>
 <div class="form-group">
-  <%= f.label :age_group, :class => "col-sm-2 control-label" %>
+
+<%= f.label :age_group, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-  <label class="radio-inline">
+    <label class="radio-inline">
       <%= f.radio_button :age_group, 'Under 16' %>
       Under 16
     </label>
@@ -132,6 +130,7 @@
     </label>
   </div>
 </div>
+
 <div class="form-group">
   <%= f.label :emergency_contact_name, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
@@ -204,37 +203,43 @@
 <script type="text/javascript">
   $(function() {
     $('#available').datepicker({
-    format: "dd/mm/yyyy",
-    weekStart: 1,
-    startDate: '<%= @festivalStartDate %>',
-    endDate: '<%= @festivalEndDate %>',
-    multidate: true,
-    todayHighlight: true
-  }).on('changeDate', function(event){
-    $('.availability').val($('#available').datepicker('getFormattedDate'));
-  });
-  $('#unavailable').datepicker({
-    format: "dd/mm/yyyy",
-    weekStart: 1,
-    startDate: '<%= @festivalStartDate %>',
-    endDate: '<%= @festivalEndDate %>',
-    multidate: true,
-    todayHighlight: true
-  }).on('changeDate', function(event){
-    $('.unavailability').val($('#unavailable').datepicker('getFormattedDate'));
+      format: "yyyy/mm/dd",
+      weekStart: 1,
+      startDate: '<%= @festivalStartDate %>',
+      endDate: '<%= @festivalEndDate %>',
+      multidate: true,
+      todayHighlight: true
+    }).on('changeDate', function(){
+      $('.availability').val($('#available').datepicker('getFormattedDate'));
+    });
+    $('#unavailable').datepicker({
+      format: "yyyy/mm/dd",
+      weekStart: 1,
+      startDate: '<%= @festivalStartDate %>',
+      endDate: '<%= @festivalEndDate %>',
+      multidate: true,
+      todayHighlight: true
+    }).on('changeDate', function(){
+      $('.unavailability').val($('#unavailable').datepicker('getFormattedDate'));
+    })
   })
-})
   $(document).ready(function(){
-    var availaibleDates = $('.availability').text().split(',');
+    var availableDates = $('.availability').text().split(',');
     var unavailableDates = $('.unavailability').text().split(',');
-    var jsAvDates, jsUAvDates;
-    for(var date in availaibleDates){
-      availaibleDates.push(new Date("\"" + date + "\""));
+    var jsAvDates = [];
+    var jsUAvDates = [];
+    if(availableDates[0] != ""){
+      for(var date in availableDates){
+        jsAvDates.push(new Date(availableDates[date]));
+        debugger;
+      }
+      $('#available').datepicker('setDates', jsAvDates);
     }
-    for(var date in unavailableDates){
-      availaibleDates.push(new Date("\"" + date + "\""));
+    if(unavailableDates[0] != ""){
+      for(var date in unavailableDates){
+        jsUAvDates.push(new Date(unavailableDates[date]));
+      }
+      $('#unavailable').datepicker('setDates', jsUAvDates);
     }
-    $('#available').datepicker('setDates', availaibleDates);
-    $('#unavailable').datepicker('setDates', unavailableDates);
   })
 </script>
