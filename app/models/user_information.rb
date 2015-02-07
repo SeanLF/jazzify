@@ -28,7 +28,7 @@ class UserInformation < ActiveRecord::Base
   validates :age_group, inclusion: { in: ['Under 16', '16 - 24', '25 - 55', '55+'],
     message: "%{value} is not a valid age group" }
 
-  validates :code_of_conduct, acceptance: "1"
+  validates :code_of_conduct, acceptance: true
 
   # Require all but the phone # fields
   validates :user_id, :first_name, :last_name, :address, :city, :province, :postal_code, :t_shirt_size, :age_group, :emergency_contact_name, :emergency_contact_number, :notes, :availability, presence: true
