@@ -17,9 +17,6 @@ class User < ActiveRecord::Base
   # Upon signing up, a user is assigned the default role
   before_create :set_default_role
 
-  # Email is mandatory and unique
-  validates :email, uniqueness: true
-
   def is_admin?
     self.role == Role.find_by_name('Admin')
   end
