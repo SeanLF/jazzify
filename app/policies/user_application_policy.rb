@@ -55,8 +55,8 @@ class UserApplicationPolicy < ApplicationPolicy
 
     # The user can't apply on behalf of another user, and cannot accept or deny their own application
     else
-      user_application_statuses_for_user = UserApplicationStatus.find_by(status: "Pending")
-      granted = user_application_statuses_for_user.include?(@user_application.user_application_status)
+      user_application_status_for_user = UserApplicationStatus.find_by(status: "Pending")
+      granted = user_application_status_for_user.id == @user_application.user_application_status_id.to_i
       granted = granted and @user.id == @user_application.user_id
       return granted
     end
