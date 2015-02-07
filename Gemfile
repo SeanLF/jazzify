@@ -58,6 +58,10 @@ group :development do
   gem 'did_you_mean'
 end
 
+group :production do
+  gem 'rails_12factor'
+end
+
 # todo look into codeclimate gem
 
 # gem 'puma'
