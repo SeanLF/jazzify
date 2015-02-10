@@ -103,7 +103,12 @@ class UserInformation < ActiveRecord::Base
   end
 
   def code_of_conduct_accepted?
-    valid = self.code_of_conduct == "1"
-    errors.add :base, "Volunteer Code of Conduct must be accepted!" unless valid
+    if self.code_of_conduct == "1"
+      return true
+    end
+    if self.code_of_conduct == true
+      return true
+    end
+    errors.add :base, "Volunteer Code of Conduct must be accepted!"
   end
 end
