@@ -29,8 +29,10 @@ gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder'
 
+# Font awesome
 gem 'font-awesome-sass'
 
+# Authentication
 gem 'devise'
 
 # Autoprefixer
@@ -42,8 +44,13 @@ gem 'bootstrap-generators'
 gem 'devise-bootstrap-views'
 gem 'sprockets-rails'
 
+# Creating excel reports
+gem 'axlsx'
+
+# Authorization
 gem 'pundit'
 
+# Admin panel
 gem 'upmin-admin'
 
 group :doc do

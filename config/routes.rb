@@ -18,5 +18,7 @@ Rails.application.routes.draw do
   get '/codeofconduct' => 'pages#code_of_conduct'
   get '/user_information/fake' => 'pages#fake_user_info'
   get '/privacypolicy' => 'pages#privacy'
+  get "/reports/export_user_applications" => 'reports#export_user_applications'
+  get '/reports' => 'reports#index'
 
 end
