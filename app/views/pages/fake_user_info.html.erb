@@ -186,7 +186,7 @@
   <script type="text/javascript">
     $(function() {
       $('#available').datepicker({
-    format: "dd/mm/yyyy",
+    format: "yyyy/mm/dd",
     weekStart: 1,
     startDate: '<%= @festivalStartDate %>',
     endDate: '<%= @festivalEndDate %>',
@@ -194,7 +194,7 @@
     todayHighlight: true
   })
       $('#unavailable').datepicker({
-    format: "dd/mm/yyyy",
+    format: "yyyy/mm/dd",
     weekStart: 1,
     startDate: '<%= @festivalStartDate %>',
     endDate: '<%= @festivalEndDate %>',
