@@ -28,7 +28,7 @@ class UserInformation < ActiveRecord::Base
   validates :age_group, inclusion: { in: ['Under 16', '16 - 24', '25 - 55', '55+'],
     message: "%{value} is not a valid age group" }
 
-  validates :code_of_conduct, acceptance: {accept: "1"},  allow_nil: false
+  validate :code_of_conduct_accepted?
 
   # Require all but the phone # fields
   validates :user_id, :first_name, :last_name, :address, :city, :province, :postal_code, :t_shirt_size, :age_group, :emergency_contact_name, :emergency_contact_number, :notes, presence: true
@@ -100,5 +100,10 @@ class UserInformation < ActiveRecord::Base
       end
     end
     errors.add :base, "You can't be available and unavailable on the same dates, silly!" unless valid
+  end
+
+  def code_of_conduct_accepted?
+    valid = self.code_of_conduct == "1"
+    errors.add :base, "Volunteer Code of Conduct must be accepted!" unless valid
   end
 end
