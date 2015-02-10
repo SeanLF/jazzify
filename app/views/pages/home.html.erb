@@ -2,7 +2,8 @@
   <h1>Welcome to Jazzify!</h1>
   <p>Apply to volunteer at the Ottawa Jazz Festival.</p>
   <p>
-  	<a class="btn btn-info btn-lg" href="/about" role="button">Learn more</a>
+    <a class="btn btn-info btn-lg" href="/about" role="button">Learn more</a>
+  	<%= link_to "Privacy Policy", privacypolicy_path, :class => 'btn btn-warning btn-lg' %>
   	<% if user_signed_in? %>
   	<a class="btn btn-success btn-lg" href="/volunteer_positions" role="button">Apply</a>
   	<%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'btn btn-danger btn-lg'  %>
