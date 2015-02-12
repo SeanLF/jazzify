@@ -1,6 +1,29 @@
 <h1>Reports</h1>
-<ul>
-  <li>
-    <%= link_to "Export User Applications", reports_export_user_applications_path %>
-  </li>
-</ul>
+<div class="row">
+  <div class="col-md-4">
+    <h3>Excel Reports</h3>
+    <ul class="reports">
+      <li>
+        <%= link_to "Export User Applications", reports_export_user_applications_path %>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-4">
+    <h3>Charts</h3>
+    <ul class="reports">
+      <li>
+        <%= link_to "Positition picks", reports_position_popularity_path %>
+      </li>
+      <li>
+        <%= link_to "T shirt distribution", reports_t_shirt_distribution_path %>
+      </li>
+      <li>
+        <%= link_to "User completion progress", reports_user_distribution_path %>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-4">
+    <h3>More<br/>
+    <small>Coming soon</small></h3>
+  </div>
+</div>

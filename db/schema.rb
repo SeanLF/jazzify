@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20150206222842) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "availability"
-    t.string   "code_of_conduct",          default: "false"
+    t.boolean  "code_of_conduct"
     t.string   "unavailability"
   end
 

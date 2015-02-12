@@ -19,10 +19,4 @@ class UserPolicy < ApplicationPolicy
   def export_user_applications?
     @user.is_elevated? unless @user.nil?
   end
-
-  def index?
-    if @record == :reports
-      return true unless @user.is_elevated?
-    end
-  end
 end

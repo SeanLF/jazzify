@@ -1,0 +1,102 @@
+<div class="row">
+  <div class="col-md-2">
+    <fieldset>
+      <legend>Legend</legend>
+      <ul style="padding-left: 0px; list-style-type: none">
+        <li>
+          <span style="background-color: #F7464A; width: 10px; border: 1px solid #FF5A5E">&nbsp;&nbsp;&nbsp;&nbsp;</span> Small
+        </li>
+        <li>
+          <span style="background-color: #46BFBD; width: 10px; border: 1px solid #5AD3D1">&nbsp;&nbsp;&nbsp;&nbsp;</span> Medium
+        </li>
+        <li>
+          <span style="background-color: #FDB45C; width: 10px; border: 1px solid #FFC870">&nbsp;&nbsp;&nbsp;&nbsp;</span> Large
+        </li>
+        <li>
+          <span style="background-color: #949FB1; width: 10px; border: 1px solid #A8B3C5">&nbsp;&nbsp;&nbsp;&nbsp;</span> XL
+        </li>
+        <li>
+          <span style="background-color: #4D5360; width: 10px; border: 1px solid #616774">&nbsp;&nbsp;&nbsp;&nbsp;</span> XXL
+        </li>
+        <li>
+          <span style="background-color: #8D5360; width: 10px; border: 1px solid #616774">&nbsp;&nbsp;&nbsp;&nbsp;</span> XXXL
+        </li>
+      </ul>
+      <hr/>
+    </fieldset>
+  </div>
+  <div class="col-md-10">
+    <canvas id="canvas"></canvas>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var doughnutData = [
+      <% if !@distribution["Small"].nil? %>
+        {
+          value: <%= @distribution["Small"] %>,
+          color:"#F7464A",
+          highlight: "#FF5A5E",
+          label: "Small"
+        }
+        <% if !@distribution["Medium"].nil? or !@distribution["Large"].nil? or !@distribution["XL"].nil? or !@distribution["XXL"].nil? or !@distribution["XXXL"].nil?  %>
+          ,
+        <% end %>
+      <% end %>
+      <% if !@distribution["Medium"].nil? %>
+        {
+          value: <%= @distribution["Medium"] %>,
+          color: "#46BFBD",
+          highlight: "#5AD3D1",
+          label: "Medium"
+        }
+        <% if !@distribution["Large"].nil? or !@distribution["XL"].nil? or !@distribution["XXL"].nil? or !@distribution["XXXL"].nil?  %>
+          ,
+        <% end %>
+      <% end %>
+      <% if !@distribution["Large"].nil? %>
+        {
+          value: <%= @distribution["Large"] %>,
+          color: "#FDB45C",
+          highlight: "#FFC870",
+          label: "Large"
+        }
+        <% if !@distribution["XL"].nil? or !@distribution["XXL"].nil? or !@distribution["XXXL"].nil?  %>
+          ,
+        <% end %>
+      <% end %>
+      <% if !@distribution["XL"].nil? %>
+        {
+          value: <%= @distribution["XL"] %>,
+          color: "#949FB1",
+          highlight: "#A8B3C5",
+          label: "XL"
+        }
+        <% if !@distribution["XXL"].nil? or !@distribution["XXXL"].nil?  %>
+          ,
+        <% end %>
+      <% end %>
+      <% if !@distribution["XXL"].nil? %>
+        {
+          value: <%= @distribution["XXL"] %>,
+          color: "#4D5360",
+          highlight: "#616774",
+          label: "XXL"
+        }
+        <% if !@distribution["XXXL"].nil?  %>
+          ,
+        <% end %>
+      <% end %>
+      <% if !@distribution["XXXL"].nil? %>
+        {
+          value: <%= @distribution["XXXL"] %>,
+          color: "#8D5360",
+          highlight: "#616774",
+          label: "XXXL"
+        }
+      <% end %>
+      ];
+      var ctx = document.getElementById("canvas").getContext("2d");
+      window.myDoughnut = new Chart(ctx).Doughnut(doughnutData, {responsive : true});
+  });
+</script>

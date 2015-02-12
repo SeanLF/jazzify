@@ -17,6 +17,7 @@
 //= require sweet-alert.min
 //= require bootstrap-select.min
 //= require bootstrap-datepicker
+//= require Chart.min
 //= require_tree .
 
 $(function () {

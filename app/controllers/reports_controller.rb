@@ -2,7 +2,7 @@ class ReportsController < ApplicationController
   require 'axlsx'
 
   before_filter :authenticate_user!
-  after_action :verify_authorized, except: :index
+  before_action :bar_access_to_unauthorized
   rescue_from Pundit::NotAuthorizedError, :with => :not_authorized
 
   def index
@@ -10,8 +10,6 @@ class ReportsController < ApplicationController
   end
 
   def export_user_applications
-    authorize current_user
-
     xlsx = Axlsx::Package.new do |p|
       p.workbook.add_worksheet(name: "User Applications") do |sheet|
         p.use_shared_strings = true
@@ -71,4 +69,56 @@ class ReportsController < ApplicationController
     send_file('/tmp/applications.xlsx')
   end
 
+  # Radar chart for volunteer position picks
+  def radar_chart_position_picks
+
+    # Get data
+    all_applications = UserApplication.all
+    all_positions = VolunteerPosition.all
+
+    # Initialize hashes
+    @x = ["First Choice", "Second Choice", "Third Choice"]
+    @choices = {}
+    @x.each do |e|
+      @choices[e] = {}
+      all_positions.each do |position|
+        @choices[e]["#{position.title}"] = 0
+      end
+    end
+
+    # Insert data
+    all_applications.each do |application|
+      first = application.first_choice_volunteer_position
+      second = application.second_choice_volunteer_position
+      third = application.third_choice_volunteer_position
+      @choices[@x[0]]["#{first.title}"] += 1
+      @choices[@x[1]]["#{second.title}"] += 1
+      @choices[@x[2]]["#{third.title}"] += 1
+    end
+  end
+
+  # bar plot how many users have registered, completed info, and applied
+  def user_completion
+    @users = User.all.count
+    @infos = UserInformation.all.count
+    @apps = UserApplication.all.count
+  end
+
+  # doughnut chart: distribution of t shirt sizes
+  def t_shirt_distribution
+    infos = UserInformation.all
+    @sizes = infos.select('distinct t_shirt_size')
+    @distribution = {}
+    @sizes.each do |user_info|
+      size = user_info.t_shirt_size.to_s
+      count = infos.where("t_shirt_size = ?", user_info.t_shirt_size.to_s).count
+      @distribution[size] = count
+    end
+  end
+
+  private
+  def bar_access_to_unauthorized
+    # If user is not elevated, throw unauthorized
+    raise Pundit::NotAuthorizedError unless current_user.is_elevated?
+  end
 end

@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col-md-2">
+    <fieldset>
+      <legend>Legend</legend>
+      <ul style="padding-left: 0px; list-style-type: none">
+        <li>
+          <span style="background-color: rgba(150,220,0,0.2); width: 10px; border: 1px solid rgba(150,220,0,1)">&nbsp;&nbsp;&nbsp;&nbsp;</span> First Choice
+        </li>
+        <li>
+          <span style="background-color: rgba(151,187,205,0.2); width: 10px; border: 1px solid rgba(151,187,205,1)">&nbsp;&nbsp;&nbsp;&nbsp;</span> Second Choice
+        </li>
+        <li>
+          <span style="background-color: rgba(130,0,0,0.2); width: 10px; border: 1px solid rgba(130,0,0,1)">&nbsp;&nbsp;&nbsp;&nbsp;</span> Third Choice
+        </li>
+      </ul>
+      <hr/>
+    </fieldset>
+  </div>
+  <div class="col-md-10">
+    <canvas id="canvas"></canvas>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var radarChartData = {
+    labels: <%= raw @choices[@x[0]].keys.to_a %>,
+    datasets: [
+      {
+        label: "<%= @x[0] %>",
+        fillColor: "rgba(150,220,0,0.2)",
+        strokeColor: "rgba(150,220,0,1)",
+        pointColor: "rgba(150,220,0,1)",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(220,220,220,1)",
+        data: <%= @choices[@x[0]].values %>
+      },
+      {
+        label: "<%= @x[1] %>",
+        fillColor: "rgba(151,187,205,0.2)",
+        strokeColor: "rgba(151,187,205,1)",
+        pointColor: "rgba(151,187,205,1)",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(220,220,220,1)",
+        data: <%= @choices[@x[1]].values %>
+      },
+      {
+        label: "<%= @x[2] %>",
+        fillColor: "rgba(130,0,0,0.2)",
+        strokeColor: "rgba(130,0,0,1)",
+        pointColor: "rgba(130,0,0,1)",
+        pointStrokeColor: "#fff",
+        pointHighlightFill: "#fff",
+        pointHighlightStroke: "rgba(220,220,220,1)",
+        data: <%= @choices[@x[2]].values %>
+      }
+    ]
+  };
+
+    window.myRadar = new Chart(document.getElementById("canvas").getContext("2d")).Radar(radarChartData, {
+      responsive: true
+    });
+  });
+</script>
