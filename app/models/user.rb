@@ -7,9 +7,6 @@ class User < ActiveRecord::Base
   # A user has a role
   belongs_to :role, class_name: Role, foreign_key: "role_id"
 
-  # A user can be the contact for a volunteer position
-  belongs_to :volunteer_position
-
   # When a user is deleted, delete all dependencies
   has_many :user_application, dependent: :destroy
   has_one :user_information, dependent: :destroy
