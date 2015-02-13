@@ -1,7 +1,1 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-one:
-  id: 1
-  title: "Test"
-  description: "Test description"
-  contact: "Test contact"
-  contact_email: "Test contact_email"
