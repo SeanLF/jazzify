@@ -1,4 +1,5 @@
 #Jazzify
+[![Build Status](https://travis-ci.org/SeanLF/jazzify.svg?branch=master)](https://travis-ci.org/SeanLF/jazzify)
 
 This application is compatible with the latest version of rails and all gems in the Gemfile.
 
