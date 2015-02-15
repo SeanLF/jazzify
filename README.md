@@ -1,16 +1,19 @@
+#Jazzify
+
 This application is compatible with the latest version of rails and all gems in the Gemfile.
 
 To run this application, install postgresql on your machine.
 
-Currently deployed at https://ottawajazzify.herokuapp.com/
+Production: https://ottawajazzify.herokuapp.com/<br>
+Test: https://ottawajazzifytest.herokuapp.com/
 
--- Once you have this repository cloned on your machine --
-1) go to the root folder
-2) bundle install
-3) rake db:migrate (rake db:create if needed)
-4) rake db:seed (for code tables)
-5) rails s (rails server)
+#####Once you have this repository cloned on your machine
 
-To publish your own version on heroku, read their documentation and install their command line tool.
+```bash
+bundle install
+gem update
+rake db:setup
+bundle exec rails server
+``` 
 
-Generate Entity-Relationship Diagram: rake erd. Please don't commit the resulting PDF.
+To generate an Entity Relationship Diagram, execute <code>rake erd</code>. Please don't commit the resulting PDF.
