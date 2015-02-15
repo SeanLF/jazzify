@@ -23,9 +23,9 @@
 $(document).ready(function(){
 
 $(':radio').click(function(){
-  debugger;
+
    var elems = $(this).parents('tr').find(':checkbox');
    elems.not($(this)).attr('disabled',$(this).is(':checked'));
 });
 
-})
+});
