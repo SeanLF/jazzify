@@ -1,5 +1,5 @@
 #Jazzify
-[![Build Status](https://travis-ci.org/SeanLF/jazzify.svg?branch=master)](https://travis-ci.org/SeanLF/jazzify)
+[![Build Status](https://travis-ci.org/SeanLF/jazzify.svg?branch=master)](https://travis-ci.org/SeanLF/jazzify)&nbsp;[![Code Climate](https://codeclimate.com/github/SeanLF/jazzify/badges/gpa.svg)](https://codeclimate.com/github/SeanLF/jazzify)&nbsp;[![Test Coverage](https://codeclimate.com/github/SeanLF/jazzify/badges/coverage.svg)](https://codeclimate.com/github/SeanLF/jazzify)
 
 This application is compatible with the latest version of rails and all gems in the Gemfile.
 
@@ -15,6 +15,6 @@ bundle install
 gem update
 rake db:setup
 bundle exec rails server
-``` 
+```
 
 To generate an Entity Relationship Diagram, execute <code>rake erd</code>. Please don't commit the resulting PDF.
