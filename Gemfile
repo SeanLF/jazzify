@@ -5,7 +5,7 @@ ruby "2.2.0"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '>= 4.1.8'
 
-# Use sqlite3 as the database for Active Record
+# Use postgre SQL as the database for Active Record
 gem 'pg'
 
 # Use SCSS for stylesheets
@@ -58,13 +58,15 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-group :development do
+group :development, :test do
   # This makes an entity relation diagram in PDF format
   gem "rails-erd"
   # Debugging the application
   gem 'byebug'
   # To help debugging
   gem 'did_you_mean'
+  # For testing
+  gem 'rspec-rails', '>=3.2.0'
 end
 
 group :production do
@@ -72,14 +74,3 @@ group :production do
 end
 
 # todo look into codeclimate gem
-
-# gem 'puma'
-
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Use Capistrano for deployment
-# gem 'capistrano', group: :development
