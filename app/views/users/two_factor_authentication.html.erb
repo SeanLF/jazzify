@@ -8,18 +8,20 @@
         <% if current_user.otp_required_for_login %>
           <span class="text-success">
             <strong>On</strong>&nbsp;<i class="fa fa-check"></i>
-          <%= link_to "Edit", users_disable_otp_path, class: 'btn btn-default' %>
+          <%= link_to "Edit", two_factor_authentication_disable_path, class: 'btn btn-default' %>
           </span>
         <% else %>
           <span class="text-danger">
             <strong>Off</strong>&nbsp;<i class="fa fa-times"></i>
-          <%= link_to "Edit", users_setup_otp_path, class: 'btn btn-default' %>
+          <%= link_to "Edit", two_factor_authentication_configure_path, class: 'btn btn-default' %>
           </span>
         <% end %>
       </p>
+      <% if current_user.otp_required_for_login %>
       <p class="help">
         <span class="octicon octicon-question"></span>
-        Make sure to <a href="/settings/two_factor_authentication/recovery_codes.txt" class="js-sudo-required">save your recovery codes</a> in a safe place. They will allow you to access your account if you ever lose your phone.
+        Make sure to <a href="/two_factor_authentication/recovery_codes.txt" class="js-sudo-required">save your recovery codes</a> in a safe place. They will allow you to access your account if you ever lose your phone.
       </p>
+      <% end %>
   </div>
 </div>

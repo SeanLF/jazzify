@@ -49,11 +49,11 @@
   </div>
   <div class="col-md-4">
     <h5>2. Enter the 6-digit code that the application generates</h5>
-    <%= form_tag(users_enable_otp_path, method: :post) do -%>
+    <%= form_tag(two_factor_authentication_enable_path, method: :post) do -%>
       <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
       <div class="form-group">
         <div class="col-xs-8">
-          <%= text_field :post, :otp_attempt, class: 'form-control', placeholder:'123456' %>
+          <%= text_field :post, :otp_attempt, class: 'form-control', placeholder:'123456', autocomplete: :off %>
         </div>
         <div class="col-xs-4 col-xs-4_submit_padding">
           <%= submit_tag 'Enable', class: 'btn btn-success' %>

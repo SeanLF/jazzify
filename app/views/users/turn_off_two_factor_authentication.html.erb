@@ -1,4 +1,31 @@
-<h1>Disable two-factor authentication</h1>
-<% if !current_user.otp_required_for_login %>
-  <%= link_to "Turn off", users_disable_otp_path, :class => 'btn btn-danger' %>
-<% end %>
+<style type="text/css">
+ .col-xs-6_submit_padding{ padding-left: 0px !important;}
+ .col-xs-6_left_padding{ padding-left: 0px !important;}
+</style>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Disable two-factor authentication</h3>
+      </div>
+      <div class="panel-body">
+        <% if current_user.otp_required_for_login %>
+          <% link_to "Turn off", two_factor_authentication_disable_path, :class => 'btn btn-danger' %>
+          <h5>Enter your one-time 6-digit code</h5>
+          <%= form_tag(two_factor_authentication_disable_path, method: :post) do -%>
+            <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+            <div class="form-group">
+              <div class="col-xs-6 col-xs-6_left_padding">
+                <%= text_field :post, :otp_attempt, class: 'form-control', placeholder:'123456', autocomplete: :off %>
+              </div>
+              <div class="col-xs-6 col-xs-6_submit_padding">
+                <%= submit_tag 'Disable', class: 'btn btn-danger' %>
+              </div>
+            </div>
+          <% end -%>
+        <% end %>
+      </div>
+    </div>
+    <%= link_to "Go back", two_factor_authentication_path %>
+  </div>
+</div>

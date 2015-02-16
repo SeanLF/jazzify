@@ -20,10 +20,11 @@ Rails.application.routes.draw do
   get '/privacypolicy' => 'pages#privacy'
 
   # Two factor authentication routes
-  get '/users/two_factor_authentication' => 'users#two_factor_authentication'
-  get '/users/setup_otp' => 'users#setup_2fa'
-  post '/users/enable_otp' => 'users#enable_2fa'
-  get '/users/disable_otp' => 'users#disable_2fa'
+  get '/two_factor_authentication' => 'users#two_factor_authentication'
+  get '/two_factor_authentication/configure' => 'users#setup_2fa'
+  post '/two_factor_authentication/enable' => 'users#enable_2fa'
+  post '/two_factor_authentication/disable' => 'users#disable_2fa'
+  get '/two_factor_authentication/disable' => 'users#prepare_disable_2fa'
 
   # Reports routes
   get '/reports' => 'reports#index'

@@ -7,7 +7,7 @@
       <%= f.hidden_field :id %>
       <div class="form-group">
         <%= f.label :otp_attempt, "Authentication Code" %>
-        <%= f.text_field :otp_attempt, class: "form-control", tabindex: 1 %>
+        <%= f.text_field :otp_attempt, class: "form-control", autocomplete: :off %>
       </div>
       <%= f.submit  t('.sign_in', :default => "Sign in"), class: "btn btn-primary" %>
     <% end %>
