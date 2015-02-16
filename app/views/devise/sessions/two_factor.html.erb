@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>Two Factor Authentication</h4>
+  </div>
+  <div class="panel-body">
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), method: :post) do |f| %>
+      <%= f.hidden_field :id %>
+      <div class="form-group">
+        <%= f.label :otp_attempt, "Authentication Code" %>
+        <%= f.text_field :otp_attempt, class: "form-control", tabindex: 1 %>
+      </div>
+      <%= f.submit  t('.sign_in', :default => "Sign in"), class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+<%= render "devise/shared/links" %>

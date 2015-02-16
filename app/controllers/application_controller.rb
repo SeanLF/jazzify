@@ -37,4 +37,9 @@ class ApplicationController < ActionController::Base
     ENV['two_factor_encryption_key'] = "1234567890"
   end
 
+  protected
+  def configure_devise_parameters
+    devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, :password, :otp_attempt, :id, :remember_me) }
+  end
+
 end

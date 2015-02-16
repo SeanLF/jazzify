@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :volunteer_positions
 
-  devise_for :users
+  devise_for :users, controllers: {sessions: 'sessions'}
 
   authenticate :user, lambda { |u| u.is_admin? } do
     mount Upmin::Engine => '/admin'
