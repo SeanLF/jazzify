@@ -2,7 +2,7 @@ class UserApplicationsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_user
   before_action :set_user_application, except: [:new, :create]
-  before_action :set_user_applications, except: [:destroy]
+  before_action :set_user_applications, only: :index
   before_action :set_volunteer_positions
   before_action :set_user_application_statuses, except: [:destroy]
   after_action :verify_authorized, except: :index
@@ -86,8 +86,17 @@ class UserApplicationsController < ApplicationController
   end
 
   def set_user_applications
-    @user_applications = UserApplication.all
-    @count = UserApplication.all.count
+    @user_applications =
+      UserApplication.joins("inner join users on cast(users.id as text) = user_applications.user_id")
+        .joins("inner join user_informations on cast(users.id as text) = user_informations.user_id")
+        .joins("inner join user_application_statuses on user_applications.user_application_status_id = cast(user_application_statuses.id as text)")
+        .select("user_applications.id, user_informations.first_name,
+          user_informations.last_name, user_applications.updated_at,
+          user_application_statuses.status,
+          (select title as c1 from Volunteer_Positions as v where cast(v.id as text) = first_choice_volunteer_position_id),
+          (select title as c2 from Volunteer_Positions as v where cast(v.id as text) = second_choice_volunteer_position_id),
+          (select title as c3 from Volunteer_Positions as v where cast(v.id as text) = third_choice_volunteer_position_id)")
+    @count = @user_applications.length
   end
 
   def set_volunteer_positions
