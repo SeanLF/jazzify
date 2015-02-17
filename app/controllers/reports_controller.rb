@@ -95,32 +95,29 @@ class ReportsController < ApplicationController
   def add_data_to_sheet_for_export_applications(sheet, applications)
 
     # Get info once, not multiple times
-    infos = UserInformation.all
-    vol_pos = VolunteerPosition.all
+    rows = UserApplication.joins("inner join Users on cast(users.id as text) = user_applications.user_id").joins("inner join User_informations on user_informations.user_id = cast(users.id as text)").select("user_informations.first_name, user_informations.last_name, user_informations.address, user_informations.city, user_informations.province, user_informations.postal_code, user_informations.home_phone_number, user_informations.work_phone_number, user_informations.cell_phone_number,users.email, user_informations.t_shirt_size, user_informations.age_group, user_informations.emergency_contact_name, user_informations.emergency_contact_number, user_informations.notes,user_informations.availability,user_informations.unavailability, (select title as c1 from volunteer_positions as v where cast(v.id as text) = user_applications.first_choice_volunteer_position_id),(select title as c2 from volunteer_positions as v where cast(v.id as text) = user_applications.second_choice_volunteer_position_id),(select title as c3 from volunteer_positions as v where cast(v.id as text) = user_applications.third_choice_volunteer_position_id)")
 
-    applications.each do |application|
-      user = application.user
-      user_info = user.user_information
+    rows.each do |row|
       sheet.add_row  [
-        user_info.first_name,
-        user_info.last_name,
-        user_info.address,
-        user_info.city,
-        user_info.province,
-        user_info.postal_code.gsub(/[- ]/,''),
-        user_info.home_phone_number.gsub(/[- ]/,''),
-        user_info.work_phone_number.gsub(/[- ]/,''),
-        user_info.cell_phone_number.gsub(/[- ]/,''),
-        user.email,
-        user_info.t_shirt_size,
-        user_info.age_group,
-        user_info.emergency_contact_name,
-        user_info.emergency_contact_number,
-        user_info.notes,
-        "a:#{user_info.availability};u:#{user_info.unavailability}",
-        application.first_choice_volunteer_position.title,
-        application.second_choice_volunteer_position.title,
-        application.third_choice_volunteer_position.title,
+        row.first_name,
+        row.last_name,
+        row.address,
+        row.city,
+        row.province,
+        row.postal_code.gsub(/[- ]/,''),
+        row.home_phone_number.gsub(/[- ]/,''),
+        row.work_phone_number.gsub(/[- ]/,''),
+        row.cell_phone_number.gsub(/[- ]/,''),
+        row.email,
+        row.t_shirt_size,
+        row.age_group,
+        row.emergency_contact_name,
+        row.emergency_contact_number,
+        row.notes,
+        "a:#{row.availability};u:#{row.unavailability}",
+        row.c1,
+        row.c2,
+        row.c3
       ]
     end
   end
