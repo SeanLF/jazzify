@@ -23,37 +23,37 @@
 <script type="text/javascript">
   $(document).ready(function(){
     var radarChartData = {
-    labels: <%= raw @choices[@x[0]].keys.to_a %>,
+    labels: <%= raw @choices[@x.values[0]].keys.to_a %>,
     datasets: [
       {
-        label: "<%= @x[0] %>",
+        label: "<%= @x.values[0] %>",
         fillColor: "rgba(150,220,0,0.2)",
         strokeColor: "rgba(150,220,0,1)",
         pointColor: "rgba(150,220,0,1)",
         pointStrokeColor: "#fff",
         pointHighlightFill: "#fff",
         pointHighlightStroke: "rgba(220,220,220,1)",
-        data: <%= @choices[@x[0]].values %>
+        data: <%= @choices[@x.values[0]].values %>
       },
       {
-        label: "<%= @x[1] %>",
+        label: "<%= @x.values[1] %>",
         fillColor: "rgba(151,187,205,0.2)",
         strokeColor: "rgba(151,187,205,1)",
         pointColor: "rgba(151,187,205,1)",
         pointStrokeColor: "#fff",
         pointHighlightFill: "#fff",
         pointHighlightStroke: "rgba(220,220,220,1)",
-        data: <%= @choices[@x[1]].values %>
+        data: <%= @choices[@x.values[1]].values %>
       },
       {
-        label: "<%= @x[2] %>",
+        label: "<%= @x.values[2] %>",
         fillColor: "rgba(130,0,0,0.2)",
         strokeColor: "rgba(130,0,0,1)",
         pointColor: "rgba(130,0,0,1)",
         pointStrokeColor: "#fff",
         pointHighlightFill: "#fff",
         pointHighlightStroke: "rgba(220,220,220,1)",
-        data: <%= @choices[@x[2]].values %>
+        data: <%= @choices[@x.values[2]].values %>
       }
     ]
   };

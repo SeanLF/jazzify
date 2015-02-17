@@ -14,55 +14,13 @@ class ReportsController < ApplicationController
       p.workbook.add_worksheet(name: "User Applications") do |sheet|
         p.use_shared_strings = true
         # Headers
-        sheet.add_row [
-          'First Name',
-          'Last Name',
-          'Address',
-          'City',
-          'Province',
-          'Postal Code',
-          'Home Phone Number',
-          'Work Phone Number',
-          'Cell Phone Number',
-          'Email',
-          'T Shirt Size',
-          'Age Group',
-          'Emergency Contact Name',
-          'Emergency Contact Number',
-          'Notes',
-          'Availability',
-          'First Choice',
-          'Second Choice',
-          'Third Choice'
-        ]
+        sheet.add_row get_user_application_export_headers
 
         # Get data data
         applications = UserApplication.all
 
-        # Add a row for each
-        applications.each do |application|
-          sheet.add_row [
-            application.user.user_information.first_name,
-            application.user.user_information.last_name,
-            application.user.user_information.address,
-            application.user.user_information.city,
-            application.user.user_information.province,
-            application.user.user_information.postal_code.gsub(/[- ]/,''),
-            application.user.user_information.home_phone_number.gsub(/[- ]/,''),
-            application.user.user_information.work_phone_number.gsub(/[- ]/,''),
-            application.user.user_information.cell_phone_number.gsub(/[- ]/,''),
-            application.user.email,
-            application.user.user_information.t_shirt_size,
-            application.user.user_information.age_group,
-            application.user.user_information.emergency_contact_name,
-            application.user.user_information.emergency_contact_number,
-            application.user.user_information.notes,
-            "a:#{application.user.user_information.availability};u:#{application.user.user_information.unavailability}",
-            application.first_choice_volunteer_position.title,
-            application.second_choice_volunteer_position.title,
-            application.third_choice_volunteer_position.title,
-          ]
-        end
+        # Add data
+        add_data_to_sheet_for_export_applications(sheet, applications)
       end
     end
     xlsx.serialize('/tmp/applications.xlsx')
@@ -77,24 +35,16 @@ class ReportsController < ApplicationController
     all_positions = VolunteerPosition.all
 
     # Initialize hashes
-    @x = ["First Choice", "Second Choice", "Third Choice"]
-    @choices = {}
-    @x.each do |e|
-      @choices[e] = {}
-      all_positions.each do |position|
-        @choices[e]["#{position.title}"] = 0
-      end
-    end
+    initialize_hash_for_radar_chart(all_applications, all_positions)
 
-    # Insert data
-    all_applications.each do |application|
-      first = application.first_choice_volunteer_position
-      second = application.second_choice_volunteer_position
-      third = application.third_choice_volunteer_position
-      @choices[@x[0]]["#{first.title}"] += 1
-      @choices[@x[1]]["#{second.title}"] += 1
-      @choices[@x[2]]["#{third.title}"] += 1
-    end
+    # # Insert data
+
+
+    # all_applications.each do |application|
+    #   @choices[@x[0]]["#{application.first_choice_volunteer_position.title}"] += 1
+    #   @choices[@x[1]]["#{application.second_choice_volunteer_position.title}"] += 1
+    #   @choices[@x[2]]["#{application.third_choice_volunteer_position.title}"] += 1
+    # end
   end
 
   # bar plot how many users have registered, completed info, and applied
@@ -120,5 +70,58 @@ class ReportsController < ApplicationController
   def bar_access_to_unauthorized
     # If user is not elevated, throw unauthorized
     raise Pundit::NotAuthorizedError unless current_user.is_elevated?
+  end
+
+  def get_user_application_export_headers
+    return ['First Name', 'Last Name', 'Address', 'City',
+          'Province', 'Postal Code', 'Home Phone Number', 'Work Phone Number',
+          'Cell Phone Number', 'Email', 'T Shirt Size', 'Age Group',
+          'Emergency Contact Name', 'Emergency Contact Number', 'Notes', 'Availability',
+          'First Choice', 'Second Choice', 'Third Choice']
+  end
+
+  def initialize_hash_for_radar_chart(all_applications, all_positions)
+
+    @x = {first_choice_volunteer_position_id: "First Choice", second_choice_volunteer_position_id: "Second Choice", third_choice_volunteer_position_id: "Third Choice"}
+    @choices = {}
+    @x.each do |num|
+      @choices[num[1]] = {}
+      all_positions.each do |position|
+        @choices[num[1]]["#{position.title}"] = UserApplication.where(num[0] => position.id.to_s).count
+      end
+    end
+  end
+
+  def add_data_to_sheet_for_export_applications(sheet, applications)
+
+    # Get info once, not multiple times
+    infos = UserInformation.all
+    vol_pos = VolunteerPosition.all
+
+    applications.each do |application|
+      user = application.user
+      user_info = user.user_information
+      sheet.add_row  [
+        user_info.first_name,
+        user_info.last_name,
+        user_info.address,
+        user_info.city,
+        user_info.province,
+        user_info.postal_code.gsub(/[- ]/,''),
+        user_info.home_phone_number.gsub(/[- ]/,''),
+        user_info.work_phone_number.gsub(/[- ]/,''),
+        user_info.cell_phone_number.gsub(/[- ]/,''),
+        user.email,
+        user_info.t_shirt_size,
+        user_info.age_group,
+        user_info.emergency_contact_name,
+        user_info.emergency_contact_number,
+        user_info.notes,
+        "a:#{user_info.availability};u:#{user_info.unavailability}",
+        application.first_choice_volunteer_position.title,
+        application.second_choice_volunteer_position.title,
+        application.third_choice_volunteer_position.title,
+      ]
+    end
   end
 end
