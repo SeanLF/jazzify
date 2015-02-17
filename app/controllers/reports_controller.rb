@@ -95,7 +95,7 @@ class ReportsController < ApplicationController
   def add_data_to_sheet_for_export_applications(sheet, applications)
 
     # Get info once, not multiple times
-    rows = UserApplication.joins("inner join Users on cast(users.id as text) = user_applications.user_id").joins("inner join User_informations on user_informations.user_id = cast(users.id as text)").select("user_informations.first_name, user_informations.last_name, user_informations.address, user_informations.city, user_informations.province, user_informations.postal_code, user_informations.home_phone_number, user_informations.work_phone_number, user_informations.cell_phone_number,users.email, user_informations.t_shirt_size, user_informations.age_group, user_informations.emergency_contact_name, user_informations.emergency_contact_number, user_informations.notes,user_informations.availability,user_informations.unavailability, (select title as c1 from volunteer_positions as v where cast(v.id as text) = user_applications.first_choice_volunteer_position_id),(select title as c2 from volunteer_positions as v where cast(v.id as text) = user_applications.second_choice_volunteer_position_id),(select title as c3 from volunteer_positions as v where cast(v.id as text) = user_applications.third_choice_volunteer_position_id)")
+    rows = get_data_for_export_applications
 
     rows.each do |row|
       sheet.add_row  [
@@ -120,5 +120,23 @@ class ReportsController < ApplicationController
         row.c3
       ]
     end
+  end
+
+  def get_data_for_export_applications
+    return UserApplication.joins("inner join Users on cast(users.id as text) = user_applications.user_id")
+        .joins("inner join User_informations on user_informations.user_id = cast(users.id as text)")
+        .select("user_informations.first_name, user_informations.last_name, user_informations.address,
+          user_informations.city, user_informations.province, user_informations.postal_code,
+          user_informations.home_phone_number, user_informations.work_phone_number,
+          user_informations.cell_phone_number,users.email, user_informations.t_shirt_size,
+          user_informations.age_group, user_informations.emergency_contact_name,
+          user_informations.emergency_contact_number, user_informations.notes,
+          user_informations.availability,user_informations.unavailability,
+          (select title as c1 from volunteer_positions as v where cast(v.id as text) =
+            user_applications.first_choice_volunteer_position_id),
+          (select title as c2 from volunteer_positions as v where cast(v.id as text) =
+            user_applications.second_choice_volunteer_position_id),
+          (select title as c3 from volunteer_positions as v where cast(v.id as text) =
+           user_applications.third_choice_volunteer_position_id)")
   end
 end
