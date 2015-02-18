@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get '/codeofconduct' => 'pages#code_of_conduct'
   get '/user_information/fake' => 'pages#fake_user_info'
   get '/privacypolicy' => 'pages#privacy'
+  get '/faq' => 'pages#faq'
 
   # Two factor authentication routes
   get '/two_factor_authentication' => 'users#two_factor_authentication'
