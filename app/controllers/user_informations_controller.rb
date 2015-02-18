@@ -47,6 +47,7 @@ class UserInformationsController < ApplicationController
   def create
     @user_information = UserInformation.new(user_information_params)
     authorize @user_information
+    @user_information.updated_by = @user.id
     @user_information.save
     if session[:return_to] and @user_information.valid?
       link = session[:return_to]
@@ -59,6 +60,7 @@ class UserInformationsController < ApplicationController
 
   def update
     authorize @user_information
+    @user_information.updated_by = @user.id
     @user_information.update(user_information_params)
     respond_with(@user_information)
   end
