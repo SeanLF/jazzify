@@ -20,4 +20,5 @@ user_info_<%= i %>:
   availability: "2015/06/21,2015/06/20,2015/06/27,2015/06/26"
   unavailability: "2015/06/28"
   code_of_conduct: true
+  updated_by: <%= @users[i].id %>
 <% end %>
