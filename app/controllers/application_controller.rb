@@ -32,6 +32,10 @@ class ApplicationController < ActionController::Base
     @festivalEndDate = "#{year}/07/01"
   end
 
+  if !Rails.env.production?
+    ENV['two_factor_encryption_key'] = Rails.application.secrets.two_factor_encryption_key
+  end
+
   protected
   def configure_devise_parameters
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, :password, :otp_attempt, :id, :remember_me) }

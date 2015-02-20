@@ -20,36 +20,25 @@ class UsersController < ApplicationController
     end
   end
 
-  # Disables 2fa
+  # Disables 2 factor auth for user
   def disable_2fa
-    # If the otp is present
-    if params[:post][:otp_attempt]
-      user = User.find(current_user.id)
-
-      # Verify if otp is valid
-      if !user.valid_otp?(params[:post][:otp_attempt])
-        flash[:alert] = "Did not supply valid one time password."
-        redirect_to two_factor_authentication_path
-        return
-      end
-
-    else
-      flash[:alert] = "Did not supply one time password."
+    # Verify if otp is present and valid
+    if !params[:post][:otp_attempt] or !current_user.valid_otp?(params[:post][:otp_attempt])
+      flash[:alert] = "Did not supply valid one time password."
       redirect_to two_factor_authentication_path
       return
+    else
+      # If we got here, the otp is valid
+      current_user.otp_required_for_login = false
+      current_user.otp_secret = nil
+      current_user.save!
+      redirect_to two_factor_authentication_path
     end
-
-    # If we got here, the otp is valid
-    current_user.otp_required_for_login = false
-    current_user.otp_secret = nil
-    current_user.save!
-    redirect_to two_factor_authentication_path
   end
 
   # Setup 2fa page
   # Creates the secret and generates the QR code, user must verify to enable
   def setup_2fa
-
     # Return error if trial to set up 2fa when it's already enabled
     if current_user.otp_required_for_login
       flash[:alert] =  "You cannot setup 2FA again!"
@@ -59,7 +48,7 @@ class UsersController < ApplicationController
 
     require 'rqrcode'
 
-    current_user.otp_secret = User.generate_otp_secret 32
+    current_user.otp_secret = User.generate_otp_secret(32)
     @codes = current_user.generate_otp_backup_codes!
     current_user.save!
     uri = current_user.otp_provisioning_uri current_user.email, issuer: "Jazzify"
