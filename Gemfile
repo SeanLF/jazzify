@@ -42,7 +42,7 @@ gem 'rqrcode-rails3'
 gem 'autoprefixer-rails'
 
 # Bootstrap oriented gems
-gem 'bootstrap-sass', '~> 3.3.3'
+gem 'bootstrap-sass', '>= 3.3.3'
 gem 'bootstrap-generators'
 gem 'devise-bootstrap-views'
 gem 'sprockets-rails'

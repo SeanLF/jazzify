@@ -224,7 +224,7 @@ DEPENDENCIES
   autoprefixer-rails
   axlsx
   bootstrap-generators
-  bootstrap-sass (~> 3.3.3)
+  bootstrap-sass (>= 3.3.3)
   byebug
   coffee-rails
   devise
