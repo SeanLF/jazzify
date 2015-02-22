@@ -20,9 +20,10 @@ class UserApplicationsController < ApplicationController
         redirect_to user_application_url registered_user_application.id
       end
       return
+    else
+      authorize @user_applications
+      respond_with(@user_applications)
     end
-    authorize @user_applications
-    respond_with(@user_applications)
   end
 
   # Apply to position page
