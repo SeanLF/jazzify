@@ -1,3 +1,4 @@
+<style type="text/css">.carousel-max-size{max-width: 570px; max-height: 400px;}</style>
 <h2>About Jazzify</h2>
 <div class="row">
   <div class="col-md-6">
@@ -6,29 +7,70 @@
       <footer>Wikipedia <sup><a href="http://en.wikipedia.org/wiki/Ottawa_International_Jazz_Festival" target="_BLANK">[1]</a></sup></footer>
     </blockquote>
     <p>
-    <%= link_to "Frequently Asked Questions", faq_path, target: "_BLANK" %>
+      <%= link_to "Frequently Asked Questions", faq_path, target: "_BLANK" %>
     </p>
     <p>
-    <a href="http://ottawajazzfestival.com" target="_BLANK">Official Ottawa Jazz Festival website</a>
+      <a href="http://ottawajazzfestival.com" target="_BLANK">Official Ottawa Jazz Festival website</a>
     </p>
     <p>
-    <%= link_to "Volunteer Code Of Conduct", codeofconduct_path, target: "_BLANK" %>.
+      <%= link_to "Volunteer Code Of Conduct", codeofconduct_path, target: "_BLANK" %>.
     </p>
   </div>
   <div class="col-md-6">
-    <img src="http://ottawajazzfestival.com/wp-content/uploads/2014/04/Volunteers-2013-arms-waving.jpg" class="img-responsive img-thumbnail">
-    <div class="caption">
-      <h5>Photo by Brian Goldschmied</h5>
+    <div id="carousel-example-generic" class="carousel slide carousel-max-size center-block" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="5"></li>
+      </ol>
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <%= image_tag "Volunteers-2013-arms-waving_scaled.jpg", class: "img-reponsive" %>
+          <div class="carousel-caption">
+            Photo by Brian Goldschmied
+          </div>
+        </div>
+        <div class="item">
+          <%= image_tag "Unknown.jpeg", class: "img-responsive" %>
+        </div>
+        <div class="item">
+          <%= image_tag "Unknown-2.jpeg", class: "img-responsive" %>
+        </div>
+        <div class="item">
+          <%= image_tag "Unknown-3.jpeg", class: "img-responsive" %>
+        </div>
+        <div class="item">
+          <%= image_tag "Unknown-4.jpeg", class: "img-responsive" %>
+        </div>
+        <div class="item">
+          <%= image_tag "Unknown-5.jpeg", class: "img-responsive" %>
+        </div>
+      </div>
+      <!-- Controls -->
+      <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
   </div>
 </div>
+<br/>
 <div class="row">
   <div class="col-md-6">
     <p>
-    Created by <a href="http://seanlf.github.io/web/" target="_BLANK">Sean Floyd</a>.
+      Created by <a href="http://seanlf.github.io/web/" target="_BLANK">Sean Floyd</a>.
     </p>
     <p>
-    Proudly built with <a href="http://rubyonrails.org/" target="_BLANK">Ruby on Rails</a>.
+      Proudly built with <a href="http://rubyonrails.org/" target="_BLANK">Ruby on Rails</a>.
     </p>
   </div>
 </div>
