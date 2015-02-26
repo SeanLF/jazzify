@@ -1,43 +1,25 @@
-<h1>Two Factor Authentication</h1>
-<% if current_user.otp_required_for_login %>
-  <%= link_to "Turn off", users_turn_off_two_factor_authentication_path, :class => 'btn btn-danger' %>
-<% else %>
-  <%= link_to "Enable", users_turn_on_two_factor_authentication_path, :class => 'btn btn-success' %>
-<% end %>
-
-<style type="text/css">
- table {
-  border-width: 0;
-  border-style: none;
-  border-color: #0000ff;
-  border-collapse: collapse;
- }
- td {
-   border-width: 0;
-   border-style: none;
-   border-color: #0000ff;
-   border-collapse: collapse;
-   padding: 0;
-   margin: 0;
-   width: 10px;
-   height: 10px;
- }
- td.black { background-color: #000; }
- td.white { background-color: #fff; }
-</style>
-<% if !@qr.nil? %>
-
-<table>
-<% @qr.modules.each_index do |x| %>
-  <tr>
-  <% @qr.modules.each_index do |y| %>
-   <% if @qr.dark?(x,y) %>
-    <td class="black"/>
-   <% else %>
-    <td class="white"/>
-   <% end %>
-  <% end %>
-  </tr>
-<% end %>
-</table>
-<% end %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Two-factor authentication</h3>
+  </div>
+  <div class="panel-body">
+    <p>
+        Status:
+        <% if current_user.otp_required_for_login %>
+          <span class="text-success">
+            <strong>On</strong>&nbsp;<i class="fa fa-check"></i>
+          <%= link_to "Edit", users_disable_otp_path, class: 'btn btn-default' %>
+          </span>
+        <% else %>
+          <span class="text-danger">
+            <strong>Off</strong>&nbsp;<i class="fa fa-times"></i>
+          <%= link_to "Edit", users_setup_otp_path, class: 'btn btn-default' %>
+          </span>
+        <% end %>
+      </p>
+      <p class="help">
+        <span class="octicon octicon-question"></span>
+        Make sure to <a href="/settings/two_factor_authentication/recovery_codes.txt" class="js-sudo-required">save your recovery codes</a> in a safe place. They will allow you to access your account if you ever lose your phone.
+      </p>
+  </div>
+</div>

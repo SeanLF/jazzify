@@ -18,8 +18,19 @@ Rails.application.routes.draw do
   get '/codeofconduct' => 'pages#code_of_conduct'
   get '/user_information/fake' => 'pages#fake_user_info'
   get '/privacypolicy' => 'pages#privacy'
+
+  # Two factor authentication routes
   get '/users/two_factor_authentication' => 'users#two_factor_authentication'
-  get '/users/turn_off_two_factor_authentication' => 'users#disable_otp'
-  get '/users/turn_on_two_factor_authentication' => 'users#enable_otp'
+  get '/users/setup_otp' => 'users#setup_2fa'
+  post '/users/enable_otp' => 'users#enable_2fa'
+  get '/users/disable_otp' => 'users#disable_2fa'
+
+  # Reports routes
+  get '/reports' => 'reports#index'
+  get "/reports/export_user_applications" => 'reports#export_user_applications'
+  get '/reports/position_popularity' => 'reports#radar_chart_position_picks'
+  get '/reports/user_distribution' => 'reports#user_completion'
+  get '/reports/t_shirt_distribution' => 'reports#t_shirt_distribution'
+
 
 end

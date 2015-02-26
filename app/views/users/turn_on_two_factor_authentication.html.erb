@@ -1,0 +1,65 @@
+<h2>Add Jazzify to your two-factor authentication app</h2>
+<br/>
+<style type="text/css">
+ table {
+  border-width: 0;
+  border-style: none;
+  border-color: #0000ff;
+  border-collapse: collapse;
+ }
+ td {
+   border-width: 0;
+   border-style: none;
+   border-color: #0000ff;
+   border-collapse: collapse;
+   padding: 0;
+   margin: 0;
+   width: 6px;
+   height: 6px;
+ }
+ td.black { background-color: #000; }
+ td.white { background-color: #fff; }
+ .center-table{  margin: 0 auto !important;  float: none !important;}
+ .col-xs-4_submit_padding{ padding-left: 0px !important;}
+</style>
+<% if !@qr.nil? %>
+<div class="row">
+  <div class="col-md-4">
+    <h5>1. Configure the app</h5>
+    <p>
+      Open your two-factor authentication app and add your Jazzify account by scanning the QR code to the right.
+    </p>
+    <p>
+      If you can't use a QR code, <a href="#">enter this text code</a>.
+    </p>
+   </div><div class="col-md-8">
+    <table class="center-table">
+    <% @qr.modules.each_index do |x| %>
+      <tr>
+      <% @qr.modules.each_index do |y| %>
+        <% if @qr.dark?(x,y) %>
+          <td class="black"/>
+        <% else %>
+          <td class="white"/>
+        <% end %>
+      <% end %>
+      </tr>
+    <% end %>
+    </table>
+  </div>
+  <div class="col-md-4">
+    <h5>2. Enter the 6-digit code that the application generates</h5>
+    <%= form_tag(users_enable_otp_path, method: :post) do -%>
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+      <div class="form-group">
+        <div class="col-xs-8">
+          <%= text_field :post, :otp_attempt, class: 'form-control', placeholder:'123456' %>
+        </div>
+        <div class="col-xs-4 col-xs-4_submit_padding">
+          <%= submit_tag 'Enable', class: 'btn btn-success' %>
+        </div>
+      </div>
+    <% end -%>
+  </div>
+</div>
+<% end %>

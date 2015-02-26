@@ -1,0 +1,4 @@
+<h1>Disable two-factor authentication</h1>
+<% if !current_user.otp_required_for_login %>
+  <%= link_to "Turn off", users_disable_otp_path, :class => 'btn btn-danger' %>
+<% end %>
