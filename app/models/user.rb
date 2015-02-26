@@ -1,7 +1,11 @@
 class User < ActiveRecord::Base
+  devise :two_factor_authenticatable,
+         :two_factor_backupable,
+         :otp_secret_encryption_key => ENV['two_factor_encryption_key']
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
+  devise :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   # A user has a role

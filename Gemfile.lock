@@ -28,6 +28,8 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
+    attr_encrypted (1.3.3)
+      encryptor (>= 1.3.0)
     autoprefixer-rails (5.0.0.1)
       execjs
     axlsx (2.0.1)
@@ -63,9 +65,20 @@ GEM
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
     devise-bootstrap-views (0.0.3)
+    devise-two-factor (1.0.0)
+      activemodel
+      activesupport
+      attr_encrypted
+      devise
+      rails
+      rotp
     did_you_mean (0.9.6)
       interception
+<<<<<<< HEAD
     diff-lcs (1.2.5)
+=======
+    encryptor (1.3.0)
+>>>>>>> 31325af... Implement two factor authentication
     erubis (2.7.0)
     execjs (2.2.2)
     font-awesome-sass (4.2.2)
@@ -139,6 +152,7 @@ GEM
       json (~> 1.4)
     responders (1.1.2)
       railties (>= 3.2, < 4.2)
+<<<<<<< HEAD
     rspec-core (3.2.0)
       rspec-support (~> 3.2.0)
     rspec-expectations (3.2.0)
@@ -156,6 +170,12 @@ GEM
       rspec-mocks (~> 3.2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.1)
+=======
+    rotp (2.1.0)
+    rqrcode (0.4.2)
+    rqrcode-rails3 (0.1.7)
+      rqrcode (>= 0.4.2)
+>>>>>>> 31325af... Implement two factor authentication
     ruby-graphviz (1.0.9)
     rubyzip (1.0.0)
     sass (3.2.19)
@@ -209,6 +229,7 @@ DEPENDENCIES
   coffee-rails
   devise
   devise-bootstrap-views
+  devise-two-factor
   did_you_mean
   font-awesome-sass
   jbuilder
@@ -218,7 +239,11 @@ DEPENDENCIES
   rails (>= 4.1.8)
   rails-erd
   rails_12factor
+<<<<<<< HEAD
   rspec-rails (>= 3.2.0)
+=======
+  rqrcode-rails3
+>>>>>>> 31325af... Implement two factor authentication
   sass-rails (>= 3.2)
   sdoc
   sprockets-rails

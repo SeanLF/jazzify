@@ -34,6 +34,9 @@ gem 'font-awesome-sass'
 
 # Authentication
 gem 'devise'
+# Two factor
+gem 'devise-two-factor'
+gem 'rqrcode-rails3'
 
 # Autoprefixer
 gem 'autoprefixer-rails'

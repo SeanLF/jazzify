@@ -32,4 +32,9 @@ class ApplicationController < ActionController::Base
     @festivalEndDate = "#{year}/07/01"
   end
 
+  # config/initializers/dev_environment.rb
+  unless Rails.env.production?
+    ENV['two_factor_encryption_key'] = "1234567890"
+  end
+
 end
