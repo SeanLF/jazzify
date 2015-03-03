@@ -17,6 +17,7 @@ class UserInformationsController < ApplicationController
       end
     else
       @user_informations = UserInformation.all
+        .paginate(:page => params[:page], per_page: 100)
       authorize @user_informations
       respond_with(@user_informations)
     end

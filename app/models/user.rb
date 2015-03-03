@@ -19,15 +19,15 @@ class User < ActiveRecord::Base
   before_create :set_default_role
 
   def is_admin?
-    self.role == Role.find_by_name('Admin')
+    self.role_id == Role.find_by_name('Admin').id
   end
 
   def is_moderator?
-    self.role == Role.find_by_name('Moderator')
+    self.role_id == Role.find_by_name('Moderator').id
   end
 
   def is_valid_user?
-    self.role != Role.find_by_name('Registered')
+    self.role_id != Role.find_by_name('Registered').id
   end
 
   def is_elevated?
@@ -36,6 +36,6 @@ class User < ActiveRecord::Base
 
   private
   def set_default_role
-    self.role = Role.find_by_name('Registered')
+    self.role_id = Role.find_by_name('Registered').id
   end
 end
