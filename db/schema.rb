@@ -16,59 +16,59 @@ ActiveRecord::Schema.define(version: 20150218230525) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "roles", force: true do |t|
-    t.string   "name"
+  create_table "roles", force: :cascade do |t|
+    t.string   "name",       limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "user_application_statuses", force: true do |t|
-    t.string   "status"
+  create_table "user_application_statuses", force: :cascade do |t|
+    t.string   "status",     limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "user_applications", force: true do |t|
-    t.string   "user_id"
-    t.string   "user_application_status_id"
+  create_table "user_applications", force: :cascade do |t|
+    t.string   "user_id",                             limit: 255
+    t.string   "user_application_status_id",          limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "first_choice_volunteer_position_id"
-    t.string   "second_choice_volunteer_position_id"
-    t.string   "third_choice_volunteer_position_id"
+    t.string   "first_choice_volunteer_position_id",  limit: 255
+    t.string   "second_choice_volunteer_position_id", limit: 255
+    t.string   "third_choice_volunteer_position_id",  limit: 255
   end
 
-  create_table "user_informations", force: true do |t|
-    t.string   "user_id"
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "address"
-    t.string   "city"
-    t.string   "province"
-    t.string   "postal_code"
-    t.string   "home_phone_number"
-    t.string   "work_phone_number"
-    t.string   "cell_phone_number"
-    t.string   "t_shirt_size"
-    t.string   "age_group"
-    t.string   "emergency_contact_name"
-    t.string   "emergency_contact_number"
+  create_table "user_informations", force: :cascade do |t|
+    t.string   "user_id",                  limit: 255
+    t.string   "first_name",               limit: 255
+    t.string   "last_name",                limit: 255
+    t.string   "address",                  limit: 255
+    t.string   "city",                     limit: 255
+    t.string   "province",                 limit: 255
+    t.string   "postal_code",              limit: 255
+    t.string   "home_phone_number",        limit: 255
+    t.string   "work_phone_number",        limit: 255
+    t.string   "cell_phone_number",        limit: 255
+    t.string   "t_shirt_size",             limit: 255
+    t.string   "age_group",                limit: 255
+    t.string   "emergency_contact_name",   limit: 255
+    t.string   "emergency_contact_number", limit: 255
     t.text     "notes"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "availability"
+    t.string   "availability",             limit: 255
     t.boolean  "code_of_conduct"
-    t.string   "unavailability"
+    t.string   "unavailability",           limit: 255
     t.integer  "updated_by"
   end
 
-  create_table "users", force: true do |t|
-    t.string   "email",                     default: "", null: false
-    t.string   "encrypted_password",        default: "", null: false
-    t.string   "reset_password_token"
+  create_table "users", force: :cascade do |t|
+    t.string   "email",                     limit: 255, default: "", null: false
+    t.string   "encrypted_password",        limit: 255, default: "", null: false
+    t.string   "reset_password_token",      limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",             default: 0,  null: false
+    t.integer  "sign_in_count",                         default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -76,26 +76,26 @@ ActiveRecord::Schema.define(version: 20150218230525) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "role_id"
-    t.string   "encrypted_otp_secret"
-    t.string   "encrypted_otp_secret_iv"
-    t.string   "encrypted_otp_secret_salt"
+    t.string   "encrypted_otp_secret",      limit: 255
+    t.string   "encrypted_otp_secret_iv",   limit: 255
+    t.string   "encrypted_otp_secret_salt", limit: 255
     t.boolean  "otp_required_for_login"
-    t.string   "otp_backup_codes",                                    array: true
+    t.string   "otp_backup_codes",                                                array: true
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "volunteer_positions", force: true do |t|
-    t.text     "title",         null: false
+  create_table "volunteer_positions", force: :cascade do |t|
+    t.text     "title",                     null: false
     t.text     "objective"
     t.text     "duties"
     t.text     "requirements"
     t.text     "contact"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "contact_email"
-    t.text     "description",   null: false
+    t.string   "contact_email", limit: 255
+    t.text     "description",               null: false
   end
 
 end

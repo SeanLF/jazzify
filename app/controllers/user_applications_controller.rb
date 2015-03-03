@@ -97,6 +97,7 @@ class UserApplicationsController < ApplicationController
           (select title as c1 from Volunteer_Positions as v where cast(v.id as text) = first_choice_volunteer_position_id),
           (select title as c2 from Volunteer_Positions as v where cast(v.id as text) = second_choice_volunteer_position_id),
           (select title as c3 from Volunteer_Positions as v where cast(v.id as text) = third_choice_volunteer_position_id)")
+        .paginate(:page => params[:page], per_page: 100)
     @count = @user_applications.length
   end
 
