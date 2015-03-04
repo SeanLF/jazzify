@@ -12,4 +12,9 @@
       <%= link_to "Sign in", new_user_session_path, :class => 'btn btn-primary'  %>
     <% end %>
     </p>
+    <p>
+      The Jazz Festival runs from
+      <u><%= Date.parse(@festivalStartDate).strftime('%A, %-d %B %Y') %></u> to
+      <u><%= Date.parse(@festivalEndDate).strftime('%A, %-d %B %Y') %></u>.
+    </p>
 </div>
