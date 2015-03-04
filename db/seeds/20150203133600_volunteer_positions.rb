@@ -292,3 +292,4 @@ box_office_transition = VolunteerPosition.where(title: "Box Office Transition").
   vp.contact = "Susan Glazer"
   puts "Created #{vp.title}"
 end
+puts "Finished volunteer positions seed task"
