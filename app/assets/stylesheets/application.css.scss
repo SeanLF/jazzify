@@ -6,6 +6,7 @@
 @import "sweet-alert";
 @import "bootstrap-select.min";
 @import "datepicker";
+@import "landing-page";
 
 // Bootswatch theme
 //@import 'bootswatch/cosmo/bootstrap.min';
@@ -15,6 +16,11 @@
 //@import "bootswatch/lumen/bootstrap.min";
 //@import 'bootswatch/paper/bootstrap.min';
 //@import 'bootswatch/readable/bootstrap.min';
+
+// Set padding 50px for fixed navbar
+.padding-top-for-fixed-navbar{
+  padding-top: 70px;
+}
 
 // Index and Show -> get rid of margins
 .form-group .col-sm-10 .well-sm{
@@ -36,4 +42,11 @@ ul.reports{
     margin-top: 5px;
     margin-bottom: 5px;
   }
+}
+
+.about-carousel-max-size{max-width: 570px; max-height: 400px;}
+
+.home-youtube-video{
+  height: 300px;
+  width: 450px;
 }

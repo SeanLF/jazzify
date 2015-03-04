@@ -21,6 +21,28 @@ class PagesController < ApplicationController
 		names.each_with_index do |permission, index|
 			@permissions << { name: names[index], admin: admin_permissions[index], mod: mod_permissions[index], user: user_permissions[index]}
 		end
+
+    @title = 'Permissions'
 	end
+
+  def about
+    @title = 'About'
+  end
+
+  def code_of_conduct
+    @title = 'Code of Conduct'
+  end
+
+  def fake_user_info
+    @title = 'User Information Example'
+  end
+
+  def privacy
+    @title = 'Privacy Policy'
+  end
+
+  def home
+    @home = true
+  end
 
 end

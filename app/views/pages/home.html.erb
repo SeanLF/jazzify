@@ -1,20 +1,175 @@
-<div class="jumbotron">
-  <h1>Welcome to Jazzify!</h1>
-  <p>Apply to volunteer at the Ottawa Jazz Festival.</p>
-  <p class="home-buttons">
-    <a class="btn btn-info" href="/about" role="button">Learn more</a>
-    <%= link_to "Privacy Policy", privacypolicy_path, :class => 'btn btn-warning' %>
-    <% if user_signed_in? %>
-      <%= link_to "Positions", volunteer_positions_path, role: "button", class: "btn btn-primary" %>
-      <%= link_to "Apply", new_user_application_path, role: "button", class: "btn btn-success" %>
-    <% else %>
-      <%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-success'  %>
-      <%= link_to "Sign in", new_user_session_path, :class => 'btn btn-primary'  %>
-    <% end %>
-    </p>
-    <p>
-      The Jazz Festival runs from
-      <u><%= Date.parse(@festivalStartDate).strftime('%A, %-d %B %Y') %></u> to
-      <u><%= Date.parse(@festivalEndDate).strftime('%A, %-d %B %Y') %></u>.
-    </p>
+<div class="intro-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="intro-message">
+          <h1>Ottawa Jazzify</h1>
+          <h3>Volunteer at the Ottawa Jazz Festival.</h3>
+          <hr class="intro-divider">
+          <ul class="list-inline intro-social-buttons">
+            <li>
+              <%= link_to "Volunteer Positions", volunteer_positions_path, class: 'btn btn-default btn-lg' %>
+            </li>
+            <% if user_signed_in? %>
+              <li>
+                <%= link_to new_user_application_path, class: 'btn btn-success btn-lg' do %>
+                  <span class="network-name">Apply</span>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to destroy_user_session_path, method: :delete, class: 'btn btn-danger btn-lg' do %>
+                  <span class="network-name">Logout</span>
+                <% end %>
+              </li>
+            <% else %>
+              <li><%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-success btn-lg'  %></li>
+              <li><%= link_to "Sign in", new_user_session_path, :class => 'btn btn-primary btn-lg'  %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
 </div>
+<!-- /.intro-header -->
+<!-- Page Content -->
+<div class="content-section-a">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 col-sm-6">
+        <hr class="section-heading-spacer">
+        <div class="clearfix"></div>
+        <h2 class="section-heading">Ottawa Jazz Festival</h2>
+        <p class="lead">
+          The Ottawa International Jazz Festival is a celebration of the worlds best jazz artists each
+          summer in the heart of downtown Ottawa.
+          <br/>
+          <br/>
+          <%= link_to "More...", about_path, target: '_BLANK', class: 'btn btn-default' %>
+        </p>
+      </div>
+      <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+        <div id="carousel-example-generic"
+          class="carousel slide about-carousel-max-size center-block img-thumbnail"
+          data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="5"></li>
+          </ol>
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" role="listbox">
+            <div class="item active">
+              <%= image_tag "Volunteers-2013-arms-waving_scaled.jpg", class: "img-reponsive" %>
+              <div class="carousel-caption">
+                Photo by Brian Goldschmied
+              </div>
+            </div>
+            <div class="item">
+              <%= image_tag "Unknown.jpeg", class: "img-responsive" %>
+            </div>
+            <div class="item">
+              <%= image_tag "Unknown-2.jpeg", class: "img-responsive" %>
+            </div>
+            <div class="item">
+              <%= image_tag "Unknown-3.jpeg", class: "img-responsive" %>
+            </div>
+            <div class="item">
+              <%= image_tag "Unknown-4.jpeg", class: "img-responsive" %>
+            </div>
+            <div class="item">
+              <%= image_tag "Unknown-5.jpeg", class: "img-responsive" %>
+            </div>
+          </div>
+          <!-- Controls -->
+          <a class="left carousel-control"
+            href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control"
+            href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.content-section-a -->
+<div class="content-section-b">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+        <hr class="section-heading-spacer">
+        <div class="clearfix"></div>
+        <h2 class="section-heading"><i class='fa fa-calendar'>&nbsp;</i>Dates</h2>
+        <p class="lead">
+          The Ottawa Jazz Festival runs from <br/>
+          <u><%= Date.parse(@festivalStartDate).strftime('%A, %-d %B %Y') %></u> to<br/>
+          <u><%= Date.parse(@festivalEndDate).strftime('%A, %-d %B %Y') %></u>.
+        </p>
+      </div>
+      <div class="col-lg-5 col-sm-pull-6  col-sm-6">
+        <%= image_tag "festival-2015-2-702x353.jpg", class: "img-responsive img-thumbnail" %>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.content-section-b -->
+<div class="content-section-a">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 col-sm-6">
+        <hr class="section-heading-spacer">
+        <div class="clearfix"></div>
+        <h2 class="section-heading"><i class='fa fa-location-arrow'>&nbsp;</i>Location</h2>
+        <p class="lead">
+          You can find maps on the official Ottawa Jazz Festival website.
+          <br/>
+          <br/>
+          <a href="http://ottawajazzfestival.com/map" class="btn btn-default"><i class='fa fa-map-marker'>&nbsp;</i>Maps</a>
+        </p>
+        </div>
+        <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+          <% #image_tag "phones.png", class: "img-responsive" %>
+          <iframe src="https://mapsengine.google.com/map/embed?mid=zJSsAHwDnr1g.kS6cP1RqYa_Y" width="450px" height="300px" class=""></iframe>
+        </div>
+      </div>
+    </div>
+    <!-- /.container -->
+  </div>
+  <!-- /.content-section-a -->
+  <div class="content-section-b">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
+        <hr class="section-heading-spacer">
+        <div class="clearfix"></div>
+        <h2 class="section-heading"><i class='fa fa-users'>&nbsp;</i>Lineup</h2>
+        <p class="lead">
+          The lineup will be announced soon.
+          <br/>
+          <br/>
+          <a href="http://ottawajazzfestival.com/lineup/" class="btn btn-default">Official lineup</a>
+        </p>
+      </div>
+      <div class="col-lg-5 col-sm-pull-6 col-sm-6">
+        <iframe src="https://www.youtube.com/embed/UTcq88tDOLc" class="embed-responsive-item img-thumbnail home-youtube-video"></iframe>
+      </div>
+    </div>
+  </div>
+  <!-- /.container -->
+</div>
+<!-- /.content-section-b -->
+<%= render 'banner' %>
+  <!-- Footer -->
+  <%= render 'footer' %>

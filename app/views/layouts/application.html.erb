@@ -7,7 +7,12 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <%= favicon_link_tag '/favicon.ico' %>
-  <title>Jazzify</title>
+  <title>
+    Jazzify
+    <% if @title %>
+       | <%= @title %>
+    <% end %>
+  </title>
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -20,14 +25,17 @@
 </head>
 <body>
   <%= render 'layouts/navbar' %>
-	<div class="container">
+  <% if @home %>
+    <div class="">
+  <% else %>
+    <div class="container padding-top-for-fixed-navbar">
     <% flash.each do |name, msg| %>
       <%= content_tag :div, :class => "alert alert-#{ name == :error ? "danger" : "success" } alert-dismissable", :role => "alert" do %>
         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <%= msg %>
       <% end %>
     <% end %>
-
+  <% end %>
     <%= yield %>
   </div>
 </body>
