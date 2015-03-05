@@ -13,7 +13,7 @@ class UserApplicationsController < ApplicationController
   def index
     # If the user is registered, redirect to their application
     if !@user.is_elevated?
-      registered_user_application = UserApplication.find_by(user_id: "#{@user.id}")
+      registered_user_application = UserApplication.find_by(user_id: @user.id)
       if registered_user_application.nil?
         redirect_to volunteer_positions_url
       else
@@ -28,16 +28,22 @@ class UserApplicationsController < ApplicationController
 
   # Apply to position page
   def new
+    @user_information = UserInformation.find_by(user_id: @user.id)
     new_user_application
     authorize @user_application
-    @user_information = UserInformation.find_by(user_id: "#{@user.id}")
     if @user_information.nil?
+      # Verify that the user has a user information
       session[:return_to] = new_user_application_url
       session[:origin] = URI(request.referer).path unless request.referer.nil?
       redirect_to new_user_information_url and return
+    elsif UserApplication.find_by(user_id: @user.id).nil?
+      # Verify that the user hasn't already applied
+      respond_with @user_application
+    else
+      @user_application = UserApplication.find_by(user_id: @user.id)
+      respond_with(@user_application)
     end
-    @user_application_statuses = UserApplicationStatus.find_by status: 'Pending'
-    respond_with(@user_application)
+    return
   end
 
   # Show an application
@@ -83,30 +89,15 @@ class UserApplicationsController < ApplicationController
   end
 
   def accept
-    @user_application = UserApplication.find(params[:id])
-    authorize @user_application
-    @user_application.user_application_status_id = UserApplicationStatus.find_by(status: 'Accepted').id
-    if @user_application.save
-      redirect_to user_applications_path, :alert => 'Application accepted successfully'
-    end
+    return change_status(params, "Accepted", "Application accepted successfully")
   end
 
   def deny
-    @user_application = UserApplication.find(params['id'])
-    authorize @user_application
-    @user_application.user_application_status_id = UserApplicationStatus.find_by(status: 'Denied').id
-    if @user_application.save
-      redirect_to user_applications_path, :alert => 'Application denied successfully'
-    end
+    return change_status(params, "Denied", "Application denied successfully")
   end
 
   def reset
-    @user_application = UserApplication.find(params['id'])
-    authorize @user_application
-    @user_application.user_application_status_id = UserApplicationStatus.find_by(status: 'Pending').id
-    if @user_application.save
-      redirect_to user_applications_path, :alert => 'Application status reset successfully'
-    end
+    return change_status(params, "Pending", "Application status reset successfully")
   end
 
   private
@@ -121,15 +112,15 @@ class UserApplicationsController < ApplicationController
 
   def set_user_applications
     @user_applications =
-      UserApplication.joins("inner join users on cast(users.id as text) = user_applications.user_id")
-        .joins("inner join user_informations on cast(users.id as text) = user_informations.user_id")
-        .joins("inner join user_application_statuses on user_applications.user_application_status_id = cast(user_application_statuses.id as text)")
+      UserApplication.joins("inner join users on users.id = user_applications.user_id")
+        .joins("inner join user_informations on users.id = user_informations.user_id")
+        .joins("inner join user_application_statuses on user_applications.user_application_status_id = user_application_statuses.id")
         .select("user_applications.id, user_informations.first_name,
           user_informations.last_name, user_applications.updated_at,
           user_application_statuses.status,
-          (select title as c1 from Volunteer_Positions as v where cast(v.id as text) = first_choice_volunteer_position_id),
-          (select title as c2 from Volunteer_Positions as v where cast(v.id as text) = second_choice_volunteer_position_id),
-          (select title as c3 from Volunteer_Positions as v where cast(v.id as text) = third_choice_volunteer_position_id)")
+          (select title as c1 from Volunteer_Positions as v where v.id = first_choice_volunteer_position_id),
+          (select title as c2 from Volunteer_Positions as v where v.id = second_choice_volunteer_position_id),
+          (select title as c3 from Volunteer_Positions as v where v.id = third_choice_volunteer_position_id)")
         .paginate(:page => params[:page], per_page: 100)
     @count = @user_applications.length
   end
@@ -164,5 +155,15 @@ class UserApplicationsController < ApplicationController
     @first_choice_volunteer_position = VolunteerPosition.find(@user_application.first_choice_volunteer_position_id) unless @user_application.first_choice_volunteer_position_id.nil?
     @second_choice_volunteer_position = VolunteerPosition.find(@user_application.second_choice_volunteer_position_id) unless @user_application.second_choice_volunteer_position_id.nil?
     @third_choice_volunteer_position = VolunteerPosition.find(@user_application.third_choice_volunteer_position_id) unless @user_application.third_choice_volunteer_position_id.nil?
+  end
+
+  def change_status(params, status, message)
+    @user_application = UserApplication.find(params['id'])
+    authorize @user_application
+    @user_application.user_application_status_id = UserApplicationStatus.find_by(status: status).id
+    @user_application.status_changed_by = @user.id
+    if @user_application.save
+      redirect_to user_applications_path, :alert => message
+    end
   end
 end

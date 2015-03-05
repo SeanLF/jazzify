@@ -1,8 +1,8 @@
 class UserInformation < ActiveRecord::Base
 
   # Tied to a user by their ID
-  has_one :user, class_name: User, primary_key: "user_id", foreign_key: "id"
-  has_one :user, class_name: User, primary_key: "updated_by", foreign_key: "id"
+  belongs_to :user, class_name: User, primary_key: "id", foreign_key: "user_id"
+  has_one :updated_by_user, class_name: User, primary_key: "id", foreign_key: "updated_by"
 
   # Someone cannot have the same name (first/last) and have the same postal/address
   validates_uniqueness_of [:postal_code, :address], scope: [:first_name, :last_name]

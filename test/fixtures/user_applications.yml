@@ -3,8 +3,8 @@
 <% @users = User.all %>
 <% rand(2000..2500).times do |i| %>
 user_application_<%= i %>:
-  <% @first = rand(1..13) %>
-  <% second = (1..13).to_a %>
+  <% @first = rand(1..23) %>
+  <% second = (1..23).to_a %>
   <% second.delete @first %>
   <% @second = (second).sample %>
   <% third = second.to_a %>
