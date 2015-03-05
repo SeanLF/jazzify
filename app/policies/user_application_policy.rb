@@ -56,6 +56,10 @@ class UserApplicationPolicy < ApplicationPolicy
     user.is_elevated?
   end
 
+  def success?
+    true
+  end
+
 	private
 	def grant_access?
     # If the user is an admin, just let them do whatever

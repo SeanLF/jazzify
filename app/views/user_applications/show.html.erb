@@ -1,4 +1,7 @@
-<h1>Application</h1>
+<h1>
+  <% if @user_application.user_id == @user.id %> My <% end %>
+  Application
+</h1>
 
 <div class="panel-body">
   <form class="form-horizontal">

@@ -1,4 +1,9 @@
-<h1>Information</h1>
+<h1>
+  <% if @user_information.user_id == @user.id %>
+    My
+  <% end %>
+  Information
+</h1>
 
 <div class="panel-body">
   <form class="form-horizontal">

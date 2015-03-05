@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :user_applications do
     collection do
+      get 'success', action: :success
       get ':id/view', action: :view
       post 'accept/:id', action: :accept
       post 'deny/:id', action: :deny

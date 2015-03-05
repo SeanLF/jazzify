@@ -1,13 +1,23 @@
 <div class="page-header">
-  <%= link_to user_informations_path, :class => 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Back
+  <% if @user_elevated %>
+    <%= link_to user_informations_path, :class => 'btn btn-default' do %>
+      <span class="glyphicon glyphicon-list-alt"></span>
+      Back
+    <% end %>
   <% end %>
   <%= link_to @user_information, :class => 'btn btn-primary' do %>
     <span class="glyphicon glyphicon-info-sign"></span>
     Show
   <% end %>
-  <h1>Editing User Information</h1>
+  <h1>
+    Editing
+    <% if @user_information.user_id == @user.id %>
+      my
+    <% else %>
+      user
+    <% end %>
+    information
+  </h1>
 </div>
 
 <%= render 'form' %>

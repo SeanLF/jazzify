@@ -57,8 +57,12 @@ class UserApplicationsController < ApplicationController
   def create
     @user_application = UserApplication.new(user_application_params)
     authorize @user_application
-    @user_application.save
+    if @user_application.save and @user_application.user_id == @user.id
+      redirect_to success_user_applications_path
+      return
+    else
     respond_with(@user_application)
+    end
   end
 
   # Edit an application
@@ -71,8 +75,13 @@ class UserApplicationsController < ApplicationController
     @user_application = UserApplication.find(params[:id])
     @user_application.attributes = user_application_params
     authorize @user_application
-    @user_application.update(user_application_params)
-    respond_with(@user_application)
+
+    if @user_application.update(user_application_params) and @user_application.user_id == @user.id
+      redirect_to success_user_applications_path
+      return
+    else
+      respond_with(@user_application)
+    end
   end
 
   # Delete application
@@ -98,6 +107,11 @@ class UserApplicationsController < ApplicationController
 
   def reset
     return change_status(params, "Pending", "Application status reset successfully")
+  end
+
+  def success
+    @user_application = UserApplication.find_by(user_id: @user.id)
+    authorize @user_application
   end
 
   private
