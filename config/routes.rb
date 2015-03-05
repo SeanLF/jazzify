@@ -2,7 +2,14 @@ Rails.application.routes.draw do
 
   resources :user_informations
 
-  resources :user_applications
+  resources :user_applications do
+    collection do
+      get ':id/view', action: :view
+      post 'accept/:id', action: :accept
+      post 'deny/:id', action: :deny
+      post 'reset/:id', action: :reset
+    end
+  end
 
   resources :volunteer_positions
 

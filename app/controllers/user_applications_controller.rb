@@ -76,6 +76,39 @@ class UserApplicationsController < ApplicationController
     respond_with(@user_application)
   end
 
+  def view
+    @user_application = UserApplication.find(params[:id])
+    authorize @user_application
+    @user_information = @user.user_information
+  end
+
+  def accept
+    @user_application = UserApplication.find(params[:id])
+    authorize @user_application
+    @user_application.user_application_status_id = UserApplicationStatus.find_by(status: 'Accepted').id
+    if @user_application.save
+      redirect_to user_applications_path, :alert => 'Application accepted successfully'
+    end
+  end
+
+  def deny
+    @user_application = UserApplication.find(params['id'])
+    authorize @user_application
+    @user_application.user_application_status_id = UserApplicationStatus.find_by(status: 'Denied').id
+    if @user_application.save
+      redirect_to user_applications_path, :alert => 'Application denied successfully'
+    end
+  end
+
+  def reset
+    @user_application = UserApplication.find(params['id'])
+    authorize @user_application
+    @user_application.user_application_status_id = UserApplicationStatus.find_by(status: 'Pending').id
+    if @user_application.save
+      redirect_to user_applications_path, :alert => 'Application status reset successfully'
+    end
+  end
+
   private
   def set_user_application
     if ! params[:id].nil?

@@ -15,8 +15,6 @@
             <th>Last name</th>
             <th>Last Updated</th>
             <th></th>
-        <th></th>
-        <th></th>
       </tr>
     </thead>
 
@@ -25,9 +23,7 @@
             <td><%= user_information.first_name %></td>
             <td><%= user_information.last_name %></td>
             <td><%= user_information.updated_at %></td>
-            <td><%= link_to 'Show', user_information %></td>
-        <td><%= link_to 'Edit', edit_user_information_path(user_information) %></td>
-        <td><%= link_to 'Delete', user_information, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+            <td><%= link_to 'View', user_information %></td>
       <% end %>
     </tbody>
   </table>

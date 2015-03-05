@@ -28,6 +28,10 @@ class UserApplicationPolicy < ApplicationPolicy
   	@user_application.user == @user or @user.is_elevated?
   end
 
+  def view?
+    user.is_elevated?
+  end
+
 	def edit?
 		@user.is_admin? or @user.is_moderator? or @user_application.user == @user
 	end
@@ -39,6 +43,18 @@ class UserApplicationPolicy < ApplicationPolicy
 	def destroy?
 		@user.is_admin? or @user_application.user == @user
 	end
+
+  def accept?
+    user.is_elevated?
+  end
+
+  def deny?
+    user.is_elevated?
+  end
+
+  def reset?
+    user.is_elevated?
+  end
 
 	private
 	def grant_access?
@@ -61,4 +77,6 @@ class UserApplicationPolicy < ApplicationPolicy
       return granted
     end
 	end
+
+
 end

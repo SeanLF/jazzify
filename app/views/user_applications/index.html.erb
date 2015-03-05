@@ -18,8 +18,6 @@
           <th>Status</th>
           <th>Last Updated</th>
           <th></th>
-          <th></th>
-          <th></th>
         </tr>
       </thead>
 
@@ -32,9 +30,7 @@
           <td><%= user_application.c3 %></td>
           <td><%= user_application.status %></td>
           <td><%= user_application.updated_at %></td>
-          <td><%= link_to 'Show', user_application %></td>
-          <td><%= link_to 'Edit', edit_user_application_path(user_application.id) %></td>
-          <td><%= link_to 'Delete', user_application, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'Review', "/user_applications/#{user_application.id}/view" %></td>
 
         <% end %>
 
