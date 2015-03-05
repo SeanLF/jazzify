@@ -1,4 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+<%= puts 'Starting user applications' %>
 <% @users = User.all %>
 <% rand(2000..2500).times do |i| %>
 user_application_<%= i %>:
@@ -15,3 +16,4 @@ user_application_<%= i %>:
   second_choice_volunteer_position_id: <%= @second %>
   third_choice_volunteer_position_id: <%= @third %>
 <% end %>
+<%= puts 'Done user applications' %>

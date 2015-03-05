@@ -4,9 +4,11 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
+<%= puts 'Starting users' %>
 <% 3333.times do |i| %>
 user_<%= i %>:
   #id: <% i + 100 %>
   email: user_<%= i %>@<%= i %>.com
   encrypted_password: 1234567890
 <% end %>
+<%= puts 'Finished users' %>

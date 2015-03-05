@@ -79,7 +79,7 @@ class UserApplicationsController < ApplicationController
   def view
     @user_application = UserApplication.find(params[:id])
     authorize @user_application
-    @user_information = @user.user_information
+    @user_information = @user_application.user.user_information
   end
 
   def accept
