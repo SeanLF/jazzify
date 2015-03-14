@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-3">
+    <fieldset>
+      <legend>Sign Up Distribution</legend>
+        Total Users:
+        <span class="text-right pull-right">
+          <%= @months.count %>
+        </span>
+      <hr/>
+    </fieldset>
+  </div>
+  <div class="col-md-9">
+    <canvas id="canvas"></canvas>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var lineData = {
+    labels: [<%= "'#{@month_names.join("', '")}'".html_safe %>],
+    datasets: [
+      {
+          label: "Sign Up",
+          fillColor: "rgba(50,177,80,0.2)",
+          strokeColor: "rgba(122,220,122,1)",
+          pointColor: "rgba(220,122,220,1)",
+          pointStrokeColor: "#fff",
+          pointHighlightFill: "#fff",
+          pointHighlightStroke: "rgba(220,220,220,1)",
+          // <%= @month_counts.keys.join(', ') %>
+          data: [<%= @month_counts.values.join(', ') %>]
+      }
+    ]
+  };
+      var ctx = document.getElementById("canvas").getContext("2d");
+      window.myLine = new Chart(ctx).Line(lineData, {responsive : true});
+  });
+</script>

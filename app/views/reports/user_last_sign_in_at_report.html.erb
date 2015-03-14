@@ -1,0 +1,49 @@
+<% @colors = ['#F7464A', '#46BFBD', '#FFC870', '#949FB1'] %>
+<div class="row">
+  <div class="col-md-3">
+    <fieldset>
+      <legend>Last login</legend>
+      <ul style="padding-left: 0px; list-style-type: none">
+        <% count = 0 %>
+        <% @counts.each do |key, value| %>
+          <li>
+            <span style="background-color: <%= @colors[count] %>; width: 10px; border: 1px solid <%= @colors[count] %>">
+              &nbsp;&nbsp;&nbsp;
+            </span>
+            &nbsp;
+            <%= key %>
+            <span class="text-right pull-right">
+              <%= value %>
+            </span>
+          </li>
+          <% count+= 1 %>
+        <% end %>
+      </ul>
+      <hr/>
+    </fieldset>
+  </div>
+  <div class="col-md-9">
+    <canvas id="canvas"></canvas>
+  </div>
+</div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var doughnutData = [
+      <% count = 0 %>
+      <% @counts.each do |key, value| %>
+        {
+          value: <%= value %>,
+          color: "<%= @colors[count] %>",
+          highlight: "<%= @colors[count] %>",
+          label: "<%= key %>"
+        }
+        <% count+= 1 %>
+      <% if count < @counts.count %>
+        ,
+      <% end %>
+      <% end %>
+      ];
+      var ctx = document.getElementById("canvas").getContext("2d");
+      window.myDoughnut = new Chart(ctx).Pie(doughnutData, {responsive : true});
+  });
+</script>

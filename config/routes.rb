@@ -41,6 +41,8 @@ Rails.application.routes.draw do
   get '/reports/position_popularity' => 'reports#radar_chart_position_picks'
   get '/reports/user_distribution' => 'reports#user_completion'
   get '/reports/t_shirt_distribution' => 'reports#t_shirt_distribution'
+  get '/reports/user_sign_up_distribution' => 'reports#user_sign_up_distribution_report'
+  get '/reports/user_last_sign_in_at_report' => 'reports#user_last_sign_in_at_report'
 
 
 end

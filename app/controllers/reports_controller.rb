@@ -5,10 +5,6 @@ class ReportsController < ApplicationController
   before_action :bar_access_to_unauthorized
   rescue_from Pundit::NotAuthorizedError, :with => :not_authorized
 
-  def index
-    raise Pundit::NotAuthorizedError unless current_user.is_elevated?
-  end
-
   def export_user_applications
     xlsx = Axlsx::Package.new do |p|
       p.workbook.add_worksheet(name: "User Applications") do |sheet|
@@ -57,12 +53,30 @@ class ReportsController < ApplicationController
   # doughnut chart: distribution of t shirt sizes
   def t_shirt_distribution
     infos = UserInformation.all
-    @sizes = infos.select('distinct t_shirt_size')
+    @sizes = infos.uniq.pluck(:t_shirt_size)
     @distribution = {}
-    @sizes.each do |user_info|
-      size = user_info.t_shirt_size.to_s
-      count = infos.where("t_shirt_size = ?", user_info.t_shirt_size.to_s).count
+    @sizes.each do |size|
+      count = infos.where("t_shirt_size = ?", size).count
       @distribution[size] = count
+    end
+  end
+
+  # Pie chart showing frequency of users logged in during time frames
+  def user_last_sign_in_at_report
+    one_week_where_clause = "last_sign_in_at > LOCALTIMESTAMP - INTERVAL '1 WEEK'"
+    two_weeks_where_clause = "last_sign_in_at BETWEEN LOCALTIMESTAMP - INTERVAL '2 WEEKS' AND LOCALTIMESTAMP - INTERVAL '1 WEEK'"
+    under_a_month_where_clause = "last_sign_in_at BETWEEN LOCALTIMESTAMP - INTERVAL '1 MONTH' AND LOCALTIMESTAMP - INTERVAL '2 WEEKS'"
+    over_a_month_where_clause = "last_sign_in_at < LOCALTIMESTAMP - INTERVAL '1 MONTH'"
+    getCountsForUserSignInReport(one_week_where_clause, two_weeks_where_clause, under_a_month_where_clause, over_a_month_where_clause)
+  end
+
+  def user_sign_up_distribution_report
+    @months = User.pluck("date_trunc('month',DATE(created_at))")
+    @month_names = []
+    @month_counts = {}
+    @months.uniq.each_with_index do |date, index|
+      @month_names[index] = Date::MONTHNAMES[date.month]
+      @month_counts[@month_names[index]] = @months.count(date)
     end
   end
 
@@ -120,6 +134,14 @@ class ReportsController < ApplicationController
         row.c3
       ]
     end
+  end
+
+  def getCountsForUserSignInReport(one_week_where_clause, two_weeks_where_clause, under_a_month_where_clause, over_a_month_where_clause)
+    @counts = {}
+    @counts["One Week"] = User.where(one_week_where_clause).count
+    @counts["Two Weeks"] = User.where(two_weeks_where_clause).count
+    @counts["Under a month"] = User.where(under_a_month_where_clause).count
+    @counts["Over a month"] = User.where(over_a_month_where_clause).count
   end
 
   def get_data_for_export_applications
