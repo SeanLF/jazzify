@@ -99,13 +99,15 @@
         </p>
       </div>
     </div>
-    <div class="col-sm-4 col-sm-offset-1 application-div">
-      <h5>Accept or Deny Application</h5>
-      <p class="home-buttons">
-        <%= link_to "Accept", "/user_applications/accept/#{@user_application.id}", method: :post, class: "btn btn-success" %>
-        <%= link_to "Deny", "/user_applications/deny/#{@user_application.id}", method: :post, class: "btn btn-danger" %>
-        <%= link_to "Reset to Pending", "/user_applications/reset/#{@user_application.id}", method: :post, class: "btn btn-primary" %>
-      </p>
-    </div>
+    <% if current_user.is_admin? %>
+      <div class="col-sm-4 col-sm-offset-1 application-div">
+        <h5>Accept or Deny Application</h5>
+        <p class="home-buttons">
+          <%= link_to "Accept", "/user_applications/accept/#{@user_application.id}", method: :post, class: "btn btn-success" %>
+          <%= link_to "Deny", "/user_applications/deny/#{@user_application.id}", method: :post, class: "btn btn-danger" %>
+          <%= link_to "Reset to Pending", "/user_applications/reset/#{@user_application.id}", method: :post, class: "btn btn-primary" %>
+        </p>
+      </div>
+    <% end %>
   </div>
 </div>

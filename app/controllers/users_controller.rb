@@ -23,17 +23,15 @@ class UsersController < ApplicationController
   # Disables 2 factor auth for user
   def disable_2fa
     # Verify if otp is present and valid
-    if !params[:post][:otp_attempt] or !current_user.valid_otp?(params[:post][:otp_attempt])
+    if !current_user.valid_otp?(otp_attempt())
       flash[:alert] = "Did not supply valid one time password."
-      redirect_to two_factor_authentication_path
-      return
     else
       # If we got here, the otp is valid
       current_user.otp_required_for_login = false
       current_user.otp_secret = nil
       current_user.save!
-      redirect_to two_factor_authentication_path
     end
+    redirect_to two_factor_authentication_path
   end
 
   # Setup 2fa page
@@ -60,17 +58,9 @@ class UsersController < ApplicationController
   # If user provides valid 2fa token, enable 2fa for account
   def enable_2fa
 
-    # If the otp is present
-    if params[:post][:otp_attempt]
-      user = User.find(current_user.id)
-
-      # Verify if otp is valid
-      if !user.valid_otp?(params[:post][:otp_attempt])
-        return error_in_token_validation("Invalid Authentication Token")
-      end
-
-    else
-      return error_in_token_validation("Missing Authentication Token")
+    # Verify if otp is valid
+    if !current_user.valid_otp?(otp_attempt())
+      return error_in_token_validation("Invalid Authentication Token - You must rescan the QR code")
     end
 
     # If we got here, the otp is valid
@@ -85,5 +75,9 @@ class UsersController < ApplicationController
   def error_in_token_validation(message = "Error")
     flash[:alert] = message
     return setup_2fa
+  end
+
+  def otp_attempt
+    return params[:post][:otp_attempt]
   end
 end

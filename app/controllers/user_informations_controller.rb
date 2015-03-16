@@ -32,11 +32,6 @@ class UserInformationsController < ApplicationController
   def new
     @user_information = UserInformation.new
     authorize @user_information
-    if session[:origin]
-      @back = session[:origin]
-    else
-      @back = user_informations_path
-    end
     @user_information.user_id = @user.id
     respond_with(@user_information)
   end
