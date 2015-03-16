@@ -62,15 +62,16 @@ class ReportsController < ApplicationController
   end
 
   # Pie chart showing frequency of users logged in during time frames
-  def user_last_sign_in_at_report
+  def user_last_sign_in_at
+    @colors = ['#F7464A', '#46BFBD', '#FFC870', '#949FB1']
     one_week_where_clause = "last_sign_in_at > LOCALTIMESTAMP - INTERVAL '1 WEEK'"
     two_weeks_where_clause = "last_sign_in_at BETWEEN LOCALTIMESTAMP - INTERVAL '2 WEEKS' AND LOCALTIMESTAMP - INTERVAL '1 WEEK'"
     under_a_month_where_clause = "last_sign_in_at BETWEEN LOCALTIMESTAMP - INTERVAL '1 MONTH' AND LOCALTIMESTAMP - INTERVAL '2 WEEKS'"
     over_a_month_where_clause = "last_sign_in_at < LOCALTIMESTAMP - INTERVAL '1 MONTH'"
-    getCountsForUserSignInReport(one_week_where_clause, two_weeks_where_clause, under_a_month_where_clause, over_a_month_where_clause)
+    get_counts_for_users_sign_in_report(one_week_where_clause, two_weeks_where_clause, under_a_month_where_clause, over_a_month_where_clause)
   end
 
-  def user_sign_up_distribution_report
+  def user_sign_up_distribution
     @months = User.pluck("date_trunc('month',DATE(created_at))")
     @month_names = []
     @month_counts = {}
@@ -136,18 +137,31 @@ class ReportsController < ApplicationController
     end
   end
 
-  def getCountsForUserSignInReport(one_week_where_clause, two_weeks_where_clause, under_a_month_where_clause, over_a_month_where_clause)
-    @counts = {}
-    @counts["One Week"] = User.where(one_week_where_clause).count
-    @counts["Two Weeks"] = User.where(two_weeks_where_clause).count
-    @counts["Under a month"] = User.where(under_a_month_where_clause).count
-    @counts["Over a month"] = User.where(over_a_month_where_clause).count
+  def get_counts_for_users_sign_in_report(one_week_where_clause, two_weeks_where_clause, under_a_month_where_clause, over_a_month_where_clause)
+    @counts = {
+      "One Week": User.where(one_week_where_clause).count,
+      "Two Weeks": User.where(two_weeks_where_clause).count,
+      "Under a month": User.where(under_a_month_where_clause).count,
+      "Over a month": User.where(over_a_month_where_clause).count
+    }
   end
 
   def get_data_for_export_applications
-    return UserApplication.joins("inner join Users on users.id = user_applications.user_id")
-        .joins("inner join User_informations on user_informations.user_id = users.id")
-        .select("user_informations.first_name, user_informations.last_name, user_informations.address,
+    return UserApplication.joins(data_for_export_join_users)
+        .joins(data_for_export_join_user_informations)
+        .select(data_for_export_select_clause)
+  end
+
+  def data_for_export_join_users
+    return "inner join Users on users.id = user_applications.user_id"
+  end
+
+  def data_for_export_join_user_informations
+    return "inner join User_informations on user_informations.user_id = users.id"
+  end
+
+  def data_for_export_select_clause
+    return "user_informations.first_name, user_informations.last_name, user_informations.address,
           user_informations.city, user_informations.province, user_informations.postal_code,
           user_informations.home_phone_number, user_informations.work_phone_number,
           user_informations.cell_phone_number,users.email, user_informations.t_shirt_size,
@@ -159,6 +173,6 @@ class ReportsController < ApplicationController
           (select title as c2 from volunteer_positions as v where v.id =
             user_applications.second_choice_volunteer_position_id),
           (select title as c3 from volunteer_positions as v where v.id =
-           user_applications.third_choice_volunteer_position_id)")
+           user_applications.third_choice_volunteer_position_id)"
   end
 end
