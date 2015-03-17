@@ -4,7 +4,7 @@ class UserApplication < ActiveRecord::Base
   belongs_to :second_choice_volunteer_position, class_name: VolunteerPosition, primary_key: "id", foreign_key: "second_choice_volunteer_position_id"
 	belongs_to :third_choice_volunteer_position, class_name: VolunteerPosition, primary_key: "id", foreign_key: "third_choice_volunteer_position_id"
 	belongs_to :user_application_status, class_name: UserApplicationStatus, primary_key: "id", foreign_key: "user_application_status_id"
-  has_one :status_changed_by_user, class_name: User, primary_key: "id", foreign_key: "status_changed_by"
+  belongs_to :status_changed_by_user, class_name: User, primary_key: "id", foreign_key: "status_changed_by"
 	before_create :set_default_status
 
 	validates_uniqueness_of :user_id, message: "has already applied"
