@@ -24,10 +24,6 @@ class ApplicationController < ActionController::Base
 
   def set_user
     @user = current_user
-    if user_signed_in?
-      @user_elevated = @user.is_elevated?
-      @user_admin = @user.is_admin?
-    end
   end
 
   def set_festival_dates

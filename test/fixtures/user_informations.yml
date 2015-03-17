@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 <%= puts "Start user info" %>
 <% @users = User.all %>
-<% rand(2500..3000).times do |i| %>
+<% rand(275..300).times do |i| %>
 user_info_<%= i %>:
   user_id: <%= @users[i].id %>
   first_name: "John"

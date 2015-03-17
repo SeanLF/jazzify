@@ -1,12 +1,8 @@
-<div class="page-header">
-  <%= link_to @back, :class => 'btn btn-default' do %>
-    <span class="glyphicon glyphicon-list-alt"></span>
-    Back
-  <% end %>
-  <h1>
-    My information
-    <small>We've filled out an <%= link_to "example", user_information_fake_path, target: "_BLANK" %>.</small>
-  </h1>
-</div>
-
+<h1>
+My information
+<small>We've filled out an <%= link_to "example", user_information_fake_path, target: "_BLANK" %>.</small>
+</h1>
+<p class="col-md-offset-2 text-warning">
+  <u>You must fill in this form before applying.</u>
+</p>
 <%= render 'form' %>

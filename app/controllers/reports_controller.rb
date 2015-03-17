@@ -32,15 +32,6 @@ class ReportsController < ApplicationController
 
     # Initialize hashes
     initialize_hash_for_radar_chart(all_applications, all_positions)
-
-    # # Insert data
-
-
-    # all_applications.each do |application|
-    #   @choices[@x[0]]["#{application.first_choice_volunteer_position.title}"] += 1
-    #   @choices[@x[1]]["#{application.second_choice_volunteer_position.title}"] += 1
-    #   @choices[@x[2]]["#{application.third_choice_volunteer_position.title}"] += 1
-    # end
   end
 
   # bar plot how many users have registered, completed info, and applied
