@@ -12,9 +12,10 @@ Test: https://ottawajazzifytest.herokuapp.com/
 
 ```bash
 bundle install
-gem update
 rake db:setup
 bundle exec rails server
 ```
 
 To generate an Entity Relationship Diagram, execute <code>rake erd</code>. Please don't commit the resulting PDF.
+
+Don't forget to run <code>heroku run rake assets:precompile</code> for production
