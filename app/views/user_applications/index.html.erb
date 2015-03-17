@@ -24,10 +24,10 @@
       <tbody>
 
         <%= content_tag_for(:tr, @user_applications) do |user_application| %>
-          <td><%= user_application.first_name + " " +user_application.last_name %></td>
-          <td><%= user_application.c1 %></td>
-          <td><%= user_application.c2 %></td>
-          <td><%= user_application.c3 %></td>
+          <td><%= user_application.name %></td>
+          <td><%= user_application.first_choice %></td>
+          <td><%= user_application.second_choice %></td>
+          <td><%= user_application.third_choice %></td>
           <td><%= user_application.status %></td>
           <td><%= user_application.updated_at %></td>
           <td><%= link_to 'Review', "/user_applications/#{user_application.id}/view" %></td>

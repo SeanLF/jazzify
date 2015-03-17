@@ -15,11 +15,10 @@ class UserApplicationsController < ApplicationController
     if !@user.is_elevated?
       registered_user_application = UserApplication.find_by(user_id: @user.id)
       if registered_user_application.nil?
-        redirect_to volunteer_positions_url
+        redirect_to new_user_application_path
       else
         redirect_to user_application_url registered_user_application.id
       end
-      return
     else
       authorize @user_applications
       respond_with(@user_applications)
@@ -42,7 +41,6 @@ class UserApplicationsController < ApplicationController
       @user_application = UserApplication.find_by(user_id: @user.id)
       respond_with(@user_application)
     end
-    return
   end
 
   # Show an application
@@ -58,7 +56,6 @@ class UserApplicationsController < ApplicationController
     authorize @user_application
     if @user_application.save and @user_application.user_id == @user.id
       redirect_to success_user_applications_path
-      return
     else
       respond_with(@user_application)
     end
@@ -77,7 +74,6 @@ class UserApplicationsController < ApplicationController
 
     if @user_application.update(user_application_params) and @user_application.user_id == @user.id
       redirect_to success_user_applications_path
-      return
     else
       respond_with(@user_application)
     end
@@ -102,7 +98,7 @@ class UserApplicationsController < ApplicationController
     @user_application = UserApplication.find(params['id'])
     authorize @user_application
     volunteer = Volunteer.create(user_id: @user_application.user_id, volunteer_position_id: 0)
-    return change_status("Accepted", "Application accepted successfully")
+    change_status("Accepted", "Application accepted successfully")
   end
 
   # Deny application
@@ -110,7 +106,7 @@ class UserApplicationsController < ApplicationController
     @user_application = UserApplication.find(params['id'])
     authorize @user_application
     delete_volunteer_if_exists
-    return change_status("Denied", "Application denied successfully")
+    change_status("Denied", "Application denied successfully")
   end
 
   # Reset application status to pending
@@ -118,7 +114,7 @@ class UserApplicationsController < ApplicationController
     @user_application = UserApplication.find(params['id'])
     authorize @user_application
     delete_volunteer_if_exists
-    return change_status("Pending", "Application status reset successfully")
+    change_status("Pending", "Application status reset successfully")
   end
 
   # Success page after applying
@@ -139,12 +135,7 @@ class UserApplicationsController < ApplicationController
   end
 
   def set_user_applications
-    @user_applications =
-      UserApplication.joins(set_user_applications_joins_users)
-    .joins(set_user_applications_joins_user_informations)
-    .joins(set_user_applications_joins_user_information_statuses)
-    .select(set_user_applications_select_clause)
-    .paginate(:page => params[:page], per_page: 100)
+    @user_applications = UserApplication.data_for_index(params[:page])
     @count = @user_applications.length
   end
 
@@ -187,27 +178,6 @@ class UserApplicationsController < ApplicationController
     if @user_application.save
       redirect_to user_applications_path, :alert => message
     end
-  end
-
-  def set_user_applications_joins_users
-    return "inner join users on users.id = user_applications.user_id"
-  end
-
-  def set_user_applications_joins_user_informations
-    return "inner join user_informations on users.id = user_informations.user_id"
-  end
-
-  def set_user_applications_joins_user_information_statuses
-    return "inner join user_application_statuses on user_applications.user_application_status_id = user_application_statuses.id"
-  end
-
-  def set_user_applications_select_clause
-    return "user_applications.id, user_informations.first_name,
-            user_informations.last_name, user_applications.updated_at,
-            user_application_statuses.status,
-            (select title as c1 from Volunteer_Positions as v where v.id = first_choice_volunteer_position_id),
-            (select title as c2 from Volunteer_Positions as v where v.id = second_choice_volunteer_position_id),
-            (select title as c3 from Volunteer_Positions as v where v.id = third_choice_volunteer_position_id)"
   end
 
   def delete_volunteer_if_exists
