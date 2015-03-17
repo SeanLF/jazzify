@@ -22,6 +22,16 @@ class UserApplication < ActiveRecord::Base
     .paginate(page: page, per_page: 100)
   end
 
+  def self.export
+    self.joins(:user)
+    .joins(:user_application_status)
+    .joins('inner join user_informations on users.id = user_informations.user_id')
+    .joins('inner join volunteer_positions as c1 on c1.id = first_choice_volunteer_position_id')
+    .joins('inner join volunteer_positions as c2 on c2.id = second_choice_volunteer_position_id')
+    .joins('inner join volunteer_positions as c3 on c3.id = third_choice_volunteer_position_id')
+    .select(export_select)
+  end
+
   private
 	def set_default_status
       self.user_application_status = UserApplicationStatus.find_by({status: 'Pending'})
@@ -41,5 +51,14 @@ class UserApplication < ActiveRecord::Base
             c1.title AS first_choice,
             c2.title AS second_choice,
             c3.title AS third_choice"
+  end
+
+  def self.export_select
+    return "first_name, last_name, address, city, province, postal_code,
+          home_phone_number, work_phone_number, cell_phone_number,email,
+          t_shirt_size, age_group, emergency_contact_name,
+          emergency_contact_number, notes, availability, unavailability,
+          c1.title as first_choice, c2.title as second_choice,
+          c3.title as third_choice"
   end
 end

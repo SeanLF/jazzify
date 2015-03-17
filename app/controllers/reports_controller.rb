@@ -101,7 +101,7 @@ class ReportsController < ApplicationController
   def add_data_to_sheet_for_export_applications(sheet, applications)
 
     # Get info once, not multiple times
-    rows = get_data_for_export_applications
+    rows = UserApplication.export
 
     rows.each do |row|
       sheet.add_row  [
@@ -121,9 +121,9 @@ class ReportsController < ApplicationController
         row.emergency_contact_number,
         row.notes,
         "a:#{row.availability};u:#{row.unavailability}",
-        row.c1,
-        row.c2,
-        row.c3
+        row.first_choice,
+        row.second_choice,
+        row.third_choice
       ]
     end
   end
@@ -135,35 +135,5 @@ class ReportsController < ApplicationController
       "Under a month": User.where(under_a_month_where_clause).count,
       "Over a month": User.where(over_a_month_where_clause).count
     }
-  end
-
-  def get_data_for_export_applications
-    return UserApplication.joins(data_for_export_join_users)
-        .joins(data_for_export_join_user_informations)
-        .select(data_for_export_select_clause)
-  end
-
-  def data_for_export_join_users
-    return "inner join Users on users.id = user_applications.user_id"
-  end
-
-  def data_for_export_join_user_informations
-    return "inner join User_informations on user_informations.user_id = users.id"
-  end
-
-  def data_for_export_select_clause
-    return "user_informations.first_name, user_informations.last_name, user_informations.address,
-          user_informations.city, user_informations.province, user_informations.postal_code,
-          user_informations.home_phone_number, user_informations.work_phone_number,
-          user_informations.cell_phone_number,users.email, user_informations.t_shirt_size,
-          user_informations.age_group, user_informations.emergency_contact_name,
-          user_informations.emergency_contact_number, user_informations.notes,
-          user_informations.availability,user_informations.unavailability,
-          (select title as c1 from volunteer_positions as v where v.id =
-            user_applications.first_choice_volunteer_position_id),
-          (select title as c2 from volunteer_positions as v where v.id =
-            user_applications.second_choice_volunteer_position_id),
-          (select title as c3 from volunteer_positions as v where v.id =
-           user_applications.third_choice_volunteer_position_id)"
   end
 end

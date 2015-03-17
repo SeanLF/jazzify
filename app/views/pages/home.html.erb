@@ -11,19 +11,19 @@
               <%= link_to "Volunteer Positions", volunteer_positions_path, class: 'btn btn-default btn-lg' %>
             </li>
             <% if user_signed_in? %>
-              <li>
-                <%= link_to new_user_application_path, class: 'btn btn-success btn-lg' do %>
-                  <span class="network-name">Apply</span>
-                <% end %>
-              </li>
-              <li>
-                <%= link_to destroy_user_session_path, method: :delete, class: 'btn btn-danger btn-lg' do %>
-                  <span class="network-name">Logout</span>
-                <% end %>
-              </li>
+            <li>
+              <%= link_to new_user_application_path, class: 'btn btn-success btn-lg' do %>
+              <span class="network-name">Apply</span>
+              <% end %>
+            </li>
+            <li>
+              <%= link_to destroy_user_session_path, method: :delete, class: 'btn btn-danger btn-lg' do %>
+              <span class="network-name">Logout</span>
+              <% end %>
+            </li>
             <% else %>
-              <li><%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-success btn-lg'  %></li>
-              <li><%= link_to "Sign in", new_user_session_path, :class => 'btn btn-primary btn-lg'  %></li>
+            <li><%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-success btn-lg'  %></li>
+            <li><%= link_to "Sign in", new_user_session_path, :class => 'btn btn-primary btn-lg'  %></li>
             <% end %>
           </ul>
         </div>
@@ -46,7 +46,7 @@
           summer in the heart of downtown Ottawa.
           <br/>
           <br/>
-          <%= link_to "More...", about_path, target: '_BLANK', class: 'btn btn-default' %>
+          <a href="http://ottawajazzfestival.com/history" target="_BLANK" class="btn btn-default">More...</a>
         </p>
       </div>
       <div class="col-lg-5 col-lg-offset-2 col-sm-6">
@@ -136,19 +136,22 @@
           You can find maps on the official Ottawa Jazz Festival website.
           <br/>
           <br/>
-          <a href="http://ottawajazzfestival.com/map" class="btn btn-default"><i class='fa fa-map-marker'>&nbsp;</i>Maps</a>
+          <a href="http://ottawajazzfestival.com/map" class="btn btn-default" target="_BLANK">
+            <i class='fa fa-map-marker'>&nbsp;</i>
+            Maps
+          </a>
         </p>
-        </div>
-        <div class="col-lg-5 col-lg-offset-2 col-sm-6">
-          <% #image_tag "phones.png", class: "img-responsive" %>
-          <iframe src="https://mapsengine.google.com/map/embed?mid=zJSsAHwDnr1g.kS6cP1RqYa_Y" class="home-youtube-video img-thumbnail"></iframe>
-        </div>
+      </div>
+      <div class="col-lg-5 col-lg-offset-2 col-sm-6">
+        <% #image_tag "phones.png", class: "img-responsive" %>
+        <iframe src="https://mapsengine.google.com/map/embed?mid=zJSsAHwDnr1g.kS6cP1RqYa_Y" class="home-youtube-video img-thumbnail"></iframe>
       </div>
     </div>
-    <!-- /.container -->
   </div>
-  <!-- /.content-section-a -->
-  <div class="content-section-b">
+  <!-- /.container -->
+</div>
+<!-- /.content-section-a -->
+<div class="content-section-b">
   <div class="container">
     <div class="row">
       <div class="col-lg-5 col-lg-offset-1 col-sm-push-6  col-sm-6">
@@ -159,7 +162,7 @@
           The lineup will be announced soon.
           <br/>
           <br/>
-          <a href="http://ottawajazzfestival.com/lineup/" class="btn btn-default">Official lineup</a>
+          <a href="http://ottawajazzfestival.com/lineup/" class="btn btn-default" target="_BLANK">Official lineup</a>
         </p>
       </div>
       <div class="col-lg-5 col-sm-pull-6 col-sm-6">
@@ -171,5 +174,5 @@
 </div>
 <!-- /.content-section-b -->
 <%= render 'banner' %>
-  <!-- Footer -->
-  <%= render 'footer' %>
+<!-- Footer -->
+<%= render 'footer' %>
