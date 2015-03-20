@@ -12,17 +12,11 @@ class SessionsController < Devise::SessionsController
         flash[:alert] =  "Invalid Authentication Token"
         render :two_factor
       else
-        set_flash_message(:notice, :signed_in) if is_flashing_format?
-        sign_in(resource_name, resource)
-        yield resource if block_given?
-        respond_with resource, location: after_sign_in_path_for(resource)
+        return create_help
       end
     else
       self.resource = warden.authenticate!(auth_options)
-      set_flash_message(:notice, :signed_in) if is_flashing_format?
-      sign_in(resource_name, resource)
-      yield resource if block_given?
-      respond_with resource, location: after_sign_in_path_for(resource)
+      return create_help
     end
   end
 
@@ -38,6 +32,16 @@ class SessionsController < Devise::SessionsController
         warden.authenticate!(auth_options) # Fall back to warden authenticate when no user found
       end
     end
+  end
+
+  private
+
+  def create_help
+    set_flash_message(:notice, :signed_in) if is_flashing_format?
+    sign_in(resource_name, resource)
+    yield resource if block_given?
+    respond_with resource, location: after_sign_in_path_for(resource)
+    return
   end
 
 end
