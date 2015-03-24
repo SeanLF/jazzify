@@ -12,8 +12,12 @@ class User < ActiveRecord::Base
   belongs_to :role, class_name: Role, foreign_key: "role_id"
 
   # When a user is deleted, delete all dependencies
-  has_many :user_application, dependent: :destroy
+  has_one :user_application, dependent: :destroy
   has_one :user_information, dependent: :destroy
+
+  # A user can manage a volunteer position
+  has_many :volunteer_position_contacts
+  has_many :volunteer_positions, through: :volunteer_position_contacts
 
   # Upon signing up, a user is assigned the default role
   before_create :set_default_role

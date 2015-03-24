@@ -10,11 +10,14 @@
   <table class="table table-striped table-hover">
     <thead>
       <tr>
-            <!-- <th>User</th> -->
             <th>First name</th>
             <th>Last name</th>
             <th>Last Updated</th>
             <th></th>
+            <% if current_user.is_admin? %>
+            <th></th>
+            <th></th>
+            <% end %>
       </tr>
     </thead>
 
@@ -24,6 +27,10 @@
             <td><%= user_information.last_name %></td>
             <td><%= user_information.updated_at %></td>
             <td><%= link_to 'View', user_information %></td>
+            <% if current_user.is_admin? %>
+            <td><%= link_to "Edit", edit_user_information_path(user_information) %></td>
+            <td><%= link_to 'Delete', user_information, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <% end %>
       <% end %>
     </tbody>
   </table>

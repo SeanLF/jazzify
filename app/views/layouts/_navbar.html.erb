@@ -27,8 +27,8 @@
               <% else %>
                 <li><%= link_to "Apply", new_user_application_path %></li>
               <% end %>
-              <% if current_user.user_application.ids.count > 0 %>
-                <li><%= link_to "My Application", user_application_path(current_user.user_application.ids.first) %></li>
+              <% if current_user.user_application %>
+                <li><%= link_to "My Application", user_application_path(current_user.user_application) %></li>
               <% elsif !current_user.user_information.nil? %>
                 <li><%= link_to "Apply", new_user_application_path %></li>
               <% end %>
