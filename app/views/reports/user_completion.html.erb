@@ -1,22 +1,22 @@
 <div class="row">
-  <div class="col-md-2">
+  <div class="col-md-3">
     <fieldset>
       <legend>Legend</legend>
       <ul style="padding-left: 0px; list-style-type: none">
         <li>
-          <span style="background-color: #F7464A; border: 1px solid #FF5A5E">&nbsp;&nbsp;&nbsp;&nbsp;</span> Have registered
+          <span style="background-color: #F7464A; border: 1px solid #FF5A5E">&nbsp;&nbsp;&nbsp;&nbsp;</span> Have registered<span class="text-right pull-right"><%= @users %></span>
         </li>
         <li>
-          <span style="background-color: #46BFBD; border: 1px solid #5AD3D1">&nbsp;&nbsp;&nbsp;&nbsp;</span> Have information
+          <span style="background-color: #46BFBD; border: 1px solid #5AD3D1">&nbsp;&nbsp;&nbsp;&nbsp;</span> Have information<span class="text-right pull-right"><%= @infos %></span>
         </li>
         <li>
-          <span style="background-color: #FDB45C; border: 1px solid #FFC870">&nbsp;&nbsp;&nbsp;&nbsp;</span> Have applied
+          <span style="background-color: #FDB45C; border: 1px solid #FFC870">&nbsp;&nbsp;&nbsp;&nbsp;</span> Have applied<span class="text-right pull-right"><%= @apps %></span>
         </li>
       </ul>
       <hr/>
     </fieldset>
   </div>
-  <div class="col-md-10">
+  <div class="col-md-9">
     <canvas id="canvas"></canvas>
   </div>
 </div>

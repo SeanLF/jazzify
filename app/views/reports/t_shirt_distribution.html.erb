@@ -4,23 +4,25 @@
       <legend>Legend</legend>
       <ul style="padding-left: 0px; list-style-type: none">
         <li>
-          <span style="background-color: #F7464A; width: 10px; border: 1px solid #FF5A5E">&nbsp;&nbsp;&nbsp;&nbsp;</span> Small
+          <span style="background-color: #F7464A; width: 10px; border: 1px solid #FF5A5E">&nbsp;&nbsp;&nbsp;&nbsp;</span> Small<span class="text-right pull-right"><%= @distribution["Small"] %></span>
         </li>
         <li>
-          <span style="background-color: #46BFBD; width: 10px; border: 1px solid #5AD3D1">&nbsp;&nbsp;&nbsp;&nbsp;</span> Medium
+          <span style="background-color: #46BFBD; width: 10px; border: 1px solid #5AD3D1">&nbsp;&nbsp;&nbsp;&nbsp;</span> Medium<span class="text-right pull-right"><%= @distribution["Medium"] %></span>
         </li>
         <li>
-          <span style="background-color: #FDB45C; width: 10px; border: 1px solid #FFC870">&nbsp;&nbsp;&nbsp;&nbsp;</span> Large
+          <span style="background-color: #FDB45C; width: 10px; border: 1px solid #FFC870">&nbsp;&nbsp;&nbsp;&nbsp;</span> Large<span class="text-right pull-right"><%= @distribution["Large"] %></span>
         </li>
         <li>
-          <span style="background-color: #949FB1; width: 10px; border: 1px solid #A8B3C5">&nbsp;&nbsp;&nbsp;&nbsp;</span> XL
+          <span style="background-color: #949FB1; width: 10px; border: 1px solid #A8B3C5">&nbsp;&nbsp;&nbsp;&nbsp;</span> XL<span class="text-right pull-right"><%= @distribution["XL"] %></span>
         </li>
         <li>
-          <span style="background-color: #4D5360; width: 10px; border: 1px solid #616774">&nbsp;&nbsp;&nbsp;&nbsp;</span> XXL
+          <span style="background-color: #4D5360; width: 10px; border: 1px solid #616774">&nbsp;&nbsp;&nbsp;&nbsp;</span> XXL<span class="text-right pull-right"><%= @distribution["XXL"] %></span>
         </li>
         <li>
-          <span style="background-color: #8D5360; width: 10px; border: 1px solid #616774">&nbsp;&nbsp;&nbsp;&nbsp;</span> XXXL
+          <span style="background-color: #8D5360; width: 10px; border: 1px solid #616774">&nbsp;&nbsp;&nbsp;&nbsp;</span> XXXL<span class="text-right pull-right"><%= @distribution["XXXL"] %></span>
         </li>
+        <hr/>
+        <li>Total<span class="text-right pull-right"><%= @distribution.values.sum %></span></li>
       </ul>
       <hr/>
     </fieldset>
