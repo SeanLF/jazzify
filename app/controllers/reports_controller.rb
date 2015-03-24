@@ -1,5 +1,6 @@
 class ReportsController < ApplicationController
   require 'axlsx'
+  include UserInformationsHelper
 
   before_filter :authenticate_user!
   before_action :bar_access_to_unauthorized
@@ -82,7 +83,7 @@ class ReportsController < ApplicationController
     return ['First Name', 'Last Name', 'Address', 'City',
           'Province', 'Postal Code', 'Home Phone Number', 'Work Phone Number',
           'Cell Phone Number', 'Email', 'T Shirt Size', 'Age Group',
-          'Emergency Contact Name', 'Emergency Contact Number', 'Notes', 'Availability',
+          'Emergency Contact Name', 'Emergency Contact Number', 'Notes', 'Availability', 'Unavailability',
           'First Choice', 'Second Choice', 'Third Choice']
   end
 
@@ -102,7 +103,6 @@ class ReportsController < ApplicationController
 
     # Get info once, not multiple times
     rows = UserApplication.export
-
     rows.each do |row|
       sheet.add_row  [
         row.first_name,
@@ -120,7 +120,10 @@ class ReportsController < ApplicationController
         row.emergency_contact_name,
         row.emergency_contact_number,
         row.notes,
-        "a:#{row.availability};u:#{row.unavailability}",
+        format_availability_dates(row.availability).join('
+'),
+        format_availability_dates(row.unavailability).join('
+'),
         row.first_choice,
         row.second_choice,
         row.third_choice
