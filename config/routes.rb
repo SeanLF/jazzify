@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   # Reports routes
   get '/reports' => 'reports#index'
   get "/reports/export_user_applications"
+  post "/reports/export_user_applications"
   get '/reports/position_popularity' => 'reports#radar_chart_position_picks'
   get '/reports/user_distribution' => 'reports#user_completion'
   get '/reports/t_shirt_distribution'

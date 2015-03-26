@@ -32,6 +32,13 @@ class UserApplication < ActiveRecord::Base
     .select(export_select)
   end
 
+  def self.export_for_position(volunteer_position_id)
+    self.export.where(
+      "first_choice_volunteer_position_id = ?
+      or second_choice_volunteer_position_id = ?
+      or third_choice_volunteer_position_id = ?", volunteer_position_id, volunteer_position_id, volunteer_position_id)
+  end
+
   private
 	def set_default_status
       self.user_application_status = UserApplicationStatus.find_by({status: 'Pending'})
