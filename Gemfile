@@ -74,6 +74,7 @@ group :development, :test do
   gem 'did_you_mean'
   # For testing
   gem 'rspec-rails', '>=3.2.0'
+  gem 'puma'
 end
 
 group :production do
