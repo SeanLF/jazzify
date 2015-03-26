@@ -21,6 +21,10 @@ class UserApplicationsController < ApplicationController
       end
     else
       authorize @user_applications
+      @vpc = VolunteerPositionContact.find_by(user_id: @user.id)
+      if @vpc and @vpc.volunteer_position_id
+        @vp = @vpc.volunteer_position_id
+      end
       respond_with(@user_applications)
     end
   end
