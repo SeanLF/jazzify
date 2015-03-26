@@ -60,6 +60,9 @@ gem 'upmin-admin'
 gem 'will_paginate', '>= 3.0.6'
 gem 'will_paginate-bootstrap'
 
+# Server
+gem 'puma'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -74,10 +77,8 @@ group :development, :test do
   gem 'did_you_mean'
   # For testing
   gem 'rspec-rails', '>=3.2.0'
-  gem 'puma'
 end
 
 group :production do
   gem 'rails_12factor'
-  gem 'puma'
 end
