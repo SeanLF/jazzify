@@ -4,19 +4,24 @@ class ReportsController < ApplicationController
 
   before_filter :authenticate_user!
   before_action :bar_access_to_unauthorized
-  rescue_from Pundit::NotAuthorizedError, :with => :not_authorized
+  rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
   def export_user_applications
     xlsx = Axlsx::Package.new do |p|
       p.workbook.add_worksheet(name: "User Applications") do |sheet|
         p.use_shared_strings = true
+
         # Headers
         sheet.add_row get_user_application_export_headers
 
-        # Get data data
-        applications = UserApplication.all
+        # Get data
+        if params[:volunteer_position]
+          applications = UserApplication.export_for_position(params[:volunteer_position][:id].to_i)
+        else
+          applications = UserApplication.export
+        end
 
-        # Add data
+        # Export
         add_data_to_sheet_for_export_applications(sheet, applications)
       end
     end
@@ -81,10 +86,10 @@ class ReportsController < ApplicationController
 
   def get_user_application_export_headers
     return ['First Name', 'Last Name', 'Address', 'City',
-          'Province', 'Postal Code', 'Home Phone Number', 'Work Phone Number',
-          'Cell Phone Number', 'Email', 'T Shirt Size', 'Age Group',
-          'Emergency Contact Name', 'Emergency Contact Number', 'Notes', 'Availability', 'Unavailability',
-          'First Choice', 'Second Choice', 'Third Choice']
+            'Province', 'Postal Code', 'Home Phone Number', 'Work Phone Number',
+            'Cell Phone Number', 'Email', 'T Shirt Size', 'Age Group',
+            'Emergency Contact Name', 'Emergency Contact Number', 'Notes', 'Availability', 'Unavailability',
+            'First Choice', 'Second Choice', 'Third Choice']
   end
 
   def initialize_hash_for_radar_chart(all_applications, all_positions)
@@ -99,10 +104,7 @@ class ReportsController < ApplicationController
     end
   end
 
-  def add_data_to_sheet_for_export_applications(sheet, applications)
-
-    # Get info once, not multiple times
-    rows = UserApplication.export
+  def add_data_to_sheet_for_export_applications(sheet, rows)
     rows.each do |row|
       sheet.add_row  [
         row.first_name,
@@ -120,9 +122,9 @@ class ReportsController < ApplicationController
         row.emergency_contact_name,
         row.emergency_contact_number,
         row.notes,
-        format_availability_dates(row.availability).join('
+        format_availability_dates(row.availability).join(',
 '),
-        format_availability_dates(row.unavailability).join('
+        format_availability_dates(row.unavailability).join(',
 '),
         row.first_choice,
         row.second_choice,

@@ -9,4 +9,14 @@ class VolunteerPosition < ActiveRecord::Base
   has_many :volunteer_position_contacts
   has_many :users, through: :volunteer_position_contacts
 
+  # Gets the volunteer positions that have been applied for
+  def self.positions_applied_for
+    self.where('id in (?)',
+      UserApplication.uniq.pluck(
+        :first_choice_volunteer_position_id,
+        :second_choice_volunteer_position_id,
+        :third_choice_volunteer_position_id
+      ).join(',').split(',').uniq)
+  end
+
 end
