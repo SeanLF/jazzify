@@ -1,0 +1,40 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Show position contact</h3>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="control-label">User</label>
+            <div class="well well-sm" name="volunteer_position_contact[User]">
+              <% if @volunteer_position_contact.user_id %>
+              <%= simple_format(@volunteer_position_contact.user.user_information.first_name) %>
+              <% end %>
+            </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Volunteer position</label>
+            <div class="well well-sm" name="volunteer_position_contact[Volunteer position]">
+              <%= simple_format(@volunteer_position_contact.volunteer_position.title) %>
+            </div>
+        </div>
+        <div class="" role="group" aria-label="...">
+          <%= link_to volunteer_position_contacts_path, :class => 'btn btn-default' do %>
+          <span class="glyphicon glyphicon-list-alt"></span>
+          Back
+          <% end %>
+          <% if policy(@volunteer_position_contact).edit? %>
+          <%= link_to edit_volunteer_position_contact_path(@volunteer_position_contact), :class => 'btn btn-primary' do %>
+          <span class="glyphicon glyphicon-pencil"></span>
+          Edit
+          <% end %>
+          <% end %>
+          <% if policy(@volunteer_position_contact).destroy? %>
+          <%= link_to 'Delete', @volunteer_position_contact, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-danger' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,7 +3,7 @@ class ReportsController < ApplicationController
   include UserInformationsHelper
 
   before_filter :authenticate_user!
-  before_action :bar_access_to_unauthorized
+  before_action :restrict_to_elevated
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
   def export_user_applications
@@ -79,10 +79,6 @@ class ReportsController < ApplicationController
   end
 
   private
-  def bar_access_to_unauthorized
-    # If user is not elevated, throw unauthorized
-    raise Pundit::NotAuthorizedError unless current_user.is_elevated?
-  end
 
   def get_user_application_export_headers
     return ['First Name', 'Last Name', 'Address', 'City',

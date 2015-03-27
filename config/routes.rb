@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :volunteer_position_contacts
   resources :user_informations
 
   resources :user_applications do

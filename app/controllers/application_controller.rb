@@ -36,6 +36,16 @@ class ApplicationController < ActionController::Base
     ENV['two_factor_encryption_key'] = Rails.application.secrets.two_factor_encryption_key
   end
 
+  def restrict_to_elevated
+    # If user is not elevated, throw unauthorized
+    raise Pundit::NotAuthorizedError unless current_user.is_elevated?
+  end
+
+  def restrict_to_admin
+    # If user is not elevated, throw unauthorized
+    raise Pundit::NotAuthorizedError unless current_user.is_admin?
+  end
+
   protected
   def configure_devise_parameters
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, :password, :otp_attempt, :id, :remember_me) }

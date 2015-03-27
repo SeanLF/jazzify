@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
   # Upon signing up, a user is assigned the default role
   before_create :set_default_role
 
+  def self.elevated
+    self.where("role_id in (?)", Role.elevated.pluck(:id)).joins(:user_information).select(:id, "concat(first_name, ' ', last_name) as name")
+  end
+
   def is_admin?
     self.role_id == Role.find_by_name('Admin').id
   end
