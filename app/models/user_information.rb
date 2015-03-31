@@ -20,10 +20,6 @@ class UserInformation < ActiveRecord::Base
     message: "%{value} is not a valid size"
   }
 
-  validate :availability_has_4_dates_min?
-  validate :unavailability_are_valid_dates?
-  validate :no_overlap_in_availability?
-
   validate :any_phone_present?
 
   validates :age_group, inclusion: { in: ['Under 16', '16 - 24', '25 - 55', '55+'],
@@ -32,7 +28,7 @@ class UserInformation < ActiveRecord::Base
   validate :code_of_conduct_accepted?
 
   # Require all but the phone # fields
-  validates :user_id, :first_name, :last_name, :address, :city, :province, :postal_code, :t_shirt_size, :age_group, :emergency_contact_name, :emergency_contact_number, :notes, presence: true
+  validates :user_id, :first_name, :last_name, :address, :city, :province, :postal_code, :t_shirt_size, :age_group, :emergency_contact_name, :emergency_contact_number, :notes, :availability, presence: true
 
   def postal_code=(val)
     self[:postal_code] = val.upcase
@@ -59,48 +55,6 @@ class UserInformation < ActiveRecord::Base
     if [self.home_phone_number, self.work_phone_number, self.cell_phone_number].reject(&:blank?).size == 0
       errors.add :base, "Please enter at least one phone number."
     end
-  end
-
-  # Verify that there are at least 4 valid available dates
-  def availability_has_4_dates_min?
-    dates = self.availability.split(',')
-    if dates.count >= 4
-      dates.each do |date|
-        begin
-          Date.parse(date)
-          rescue ArgumentError
-            errors.add :base, "Don't edit hidden fields! GRR"
-        end
-      end
-    else
-      errors.add :base, "To volunteer for the Ottawa Jazz Festival, you must be available to work at least 4 shifts."
-    end
-  end
-
-  # Verify that unavailable dates are invalid
-  def unavailability_are_valid_dates?
-    dates = self.unavailability.split(',')
-    dates.each do |date|
-        begin
-          Date.parse(date)
-          rescue ArgumentError
-            errors.add :base, "Don't edit hidden fields! GRR"
-        end
-      end
-  end
-
-  # Verify that the user did not mark a date as available and unavailable
-  def no_overlap_in_availability?
-    aDates = self.availability.split(',')
-    unaDates = self.unavailability.split(',')
-    # if valid, there is no overlapping dates
-    valid = true
-    unaDates.each do |unavailableDate|
-      if aDates.include?(unavailableDate)
-        valid = false
-      end
-    end
-    errors.add :base, "You can't be available and unavailable on the same dates, silly!" unless valid
   end
 
   def code_of_conduct_accepted?

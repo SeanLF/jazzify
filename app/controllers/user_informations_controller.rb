@@ -1,10 +1,11 @@
 class UserInformationsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_user
   before_action :set_user_information, only: [:show, :edit, :update, :destroy]
+  before_action :application_locked?, except: [:index, :show]
 
   after_action :verify_authorized, except: :index
-  rescue_from Pundit::NotAuthorizedError, :with => :not_authorized
+  rescue_from Pundit::NotAuthorizedError, with: :not_authorized
   respond_to :html
 
   def index
@@ -17,7 +18,7 @@ class UserInformationsController < ApplicationController
       end
     else
       @user_informations = UserInformation.all
-        .paginate(:page => params[:page], per_page: 100)
+        .paginate(page: params[:page], per_page: 100)
       authorize @user_informations
       respond_with(@user_informations)
     end
@@ -67,7 +68,7 @@ class UserInformationsController < ApplicationController
       if @user.is_elevated? and @user_information.user != @user
         flash[:warning] = "The user has an application that depends on this. Delete it first."
       else
-        flash[:warning] = "Your application depends on this information"
+        flash[:warning] = "Your application depends on this information. Delete it first."
       end
       redirect_to user_informations_path and return
     end
@@ -81,10 +82,14 @@ class UserInformationsController < ApplicationController
     end
 
     def user_information_params
-      params.require(:user_information).permit(:user_id, :first_name, :last_name, :address, :city, :province, :postal_code, :home_phone_number, :work_phone_number, :cell_phone_number, :t_shirt_size, :age_group, :emergency_contact_name, :emergency_contact_number, :notes, :availability, :unavailability, :code_of_conduct)
+      params.require(:user_information)
+        .permit(:user_id, :first_name, :last_name, :address, :city,
+        :province, :postal_code, :home_phone_number, :work_phone_number,
+        :cell_phone_number, :t_shirt_size, :age_group, :emergency_contact_name,
+        :emergency_contact_number, :notes, :availability, :unavailability, :code_of_conduct)
     end
 
-    def not_authorized
+    def not_authorized(params)
     redirect_to user_informations_url, :alert => 'You are not authorized to perform the requested action!'
   end
 end

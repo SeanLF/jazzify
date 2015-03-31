@@ -92,12 +92,13 @@ html {
 
 .section-heading {
     margin-bottom: 30px;
+    color: #2C405A;
 }
 
 .section-heading-spacer {
     float: left;
     width: 200px;
-    border-top: 3px solid #e7e7e7;
+    border-top: 3px solid #2C405A;
 }
 
 .banner {

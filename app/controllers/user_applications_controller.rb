@@ -5,8 +5,9 @@ class UserApplicationsController < ApplicationController
   before_action :set_user_applications, only: :index
   before_action :set_volunteer_positions
   before_action :set_user_application_statuses, except: [:destroy]
+  before_action :application_locked?, except: [:index, :show]
   after_action :verify_authorized, except: :index
-  rescue_from Pundit::NotAuthorizedError, :with => :not_authorized
+  rescue_from Pundit::NotAuthorizedError, with: :not_authorized
   respond_to :html
 
   # Show all user applications
@@ -125,6 +126,7 @@ class UserApplicationsController < ApplicationController
   def success
     @user_application = UserApplication.find_by(user_id: @user.id)
     authorize @user_application
+    @time = (@user_application.created_at + 1.days).to_formatted_s(:long)
   end
 
   # Private methods

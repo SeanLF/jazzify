@@ -64,7 +64,7 @@ class UserApplication < ActiveRecord::Base
     return "first_name, last_name, address, city, province, postal_code,
           home_phone_number, work_phone_number, cell_phone_number,email,
           t_shirt_size, age_group, emergency_contact_name,
-          emergency_contact_number, notes, availability, unavailability,
+          emergency_contact_number, notes, availability,
           c1.title as first_choice, c2.title as second_choice,
           c3.title as third_choice"
   end

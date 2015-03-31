@@ -32,6 +32,20 @@ class ApplicationController < ActionController::Base
     @festivalEndDate = "#{year}/07/01"
   end
 
+  def application_locked?
+    unless current_user.is_elevated?
+      if @user.user_application and (@user.user_application.created_at + 1.days) <= DateTime.now
+        redirect_because_application_is_locked
+      end
+    end
+  end
+
+  def redirect_because_application_is_locked
+    flash[:error] = "Your application has already been sent to a coordinator and is therefore locked. If you still need to edit it, please contact a <a href='mailto:ottawajazzify@gmail.com?subject=Edit%20Application&body=I%20registered%20as%20: " + current_user.email + "'>coordinator</a>."
+    self.response_body = nil # This should resolve the redirect root.
+    redirect_to(request.referrer || root_path)
+  end
+
   if !Rails.env.production?
     ENV['two_factor_encryption_key'] = Rails.application.secrets.two_factor_encryption_key
   end
