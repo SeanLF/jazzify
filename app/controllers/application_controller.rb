@@ -41,7 +41,7 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_because_application_is_locked
-    flash[:error] = "Your application has already been sent to a coordinator and is therefore locked. If you still need to edit it, please contact a <a href='mailto:ottawajazzify@gmail.com?subject=Edit%20Application&body=I%20registered%20as%20: " + current_user.email + "'>coordinator</a>."
+    flash[:error] = "Your application has already been sent to a coordinator and is therefore locked. If you still need to edit it, please contact a <a href='mailto:ottawajazzifycoordinator@gmail.com?subject=Edit%20Application&body=I%20registered%20as%20: " + current_user.email + "'>coordinator</a>."
     self.response_body = nil # This should resolve the redirect root.
     redirect_to(request.referrer || root_path)
   end
