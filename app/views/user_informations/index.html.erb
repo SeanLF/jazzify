@@ -25,7 +25,7 @@
       <%= content_tag_for(:tr, @user_informations) do |user_information| %>
             <td><%= user_information.first_name %></td>
             <td><%= user_information.last_name %></td>
-            <td><%= user_information.updated_at %></td>
+            <td><%= user_information.updated_at.to_formatted_s(:long) %></td>
             <td><%= link_to 'View', user_information %></td>
             <% if current_user.is_admin? %>
             <td><%= link_to "Edit", edit_user_information_path(user_information) %></td>

@@ -15,7 +15,7 @@ class ReportsController < ApplicationController
 
         # Get data
         if params[:volunteer_position]
-          applications = UserApplication.export_for_position(params[:volunteer_position][:id].to_i)
+          applications = UserApplication.export_for_position(params[:volunteer_position][:id].to_i, params[:choice])
         else
           applications = UserApplication.export
         end

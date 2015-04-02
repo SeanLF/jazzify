@@ -45,7 +45,7 @@
           <td><%= user_application.second_choice %></td>
           <td><%= user_application.third_choice %></td>
           <td><%= user_application.status %></td>
-          <td><%= user_application.updated_at %></td>
+          <td><%= user_application.updated_at.to_formatted_s(:long) %></td>
           <td><%= link_to 'Review', "/user_applications/#{user_application.id}/view" %></td>
           <% if current_user.is_admin? %>
           <td><%= link_to "Edit", edit_user_application_path(user_application) %></td>

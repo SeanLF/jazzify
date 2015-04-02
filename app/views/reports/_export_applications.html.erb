@@ -7,17 +7,27 @@
         <h4 class="modal-title" id="myModalLabel">Export applications for position</h4>
       </div>
       <%= form_tag(reports_export_user_applications_path) do |f| %>
-        <div class="modal-body">
-
-          <label>Select a Position:</label>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>I want all applications that have:</label>
           <br/>
           <%= collection_select(:volunteer_position, :id, VolunteerPosition.positions_applied_for.order(:title), :id, :title) %>
+        </div>
 
+        <div class="form-group">
+          <label>as the:</label>
+          <ul class="list-unstyled">
+          <li><label><input type="radio" checked id="first_choice" name="choice" value="first">&nbsp;first choice</label></li>
+          <li><label><input type="radio" id="second_choice" name="choice" value="second">&nbsp;second choice</label></li>
+          <li><label><input type="radio" id="third_choice" name="choice" value="third">&nbsp;third choice</label></li>
+          </ul>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <%= submit_tag("Export Applications", class: 'btn btn-primary') %>
-        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <%= submit_tag("Export Applications", class: 'btn btn-primary') %>
+      </div>
       <% end %>
     </div>
   </div>
