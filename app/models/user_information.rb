@@ -8,7 +8,8 @@ class UserInformation < ActiveRecord::Base
   validates_uniqueness_of [:postal_code, :address], scope: [:first_name, :last_name]
 
   # User cannot make more than one user information (tied to their ID)
-  validates_uniqueness_of :user_id
+  validates_uniqueness_of :user_id,
+  message: "has already filled this form"
 
   validates :postal_code, format: { with: /\A[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1}[ ]?\d{1}[A-Z]{1}\d{1}\z/i,
   message: "has the wrong format: K1A1A1 or K1A 1A1" }, allow_blank: true

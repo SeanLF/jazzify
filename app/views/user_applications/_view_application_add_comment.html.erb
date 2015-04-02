@@ -1,0 +1,22 @@
+<!-- Modal -->
+<div class="modal fade" id="add_comment_for_user_application" tabindex="-1" role="dialog" aria-labelledby="add_comment_for_user_application_title" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="add_comment_for_user_application_title">Title</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <div class="form-group">
+            <%= label_tag(:coordinator_notes, "Comments", class: "control-label") %>
+            <%= text_area_tag(:coordinator_notes, comments, class: "form-control") %>
+          </div>
+        </div></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="submit" name="commit" class="btn" id="button_submit"></button>
+        </div>
+      </div>
+    </div>
+  </div>

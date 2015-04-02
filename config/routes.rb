@@ -7,8 +7,7 @@ Rails.application.routes.draw do
     collection do
       get 'success', action: :success
       get ':id/view', action: :view
-      post 'accept/:id', action: :accept
-      post 'deny/:id', action: :deny
+      post 'accept_or_deny', action: :accept_or_deny
       post 'reset/:id', action: :reset
     end
   end

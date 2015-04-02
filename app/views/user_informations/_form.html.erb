@@ -1,13 +1,11 @@
 <style type="text/css">
-  .form-group_for_radio_buttons{margin-bottom: 0px;}
+.form-group_for_radio_buttons{margin-bottom: 0px;}
 </style>
-
 <%= form_for(@user_information, :html => { :class => "form-horizontal", :role => "form" }) do |f| %>
 <% if @user_information.errors.any? %>
 <div class="alert alert-danger alert-dismissable" role="alert">
   <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
   <h4>Please fix the following <%= pluralize(@user_information.errors.count, "error") %>:</h4>
-
   <ul>
     <% @user_information.errors.full_messages.each do |msg| %>
     <li><%= msg %></li>
@@ -15,36 +13,34 @@
   </ul>
 </div>
 <% end %>
-
 <div class="form-group hidden">
   <%= f.label :user_id, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
     <%= f.text_field :user_id, :class => "form-control"%>
   </div>
 </div>
-
 <div class="form-group">
   <%= f.label :first_name, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.text_field :first_name, :class => "form-control" %>
+    <%= f.text_field :first_name, :class => "form-control", placeholder: "John" %>
   </div>
 </div>
 <div class="form-group">
   <%= f.label :last_name, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.text_field :last_name, :class => "form-control" %>
+    <%= f.text_field :last_name, :class => "form-control", placeholder: "Doe" %>
   </div>
 </div>
 <div class="form-group">
   <%= f.label :address, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.text_field :address, :class => "form-control" %>
+    <%= f.text_field :address, :class => "form-control", placeholder: "111 Bank Street" %>
   </div>
 </div>
 <div class="form-group">
   <%= f.label :city, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.text_field :city, :class => "form-control" %>
+    <%= f.text_field :city, :class => "form-control", placeholder: "Ottawa" %>
   </div>
 </div>
 <div class="form-group">
@@ -56,13 +52,13 @@
 <div class="form-group">
   <%= f.label :postal_code, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.text_field :postal_code, :class => "form-control" %>
+    <%= f.text_field :postal_code, :class => "form-control", placeholder: "K1A 1A1" %>
   </div>
 </div>
 <div class="form-group">
   <%= f.label :home_phone_number, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.text_field :home_phone_number, :class => "form-control",
+    <%= f.text_field :home_phone_number, :class => "form-control", placeholder: "613-111-1111",
     :'data-toggle' => 'popover', :'data-trigger' => 'focus',
     :title => 'Optional requirement', :'data-content' => "You must enter at least one of the 3 telephone fields.", :'data-placement' => "top" %>
   </div>
@@ -70,7 +66,7 @@
 <div class="form-group">
   <%= f.label :work_phone_number, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.text_field :work_phone_number, :class => "form-control",
+    <%= f.text_field :work_phone_number, :class => "form-control", placeholder: "613-111-1112",
     :'data-toggle' => 'popover', :'data-trigger' => 'focus',
     :title => 'Optional requirement', :'data-content' => "You must enter at least one of the 3 telephone fields.", :'data-placement' => "top" %>
   </div>
@@ -78,7 +74,7 @@
 <div class="form-group">
   <%= f.label :cell_phone_number, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.text_field :cell_phone_number, :class => "form-control",
+    <%= f.text_field :cell_phone_number, :class => "form-control", placeholder: "613-111-1113",
     :'data-toggle' => 'popover', :'data-trigger' => 'focus',
     :title => 'Optional requirement', :'data-content' => "You must enter at least one of the 3 telephone fields.", :'data-placement' => "top" %>
   </div>
@@ -114,9 +110,8 @@
   <div class="col-sm-2"></div>
   <span class="help-block col-sm-10">Please note that these are men's sizes.</span>
 </div>
-
 <div class="form-group form-group_for_radio_buttons">
-<%= f.label :age_group, :class => "col-sm-2 control-label" %>
+  <%= f.label :age_group, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
     <label class="radio-inline">
       <%= f.radio_button :age_group, 'Under 16' %>
@@ -138,20 +133,18 @@
   <div class="col-sm-2"></div>
   <span class="help-block col-sm-10">We ask as some positions have a minimum age requirement.</span>
 </div>
-
 <div class="form-group">
   <%= f.label :emergency_contact_name, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.text_field :emergency_contact_name, :class => "form-control",
+    <%= f.text_field :emergency_contact_name, :class => "form-control", placeholder: "Jane Doe",
     :'data-toggle' => 'popover', :'data-trigger' => 'focus',
     :'data-content'=>"Let's hope we never need to call them.", :'data-placement' => "top" %>
-
   </div>
 </div>
 <div class="form-group">
   <%= f.label :emergency_contact_number, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.text_field :emergency_contact_number, :class => "form-control",
+    <%= f.text_field :emergency_contact_number, :class => "form-control", placeholder: "613-111-1114",
     :'data-toggle' => 'popover', :'data-trigger' => 'focus',
     :'data-content'=>"Just in case, we need their number.", :'data-placement' => "top" %>
   </div>
@@ -159,17 +152,17 @@
 <div class="form-group">
   <%= f.label :notes, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.text_area :notes, :class => "form-control",
+    <%= f.text_area :notes, :class => "form-control", placeholder: "i.e. SmartServe certification",
     :'data-toggle' => 'popover', :'data-trigger' => 'focus',
-    :'data-content'=>"Please note (comma seperated) any skill that you have that is relevant.<br/>For example: SmartServe certification", :'data-placement' => "top" %>
+    :'data-content'=>"Please note (comma seperated) any skill that you have that is relevant.", :'data-placement' => "top" %>
   </div>
 </div>
 <div class="form-group">
   <%= f.label :availability, :class => "col-sm-2 control-label" %>
   <div class="col-sm-10">
-    <%= f.text_area :availability, :class => "form-control availability",
+    <%= f.text_area :availability, :class => "form-control availability", placeholder: "i.e. Available weekdays after 5pm, no weekends, unavailable June 27.",
     :'data-toggle' => 'popover', :'data-trigger' => 'focus',
-    :'data-content'=>"Please let us know what your availability is, i.e. Available weekdays after 5pm, no weekends, unavailable June 27. <strong>*</strong>", :'data-placement' => "top" %>
+    :'data-content'=>"Please let us know what your availability is.<strong>*</strong>", :'data-placement' => "top" %>
   </div>
   <div class="col-sm-2"></div>
   <span class="col-sm-10 text-danger">*You are required to work a mininum of 4 shifts. </span>
@@ -190,3 +183,8 @@
   </div>
 </div>
 <% end %>
+<script type="text/javascript">
+  $(function () {
+    $('[data-toggle="popover"]').popover({html: true})
+  });
+</script>

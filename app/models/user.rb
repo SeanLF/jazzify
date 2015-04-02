@@ -22,6 +22,8 @@ class User < ActiveRecord::Base
   # Upon signing up, a user is assigned the default role
   before_create :set_default_role
 
+  before_create :set_default_year_started
+
   def self.elevated
     self.where("role_id in (?)", Role.elevated.pluck(:id)).joins(:user_information).select(:id, "concat(first_name, ' ', last_name) as name")
   end
@@ -45,5 +47,9 @@ class User < ActiveRecord::Base
   private
   def set_default_role
     self.role_id = Role.find_by_name('Registered').id
+  end
+
+  def set_default_year_started
+    self.year_started = Date.now.year
   end
 end

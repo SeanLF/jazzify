@@ -94,14 +94,51 @@
       </div>
     </div>
     <% if current_user.is_admin? %>
-      <div class="col-sm-4 col-sm-offset-1 application-div">
-        <h5>Accept or Deny Application</h5>
-        <p class="home-buttons">
-          <%= link_to "Accept", "/user_applications/accept/#{@user_application.id}", method: :post, class: "btn btn-success" %>
-          <%= link_to "Deny", "/user_applications/deny/#{@user_application.id}", method: :post, class: "btn btn-danger" %>
-          <%= link_to "Reset to Pending", "/user_applications/reset/#{@user_application.id}", method: :post, class: "btn btn-primary" %>
-        </p>
-      </div>
+    <div class="col-sm-4 col-sm-offset-1 application-div">
+      <h5>Accept or Deny Application</h5>
+      <p class="home-buttons">
+        <%= form_tag(accept_or_deny_user_applications_path) do |f| %>
+        <%= hidden_field_tag(:user_application_id, @user_application.id) %>
+        <input type="hidden" id="accept_or_deny" name="accept_or_deny"/>
+        <%= render "view_application_add_comment", comments: @user_application.coordinator_notes %>
+        <% submit_tag("Export Applications", class: 'btn btn-primary') %>
+        <a href="#Accept" class="btn btn-success" data-toggle="modal" data-target="#add_comment_for_user_application" data-type="Accept" id="accept">Accept</a>
+        <a href="#Deny" class="btn btn-danger" data-toggle="modal" data-target="#add_comment_for_user_application" data-type="Deny" id="deny">Deny</a>
+        <%= link_to "Reset to Pending", "/user_applications/reset/#{@user_application.id}", method: :post, id:"reset", class: "btn btn-primary" %>
+        <% end %>
+      </p>
+    </div>
     <% end %>
   </div>
 </div>
+<script type="text/javascript">
+  $('#add_comment_for_user_application').on('show.bs.modal', function (event) {
+    var button = $(event.relatedTarget) // Button that triggered the modal
+    var type = button.data('type') // Extract info from data-* attributes
+    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+    var modal = $(this)
+    modal.find('.modal-title').text(type + " Application")
+    $("#button_submit").text(type)
+    if(type == "Accept"){
+      $("#button_submit").removeClass('btn-danger').addClass('btn-success')
+      $("#accept_or_deny").val("Accepted")
+    }else{
+      $("#button_submit").removeClass('btn-success').addClass('btn-danger')
+      $("#accept_or_deny").val("Denied")
+    }
+  });
+  $(function() {
+    var status = "<%= @user_application.user_application_status.status %>"
+    if(status == "Accepted"){
+      $("#accept").attr('disabled', true)
+    }
+    else if(status == "Denied"){
+      $("#deny").attr('disabled', true)
+    }
+    else{
+      $("#reset").attr('disabled', true)
+    }
+  });
+
+</script>

@@ -1,5 +1,5 @@
 class UserApplicationsController < ApplicationController
-  before_filter :authenticate_user!
+  before_action :authenticate_user!
   before_action :set_user
   before_action :set_user_application, except: [:new, :create]
   before_action :set_user_applications, only: :index
@@ -98,27 +98,20 @@ class UserApplicationsController < ApplicationController
     @user_information = @user_application.user.user_information
   end
 
-  # Accept application
-  def accept
-    @user_application = UserApplication.find(params['id'])
+  # Accept or deny application
+  def accept_or_deny
+    @user_application = UserApplication.find(params['user_application_id'])
     authorize @user_application
-    volunteer = Volunteer.create(user_id: @user_application.user_id, volunteer_position_id: 0)
-    change_status("Accepted", "Application accepted successfully")
-  end
-
-  # Deny application
-  def deny
-    @user_application = UserApplication.find(params['id'])
-    authorize @user_application
-    delete_volunteer_if_exists
-    change_status("Denied", "Application denied successfully")
+    status = params['accept_or_deny']
+    @user_application.coordinator_notes = params['coordinator_notes']
+    change_status(status, "Application #{status.downcase} successfully")
   end
 
   # Reset application status to pending
   def reset
     @user_application = UserApplication.find(params['id'])
     authorize @user_application
-    delete_volunteer_if_exists
+    @user_application.coordinator_notes = nil
     change_status("Pending", "Application status reset successfully")
   end
 
@@ -183,13 +176,6 @@ class UserApplicationsController < ApplicationController
 
     if @user_application.save
       redirect_to user_applications_path, :alert => message
-    end
-  end
-
-  def delete_volunteer_if_exists
-    volunteer = Volunteer.find_by(user_id: @user_application.user_id)
-    if volunteer
-      volunteer.destroy
     end
   end
 end

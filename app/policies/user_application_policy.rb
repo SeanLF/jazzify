@@ -44,11 +44,7 @@ class UserApplicationPolicy < ApplicationPolicy
 		@user.is_admin? or @user_application.user == @user
 	end
 
-  def accept?
-    user.is_elevated?
-  end
-
-  def deny?
+  def accept_or_deny?
     user.is_elevated?
   end
 
