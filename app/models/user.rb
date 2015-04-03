@@ -50,6 +50,6 @@ class User < ActiveRecord::Base
   end
 
   def set_default_year_started
-    self.year_started = Date.now.year
+    self.year_started = DateTime.now.year
   end
 end
