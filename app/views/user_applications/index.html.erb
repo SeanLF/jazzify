@@ -11,11 +11,6 @@
         Export for specific position
       </a>
       <%= render 'reports/export_applications' %>
-    <% elsif @vp %>
-      <%= form_tag(reports_export_user_applications_path) do |f| %>
-        <select name="volunteer_position[id]" id="volunteer_position_id" class="hidden"><option value="<%= @vp %>"></option></select>
-        <%= submit_tag("Export", class: 'btn btn-default') %>
-      <% end %>
     <% end %>
   <% end %>
 

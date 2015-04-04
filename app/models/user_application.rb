@@ -18,6 +18,7 @@ class UserApplication < ActiveRecord::Base
     .joins('inner join volunteer_positions as c1 on c1.id = first_choice_volunteer_position_id')
     .joins('inner join volunteer_positions as c2 on c2.id = second_choice_volunteer_position_id')
     .joins('inner join volunteer_positions as c3 on c3.id = third_choice_volunteer_position_id')
+    .order('user_application_statuses.id', updated_at: :desc)
     .select(set_user_applications_select_clause)
     .paginate(page: page, per_page: 100)
   end
