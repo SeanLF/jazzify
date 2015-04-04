@@ -3,10 +3,8 @@
 
 This application is compatible with the latest version of rails and all gems in the Gemfile.
 
-To run this application, install postgresql on your machine.
-
-Production: https://ottawajazzify.herokuapp.com/<br>
-Test: https://ottawajazzifytest.herokuapp.com/
+To run this application, you need PostgreSQL. Get it from [here](http://www.postgresql.org/download/) or [here (Mac only)](http://postgresapp.com/).
+You should also have Ruby and Rails installed on your machine.
 
 #####Once you have this repository cloned on your machine
 
@@ -18,4 +16,6 @@ bundle exec rails server
 
 To generate an Entity Relationship Diagram, execute <code>rake erd</code>. Please don't commit the resulting PDF.
 
-Don't forget to run <code>heroku run rake assets:precompile</code> for production
+Environments:
+* [Production](https://ottawajazzify.herokuapp.com/)
+* [Test](https://ottawajazzifytest.herokuapp.com/)
