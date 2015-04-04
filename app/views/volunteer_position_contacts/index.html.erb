@@ -12,7 +12,7 @@
       <% @volunteer_position_contacts.each do |volunteer_position_contact| %>
       <tr>
         <td><%= "#{volunteer_position_contact.first_name} #{volunteer_position_contact.last_name}" %></td>
-        <td><%= volunteer_position_contact.title %></td>
+        <td><%= volunteer_position_contact.name %></td>
         <td><%= link_to 'Edit', edit_volunteer_position_contact_path(volunteer_position_contact) %></td>
         <td><%= link_to 'Destroy', volunteer_position_contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

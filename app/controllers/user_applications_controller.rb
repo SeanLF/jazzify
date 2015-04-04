@@ -139,7 +139,7 @@ class UserApplicationsController < ApplicationController
   end
 
   def set_volunteer_positions
-    @volunteer_positions = VolunteerPosition.all.order(:title)
+    @volunteer_positions = VolunteerPosition.all.order(:name)
   end
 
   def user_application_params

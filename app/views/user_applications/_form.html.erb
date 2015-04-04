@@ -26,7 +26,7 @@
   <table class="table table-striped table-hover table-condensed">
     <thead>
       <tr>
-        <th>Position Title</th>
+        <th>Position Name</th>
         <th>First Choice</th>
         <th>Second Choice</th>
         <th>Third Choice</th>
@@ -35,7 +35,7 @@
     <tbody class="striped-rows table-hover">
       <% @volunteer_positions.each do |volunteer_position| %>
         <tr>
-          <td><%= link_to volunteer_position.title, volunteer_position_url(volunteer_position.id), target: '_BLANK' %></td>
+          <td><%= link_to volunteer_position.name, volunteer_position_url(volunteer_position.id), target: '_BLANK' %></td>
           <td><%= f.radio_button :first_choice_volunteer_position_id, volunteer_position.id %></td>
           <td><%= f.radio_button :second_choice_volunteer_position_id, volunteer_position.id %></td>
           <td><%= f.radio_button :third_choice_volunteer_position_id, volunteer_position.id %></td>

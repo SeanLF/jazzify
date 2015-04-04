@@ -11,7 +11,7 @@
         <div class="form-group">
           <label>I want all applications that have:</label>
           <br/>
-          <%= collection_select(:volunteer_position, :id, VolunteerPosition.positions_applied_for.order(:title), :id, :title) %>
+          <%= collection_select(:volunteer_position, :id, VolunteerPosition.positions_applied_for.order(:name), :id, :name) %>
         </div>
 
         <div class="form-group">

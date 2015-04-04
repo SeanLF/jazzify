@@ -52,9 +52,9 @@ class UserApplication < ActiveRecord::Base
             concat(user_informations.first_name, ' ', user_informations.last_name) AS name,
             user_applications.updated_at,
             user_application_statuses.status,
-            c1.title AS first_choice,
-            c2.title AS second_choice,
-            c3.title AS third_choice"
+            c1.name AS first_choice,
+            c2.name AS second_choice,
+            c3.name AS third_choice"
   end
 
   def self.export_select
@@ -62,7 +62,7 @@ class UserApplication < ActiveRecord::Base
           home_phone_number, work_phone_number, cell_phone_number,email,
           t_shirt_size, age_group, emergency_contact_name,
           emergency_contact_number, notes, availability,
-          c1.title as first_choice, c2.title as second_choice,
-          c3.title as third_choice"
+          c1.name as first_choice, c2.name as second_choice,
+          c3.name as third_choice"
   end
 end

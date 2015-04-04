@@ -73,7 +73,7 @@ class VolunteerPositionContactsController < ApplicationController
 
     def set_elevated_list
       @elevated_users = User.elevated
-      @volunteer_positions = VolunteerPosition.all.order(:title)
+      @volunteer_positions = VolunteerPosition.all.order(:name)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150401224300) do
+ActiveRecord::Schema.define(version: 20150404193554) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -100,7 +100,7 @@ ActiveRecord::Schema.define(version: 20150401224300) do
   end
 
   create_table "volunteer_positions", force: :cascade do |t|
-    t.text     "title",                     null: false
+    t.text     "name",                      null: false
     t.text     "objective"
     t.text     "duties"
     t.text     "requirements"

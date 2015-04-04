@@ -21,7 +21,7 @@ class VolunteerPositionsControllerTest < ActionController::TestCase
 
   # test "should create volunteer_position" do
   #   assert_difference('VolunteerPosition.count') do
-  #     post :create, volunteer_position: { contact: @volunteer_position.contact, duties: @volunteer_position.duties, objective: @volunteer_position.objective, requirements: @volunteer_position.requirements, title: @volunteer_position.title }
+  #     post :create, volunteer_position: { contact: @volunteer_position.contact, duties: @volunteer_position.duties, objective: @volunteer_position.objective, requirements: @volunteer_position.requirements, name: @volunteer_position.name }
   #   end
 
   #   assert_redirected_to volunteer_position_path(assigns(:volunteer_position))
@@ -38,7 +38,7 @@ class VolunteerPositionsControllerTest < ActionController::TestCase
   # end
 
   # test "should update volunteer_position" do
-  #   patch :update, id: @volunteer_position, volunteer_position: { contact: @volunteer_position.contact, duties: @volunteer_position.duties, objective: @volunteer_position.objective, requirements: @volunteer_position.requirements, title: @volunteer_position.title }
+  #   patch :update, id: @volunteer_position, volunteer_position: { contact: @volunteer_position.contact, duties: @volunteer_position.duties, objective: @volunteer_position.objective, requirements: @volunteer_position.requirements, name: @volunteer_position.name }
   #   assert_redirected_to volunteer_position_path(assigns(:volunteer_position))
   # end
 

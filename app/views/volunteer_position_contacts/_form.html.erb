@@ -18,7 +18,7 @@
   </div>
   <div class="form-group">
     <%= f.label :volunteer_position_id, :class => "control-label" %><br/>
-    <%= f.collection_select(:volunteer_position_id, @volunteer_positions, :id, :title, class: 'form-control') %>
+    <%= f.collection_select(:volunteer_position_id, @volunteer_positions, :id, :name, class: 'form-control') %>
   </div>
   <div class="form-group">
       <%= f.submit :class => "btn btn-default" %>

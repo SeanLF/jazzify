@@ -1,12 +1,12 @@
 class VolunteerPositionsController < ApplicationController
-  after_action :verify_authorized, :except => [:index, :show]
+  before_action :authenticate_user!, :except => [:index, :show]
   before_action :set_volunteer_position, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!, :except => [:index, :show]
+  after_action :verify_authorized, :except => [:index, :show]
   rescue_from Pundit::NotAuthorizedError, :with => :not_authorized
   respond_to :html
 
   def index
-    @volunteer_positions = VolunteerPosition.all.order(:title)
+    @volunteer_positions = VolunteerPosition.all.order(:name)
     respond_with(@volunteer_positions)
   end
 
@@ -49,7 +49,7 @@ class VolunteerPositionsController < ApplicationController
     end
 
     def volunteer_position_params
-      params.require(:volunteer_position).permit(:title, :description, :objective, :duties, :requirements, :contact, :contact_email)
+      params.require(:volunteer_position).permit(:name, :description, :objective, :duties, :requirements, :contact, :contact_email)
     end
 
   def not_authorized

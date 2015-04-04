@@ -18,7 +18,7 @@ class ReportsController < ApplicationController
         if params[:volunteer_position]
           volunteer_position_id = params[:volunteer_position][:id].to_i
           applications = UserApplication.export_for_position(volunteer_position_id, params[:choice])
-          title = "Applications for #{VolunteerPosition.find(volunteer_position_id).title}"
+          title = "Applications for #{VolunteerPosition.find(volunteer_position_id).name}"
         else
           applications = UserApplication.export
           title = "Applications"
@@ -98,7 +98,7 @@ class ReportsController < ApplicationController
     @x.each do |num|
       @choices[num[1]] = {}
       all_positions.each do |position|
-        @choices[num[1]]["#{position.title}"] = UserApplication.where(num[0] => position.id.to_s).count
+        @choices[num[1]]["#{position.name}"] = UserApplication.where(num[0] => position.id.to_s).count
       end
     end
   end
