@@ -6,6 +6,7 @@ class ReportsController < ApplicationController
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
   def export_user_applications
+    title = ''
     xlsx = Axlsx::Package.new do |p|
       p.workbook.add_worksheet(name: "User Applications") do |sheet|
         p.use_shared_strings = true
@@ -15,17 +16,20 @@ class ReportsController < ApplicationController
 
         # Get data
         if params[:volunteer_position]
-          applications = UserApplication.export_for_position(params[:volunteer_position][:id].to_i, params[:choice])
+          volunteer_position_id = params[:volunteer_position][:id].to_i
+          applications = UserApplication.export_for_position(volunteer_position_id, params[:choice])
+          title = "Applications for #{VolunteerPosition.find(volunteer_position_id).title}"
         else
           applications = UserApplication.export
+          title = "Applications"
         end
 
         # Export
         add_data_to_sheet_for_export_applications(sheet, applications)
       end
     end
-    xlsx.serialize('/tmp/applications.xlsx')
-    send_file('/tmp/applications.xlsx')
+    xlsx.serialize("/tmp/#{title}.xlsx")
+    send_file("/tmp/#{title}.xlsx")
   end
 
   # Radar chart for volunteer position picks
@@ -84,7 +88,7 @@ class ReportsController < ApplicationController
             'Province', 'Postal Code', 'Home Phone Number', 'Work Phone Number',
             'Cell Phone Number', 'Email', 'T Shirt Size', 'Age Group',
             'Emergency Contact Name', 'Emergency Contact Number', 'Notes', 'Availability',
-            'First Choice', 'Second Choice', 'Third Choice']
+            'First Choice', 'Second Choice', 'Third Choice', 'Classification']
   end
 
   def initialize_hash_for_radar_chart(all_applications, all_positions)
@@ -120,7 +124,8 @@ class ReportsController < ApplicationController
         row.availability,
         row.first_choice,
         row.second_choice,
-        row.third_choice
+        row.third_choice,
+        'Volunteer'
       ]
     end
   end
