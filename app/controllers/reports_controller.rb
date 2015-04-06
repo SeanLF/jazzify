@@ -72,7 +72,7 @@ class ReportsController < ApplicationController
   end
 
   def user_sign_up_distribution
-    @months = User.pluck("date_trunc('month',DATE(created_at))")
+    @months = User.pluck("date_trunc('month',DATE(created_at))").sort
     @month_names = []
     @month_counts = {}
     @months.uniq.each_with_index do |date, index|
