@@ -52,7 +52,11 @@ class ReportsController < ApplicationController
 
   # doughnut chart: distribution of t shirt sizes
   def t_shirt_distribution
-    infos = UserInformation.all
+    accepted = UserApplicationStatus.find_by(status: "Accepted").id
+    # get all accepted application users
+    accepted_application_users =
+      UserApplication.where(user_application_status_id: accepted).pluck(:user_id)
+    infos = UserInformation.where(user_id: accepted_application_users)
     @sizes = infos.uniq.pluck(:t_shirt_size)
     @distribution = {}
     @sizes.each do |size|
