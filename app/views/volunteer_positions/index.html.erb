@@ -12,7 +12,7 @@
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#<%= "collapse#{index}" %>" aria-expanded="false" aria-controls="<%= "collapse#{index}" %>">
           <%= volunteer_position.name %>
         </a>
-        <% if @user.is_elevated? %>
+        <% if @user and @user.is_elevated? %>
           <span class="pull-right"><%= volunteer_position.visible ? "Visible" : "Hidden" %></span>
         <% end %>
       </h4>
