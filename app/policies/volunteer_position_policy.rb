@@ -13,6 +13,22 @@ class VolunteerPositionPolicy < ApplicationPolicy
 		@volunteer_position = volunteer_position
 	end
 
+	def index?
+		if @user and @user.is_elevated?
+			return true
+		else
+			return !volunteer_position.any? { |vp| vp.visible == false }
+		end
+	end
+
+	def show?
+		if @user and @user.is_elevated?
+			return true
+		else
+			return @volunteer_position.visible
+		end
+	end
+
 	def create?
 		return new? unless user.nil?
 	end

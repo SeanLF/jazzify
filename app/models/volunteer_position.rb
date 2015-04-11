@@ -9,6 +9,9 @@ class VolunteerPosition < ActiveRecord::Base
   has_many :volunteer_position_contacts
   has_many :users, through: :volunteer_position_contacts
 
+  # Scopes
+  scope :visible, -> { where(visible: true) }
+
   # Gets the volunteer positions that have been applied for
   def self.positions_applied_for
     self.where('id in (?)',

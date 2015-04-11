@@ -12,6 +12,12 @@ class ApplicationController < ActionController::Base
   # Returning 403 Forbidden if permission is denied
   rescue_from Pundit::NotAuthorizedError, with: :permission_denied
 
+  def set_user_if_logged_in
+    if current_user
+      set_user
+    end
+  end
+
   private
 
   def permission_denied

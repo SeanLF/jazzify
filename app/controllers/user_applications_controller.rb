@@ -139,7 +139,11 @@ class UserApplicationsController < ApplicationController
   end
 
   def set_volunteer_positions
-    @volunteer_positions = VolunteerPosition.all.order(:name)
+    if @user and @user.is_elevated?
+      @volunteer_positions = VolunteerPosition.all.order(:name)
+    else
+      @volunteer_positions = VolunteerPosition.visible.order(:name)
+    end
   end
 
   def user_application_params
