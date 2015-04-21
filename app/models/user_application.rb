@@ -18,8 +18,8 @@ class UserApplication < ActiveRecord::Base
     .joins('inner join volunteer_positions as c1 on c1.id = first_choice_volunteer_position_id')
     .joins('inner join volunteer_positions as c2 on c2.id = second_choice_volunteer_position_id')
     .joins('inner join volunteer_positions as c3 on c3.id = third_choice_volunteer_position_id')
-    .order('user_application_statuses.id', updated_at: :desc)
-    .select(set_user_applications_select_clause)
+    .order(created_at: :desc)
+    .select(user_applications_select_clause)
     .paginate(page: page, per_page: 100)
   end
 
@@ -48,10 +48,10 @@ class UserApplication < ActiveRecord::Base
     end
   end
 
-  def self.set_user_applications_select_clause
+  def self.user_applications_select_clause
     return "user_applications.id,
             concat(user_informations.first_name, ' ', user_informations.last_name) AS name,
-            user_applications.updated_at,
+            user_applications.created_at,
             user_application_statuses.status,
             c1.name AS first_choice,
             c2.name AS second_choice,
