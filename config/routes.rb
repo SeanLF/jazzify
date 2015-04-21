@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :user_applications do
     collection do
       get 'success', action: :success
-      get ':id/view', action: :view
+      get ':id/view', action: :view, as: :view
       post 'accept_or_deny', action: :accept_or_deny
       post 'reset/:id', action: :reset
     end
@@ -42,8 +42,9 @@ Rails.application.routes.draw do
   get '/reports/position_popularity' => 'reports#radar_chart_position_picks'
   get '/reports/user_distribution' => 'reports#user_completion'
   get '/reports/t_shirt_distribution'
-  get 'reports/user_sign_up_distribution'
-  get 'reports/user_last_sign_in_at'
+  get '/reports/user_sign_up_distribution'
+  get '/reports/user_last_sign_in_at'
+  get '/n' => 'pages#notify_admins_link_ha'
 
 
 end

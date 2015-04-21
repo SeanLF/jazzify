@@ -51,6 +51,10 @@ class UserInformation < ActiveRecord::Base
     self[:emergency_contact_name] = val.titleize
   end
 
+  def full_name
+    self[:first_name] + " " + self[:last_name]
+  end
+
   private
   def any_phone_present?
     if [self.home_phone_number, self.work_phone_number, self.cell_phone_number].reject(&:blank?).size == 0

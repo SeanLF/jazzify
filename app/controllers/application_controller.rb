@@ -66,6 +66,28 @@ class ApplicationController < ActionController::Base
     raise Pundit::NotAuthorizedError unless current_user.is_admin?
   end
 
+  # Notify admin with a link and body through PushBullet
+  def notify_admins_link(title, body, link)
+    require 'net/http'
+    require "uri"
+    uri = URI.parse('https://api.pushbullet.com/v2/pushes')
+    request = Net::HTTP::Post.new(uri.to_s, {
+        "Content-Type" => "application/json",
+        "Authorization" => "Bearer #{ENV['PUSHBULLET_API_KEY']}"
+        })
+    request.set_form_data({
+            'target': "#{ENV['MANDRILL_USERNAME']}",
+            'type': 'link',
+            'title': "#{title}",
+            'body': "#{body}",
+            'url': "#{root_url + link}"
+          })
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+    http.request(request)
+  end
+
   protected
   def configure_devise_parameters
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, :password, :otp_attempt, :id, :remember_me) }

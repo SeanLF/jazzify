@@ -60,6 +60,9 @@ class UserApplicationsController < ApplicationController
     @user_application = UserApplication.new(user_application_params)
     authorize @user_application
     if @user_application.save and @user_application.user_id == @user.id
+      Thread.new do
+        notify_admins_link('New Jazzify Application', @user.user_information.full_name + " has applied", view_user_applications_path(@user_application))
+      end
       redirect_to success_user_applications_path
     else
       respond_with(@user_application)
