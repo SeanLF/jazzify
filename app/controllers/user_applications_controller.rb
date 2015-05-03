@@ -26,6 +26,7 @@ class UserApplicationsController < ApplicationController
       if @vpc and @vpc.volunteer_position_id
         @vp = @vpc.volunteer_position_id
       end
+      @count = UserApplication.count
       respond_with(@user_applications)
     end
   end
