@@ -32,15 +32,15 @@ class ReportsController < ApplicationController
     send_file("/tmp/#{title}.xlsx")
   end
 
-  # Radar chart for volunteer position picks
-  def radar_chart_position_picks
+  # Line chart for volunteer position picks
+  def position_picks
 
     # Get data
     all_applications = UserApplication.all
     all_positions = VolunteerPosition.all
 
     # Initialize hashes
-    initialize_hash_for_radar_chart(all_applications, all_positions)
+    initialize_hash_for_position_picks_chart(all_applications, all_positions)
   end
 
   # bar plot how many users have registered, completed info, and applied
@@ -95,7 +95,7 @@ class ReportsController < ApplicationController
             'First Choice', 'Second Choice', 'Third Choice', 'Classification']
   end
 
-  def initialize_hash_for_radar_chart(all_applications, all_positions)
+  def initialize_hash_for_position_picks_chart(all_applications, all_positions)
 
     @x = {first_choice_volunteer_position_id: "First Choice", second_choice_volunteer_position_id: "Second Choice", third_choice_volunteer_position_id: "Third Choice"}
     @choices = {}

@@ -22,7 +22,7 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function(){
-    var radarChartData = {
+    var lineChartData = {
     labels: <%= raw @choices[@x.values[0]].keys.to_a %>,
     datasets: [
       {
@@ -58,7 +58,7 @@
     ]
   };
 
-    window.myRadar = new Chart(document.getElementById("canvas").getContext("2d")).Radar(radarChartData, {
+    window.myRadar = new Chart(document.getElementById("canvas").getContext("2d")).Line(lineChartData, {
       responsive: true
     });
   });
