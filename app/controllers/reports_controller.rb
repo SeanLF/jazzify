@@ -96,7 +96,6 @@ class ReportsController < ApplicationController
   end
 
   def initialize_hash_for_position_picks_chart(all_applications, all_positions)
-
     @x = {first_choice_volunteer_position_id: "First Choice", second_choice_volunteer_position_id: "Second Choice", third_choice_volunteer_position_id: "Third Choice"}
     @choices = {}
     @x.each do |num|

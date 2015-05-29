@@ -12,7 +12,7 @@ class UserApplicationsController < ApplicationController
 
   # Show all user applications
   def index
-    # If the user is registered, redirect to their application
+    # If the user is not elevated, redirect to their application
     if !@user.is_elevated?
       registered_user_application = UserApplication.find_by(user_id: @user.id)
       if registered_user_application.nil?
