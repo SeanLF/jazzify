@@ -64,34 +64,33 @@ ul.reports{
   z-index: 1000000;
 }
 
-
-.navbar-default{
-  background-color: #2C405A;
+.navbar-inverse{
+  background-color: #343538;
+  border-color: #343538;
 }
 
-.navbar-default .navbar-nav > li > a, .navbar-default .navbar-brand {
-  color: white!important;
+@media (max-width: 767px) {
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+    color: rgb(221, 221, 221)!important;
   &:hover{
-    color: #CECFC7!important;
+    color: white!important;
+  }
+}}
+
+.navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-brand {
+  color: rgb(221, 221, 221)!important;
+  &:hover{
+    color: white!important;
   }
 }
 
-
-
-.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-  color: #555!important;
-  background-color: #e7e7e7;
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+  //color: #555!important;
+  //background-color: #e7e7e7;
 }
 
 .ojf-logo-new-info-app{
   padding-left:24px;
-}
-
-.ojf-logo-background{
-  background-color: rgb(44,64,90);
-  border-radius: 70px;
-  display:block;
-  margin-bottom: 5px;
 }
 
 .ojf-logo-success{
