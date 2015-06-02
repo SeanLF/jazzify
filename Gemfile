@@ -80,4 +80,5 @@ end
 group :production do
   gem 'rails_12factor'
   gem 'mandrill-api', require: 'mandrill'
+  gem 'puma', '>=2.11.1'
 end
