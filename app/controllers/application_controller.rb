@@ -25,7 +25,7 @@ class ApplicationController < ActionController::Base
   end
 
   def not_authorized
-    redirect_to root_url, :alert => 'You are not authorized to perform the requested action!'
+    redirect_to root_url, alert: 'You are not authorized to perform the requested action!'
   end
 
   def set_user

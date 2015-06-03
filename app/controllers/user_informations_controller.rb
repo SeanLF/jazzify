@@ -8,6 +8,7 @@ class UserInformationsController < ApplicationController
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
   respond_to :html
 
+  # Show all user informations.
   def index
     registered_user_information = UserInformation.find_by(user_id: "#{@user.id}")
     if !@user.is_elevated?
@@ -24,12 +25,14 @@ class UserInformationsController < ApplicationController
     end
   end
 
+  # Show a users information.
   def show
     set_user_information
     authorize @user_information
     respond_with(@user_information)
   end
 
+  # Open the new user information page.
   def new
     @user_information = UserInformation.new
     authorize @user_information
@@ -37,10 +40,12 @@ class UserInformationsController < ApplicationController
     respond_with(@user_information)
   end
 
+  # Open the edit user information page.
   def edit
     authorize @user_information
   end
 
+  # Add a user's information to the database.
   def create
     @user_information = UserInformation.new(user_information_params)
     authorize @user_information
@@ -55,6 +60,7 @@ class UserInformationsController < ApplicationController
     end
   end
 
+  # Update the user's information.
   def update
     authorize @user_information
     @user_information.updated_by = @user.id
@@ -62,6 +68,8 @@ class UserInformationsController < ApplicationController
     respond_with(@user_information)
   end
 
+  # Delete a user information.
+  # If the user applied, the application must be deleted first.
   def destroy
     authorize @user_information
     if @user_information.user.user_application
@@ -81,6 +89,7 @@ class UserInformationsController < ApplicationController
       @user_information = UserInformation.find(params[:id])
     end
 
+    # Define which paramaters are permitted when submitting a request to this resource.
     def user_information_params
       params.require(:user_information)
         .permit(:user_id, :first_name, :last_name, :address, :city,
@@ -90,6 +99,6 @@ class UserInformationsController < ApplicationController
     end
 
     def not_authorized(params)
-    redirect_to user_informations_url, :alert => 'You are not authorized to perform the requested action!'
+    redirect_to user_informations_url, alert: 'You are not authorized to perform the requested action!'
   end
 end

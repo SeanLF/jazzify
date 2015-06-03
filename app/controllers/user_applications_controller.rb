@@ -95,7 +95,7 @@ class UserApplicationsController < ApplicationController
     respond_with(@user_application)
   end
 
-  # View application
+  # Review application
   def view
     @user_application = UserApplication.find(params[:id])
     authorize @user_application
@@ -150,6 +150,7 @@ class UserApplicationsController < ApplicationController
     end
   end
 
+  # Define params that are permitted when submitting a request to this resource.
   def user_application_params
     params.require(:user_application).permit(:user_id, :user_application_status_id, :first_choice_volunteer_position_id, :second_choice_volunteer_position_id, :third_choice_volunteer_position_id)
   end
@@ -169,7 +170,7 @@ class UserApplicationsController < ApplicationController
   end
 
   def not_authorized
-    redirect_to user_applications_url, :alert => 'You are not authorized to perform the requested action!'
+    redirect_to user_applications_url, alert: 'You are not authorized to perform the requested action!'
   end
 
   def get_application_volunteer_choices
@@ -178,12 +179,13 @@ class UserApplicationsController < ApplicationController
     @third_choice_volunteer_position = VolunteerPosition.find(@user_application.third_choice_volunteer_position_id) unless @user_application.third_choice_volunteer_position_id.nil?
   end
 
+  # Change application status.
   def change_status(status, message)
     @user_application.user_application_status_id = UserApplicationStatus.find_by(status: status).id
     @user_application.status_changed_by = @user.id
 
     if @user_application.save
-      redirect_to user_applications_path, :alert => message
+      redirect_to user_applications_path, alert: message
     end
   end
 end

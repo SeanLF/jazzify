@@ -1,8 +1,8 @@
 class PagesController < ApplicationController
 	before_action :set_user, only: :permissions
   before_filter :authenticate_user!, only: :permissions
-  after_action :verify_authorized, :only => :permissions
-  rescue_from Pundit::NotAuthorizedError, :with => :not_authorized
+  after_action :verify_authorized, only: :permissions
+  rescue_from Pundit::NotAuthorizedError, with: :not_authorized
   respond_to :html
 
   # This method is used to show admins and mods all of the Jazzify permissions

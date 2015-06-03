@@ -44,7 +44,5 @@ Rails.application.routes.draw do
   get '/reports/t_shirt_distribution'
   get '/reports/user_sign_up_distribution'
   get '/reports/user_last_sign_in_at'
-  get '/n' => 'pages#notify_admins_link_ha'
-
 
 end
