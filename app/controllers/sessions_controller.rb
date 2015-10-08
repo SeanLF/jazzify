@@ -8,7 +8,7 @@ class SessionsController < Devise::SessionsController
   def create
     if params[:user][:otp_attempt]
       self.resource = User.find(params[:user][:id])
-      if !resource.valid_otp?(params[:user][:otp_attempt])
+      if !resource.validate_and_consume_otp!(params[:user][:otp_attempt])
         flash[:alert] =  "Invalid Authentication Token"
         render :two_factor
       else

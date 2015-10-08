@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby "2.2.0"
+ruby "2.2.3"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '>= 4.1.8'
@@ -35,7 +35,7 @@ gem 'font-awesome-sass'
 # Authentication
 gem 'devise'
 # Two factor
-gem 'devise-two-factor', '<= 1.0.0'
+gem 'devise-two-factor'
 gem 'rqrcode-rails3'
 
 # Autoprefixer

@@ -23,7 +23,7 @@ class UsersController < ApplicationController
   # Disables 2 factor auth for user
   def disable_2fa
     # Verify if otp is present and valid
-    if !current_user.valid_otp?(otp_attempt())
+    if !current_user.validate_and_consume_otp!(otp_attempt())
       flash[:alert] = "Did not supply valid one time password."
     else
       # If we got here, the otp is valid
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
   def enable_2fa
 
     # Verify if otp is valid
-    if !current_user.valid_otp?(otp_attempt())
+    if !current_user.validate_and_consume_otp!(otp_attempt())
       return error_in_token_validation("Invalid Authentication Token - You must rescan the QR code")
     end
 
