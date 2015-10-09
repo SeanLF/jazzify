@@ -29,3 +29,18 @@ $(':radio').click(function(){
 });
 
 });
+
+function prepareHomeEasterEgg(){
+  var easterEggCounter = 0;
+  var original_source = $('.intro-message img').attr('src');
+  $('.intro-message img').click(function(){
+    if(++easterEggCounter >= 10){
+      easterEggCounter=0;
+      $(this).addClass('animated hinge').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+        $(this).attr('src', '/assets/doge.jpg').load(function(){
+          $(this).addClass('tada').removeClass('hinge');
+        });
+      });
+    }
+  });
+}
