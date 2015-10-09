@@ -5,6 +5,8 @@
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
   <% @volunteer_positions.each_with_index do |volunteer_position, index| %>
+  <% span_class = volunteer_position.visible ? "text-success" : "text-danger"
+     font_awesome_icon = volunteer_position.visible ? "check" : "times" %>
 
   <div class="panel panel-default">
     <div class="panel-heading" role="tab" id="<%= "heading#{index}" %>">
@@ -13,7 +15,9 @@
           <%= volunteer_position.name %>
         </a>
         <% if @user and @user.is_elevated? %>
-          <span class="pull-right"><%= volunteer_position.visible ? "Visible" : "Hidden" %></span>
+          <span class="pull-right <%= span_class %>">
+            <i class="fa fa-<%= font_awesome_icon %>">&nbsp;<%= volunteer_position.visible ? "Visible" : "Hidden" %></i>
+          </span>
         <% end %>
       </h4>
     </div>
