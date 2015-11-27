@@ -18,8 +18,7 @@ class UserInformationsController < ApplicationController
         redirect_to user_information_url registered_user_information.id
       end
     else
-      @user_informations = UserInformation.all.order(updated_at: :desc)
-        .paginate(page: params[:page], per_page: 100)
+      @user_informations = UserInformation.all.order(updated_at: :desc).page(params[:page])
       authorize @user_informations
       respond_with(@user_informations)
     end

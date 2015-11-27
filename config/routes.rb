@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
 
-  resources :volunteer_position_contacts
-  resources :user_informations
+  concern :paginatable do
+    get '(page/:page)', :action => :index, :on => :collection, :as => ''
+  end
 
-  resources :user_applications do
+  resources :volunteer_position_contacts
+  resources :user_informations, :concerns => :paginatable
+
+  resources :user_applications, :concerns => :paginatable do
     collection do
       get 'success', action: :success
       get ':id/view', action: :view, as: :view
