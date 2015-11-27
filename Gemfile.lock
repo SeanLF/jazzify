@@ -239,9 +239,6 @@ GEM
       sass-rails
     warden (1.2.3)
       rack (>= 1.0)
-    will_paginate (3.0.7)
-    will_paginate-bootstrap (1.0.1)
-      will_paginate (>= 3.0.3)
 
 PLATFORMS
   ruby
@@ -261,6 +258,7 @@ DEPENDENCIES
   font-awesome-sass
   jbuilder
   jquery-rails
+  kaminari
   letter_opener
   mandrill-api
   pg
@@ -277,8 +275,6 @@ DEPENDENCIES
   turbolinks
   uglifier
   upmin-admin
-  will_paginate (>= 3.0.6)
-  will_paginate-bootstrap
 
 BUNDLED WITH
    1.10.6

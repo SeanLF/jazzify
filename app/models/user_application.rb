@@ -11,7 +11,7 @@ class UserApplication < ActiveRecord::Base
   validate :choices_distinct?
   validates :first_choice_volunteer_position_id, :second_choice_volunteer_position_id, :third_choice_volunteer_position_id, presence: true
 
-  def self.data_for_index(page)
+  def self.data_for_index
     self.joins(:user)
     .joins(:user_application_status)
     .joins('inner join user_informations on users.id = user_informations.user_id')
@@ -20,7 +20,6 @@ class UserApplication < ActiveRecord::Base
     .joins('inner join volunteer_positions as c3 on c3.id = third_choice_volunteer_position_id')
     .order(created_at: :desc)
     .select(user_applications_select_clause)
-    .paginate(page: page, per_page: 100)
   end
 
   def self.export

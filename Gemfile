@@ -57,8 +57,7 @@ gem 'pundit'
 gem 'upmin-admin'
 
 # Pagination
-gem 'will_paginate', '>= 3.0.6'
-gem 'will_paginate-bootstrap'
+gem 'kaminari'
 
 # Exception Handling
 gem 'airbrake'

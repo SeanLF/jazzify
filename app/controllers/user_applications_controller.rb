@@ -8,7 +8,7 @@ class UserApplicationsController < ApplicationController
   before_action :application_locked?, except: [:index, :show]
   after_action :verify_authorized, except: :index
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
-  respond_to :html
+  respond_to :html, :json
 
   # Show all user applications
   def index
@@ -138,7 +138,7 @@ class UserApplicationsController < ApplicationController
   end
 
   def set_user_applications
-    @user_applications = UserApplication.data_for_index(params[:page])
+    @user_applications = UserApplication.data_for_index.page params[:page]
     @count = @user_applications.length
   end
 
