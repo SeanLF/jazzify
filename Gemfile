@@ -2,6 +2,33 @@ source 'https://rubygems.org'
 
 ruby "2.2.3"
 
+
+group :doc do
+  # bundle exec rake doc:rails generates the API under doc/api.
+  gem 'sdoc', require: false
+end
+
+group :development do
+  gem 'dotenv-rails', :require => 'dotenv/rails-now'
+end
+
+group :development, :test do
+  # This makes an entity relation diagram in PDF format
+  gem "rails-erd"
+  # Debugging the application
+  gem 'byebug'
+  # To help debugging
+  gem 'did_you_mean'
+  # Don't send emails when not in production
+  gem 'letter_opener'
+end
+
+group :production do
+  gem 'rails_12factor'
+  gem 'mandrill-api', require: 'mandrill'
+  gem 'puma', '>=2.11.1'
+end
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '>= 4.1.8'
 
@@ -62,25 +89,5 @@ gem 'kaminari'
 # Exception Handling
 gem 'airbrake'
 
-group :doc do
-  # bundle exec rake doc:rails generates the API under doc/api.
-  gem 'sdoc', require: false
-end
-
-group :development, :test do
-  # This makes an entity relation diagram in PDF format
-  gem "rails-erd"
-  # Debugging the application
-  gem 'byebug'
-  # To help debugging
-  gem 'did_you_mean'
-  # For testing
-  gem 'rspec-rails', '>=3.2.0'
-  gem 'letter_opener'
-end
-
-group :production do
-  gem 'rails_12factor'
-  gem 'mandrill-api', require: 'mandrill'
-  gem 'puma', '>=2.11.1'
-end
+# reCaptcha by Google
+gem "recaptcha", :require => 'recaptcha/rails'

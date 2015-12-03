@@ -34,12 +34,12 @@ class ApplicationController < ActionController::Base
 
   def set_festival_dates
     year = Time.new.year
-    if Time.new > Time.new("#{year}/07/01")
-      @festivalStartDate = "#{year+1}/06/18"
-      @festivalEndDate = "#{year+1}/07/01"
+    if Time.new > Time.new("#{year}/07/03")
+      @festivalStartDate = "#{year+1}/06/23"
+      @festivalEndDate = "#{year+1}/07/03"
     else
-      @festivalStartDate = "#{year}/06/18"
-      @festivalEndDate = "#{year}/07/01"
+      @festivalStartDate = "#{year}/06/23"
+      @festivalEndDate = "#{year}/07/03"
     end
   end
 
@@ -55,10 +55,6 @@ class ApplicationController < ActionController::Base
     flash[:error] = "Your application has already been sent to a coordinator and is therefore locked. If you still need to edit it, please contact a <a href='mailto:ottawajazzifycoordinator@gmail.com?subject=Edit%20Application&body=I%20registered%20as%20: " + current_user.email + "'>coordinator</a>."
     self.response_body = nil # This should resolve the redirect root.
     redirect_to(request.referrer || root_path)
-  end
-
-  if !Rails.env.production?
-    ENV['two_factor_encryption_key'] = Rails.application.secrets.two_factor_encryption_key
   end
 
   def restrict_to_elevated

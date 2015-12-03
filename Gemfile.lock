@@ -84,7 +84,10 @@ GEM
       rotp (~> 2)
     did_you_mean (0.10.0)
       interception
-    diff-lcs (1.2.5)
+    dotenv (2.0.2)
+    dotenv-rails (2.0.2)
+      dotenv (= 2.0.2)
+      railties (~> 4.0)
     encryptor (1.3.0)
     erubis (2.7.0)
     excon (0.45.4)
@@ -178,6 +181,8 @@ GEM
       i18n
       polyamorous (~> 1.2)
     rdoc (4.2.0)
+    recaptcha (1.0.2)
+      json
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
     rotp (2.1.1)
@@ -185,23 +190,6 @@ GEM
       chunky_png
     rqrcode-rails3 (0.1.7)
       rqrcode (>= 0.4.2)
-    rspec-core (3.4.1)
-      rspec-support (~> 3.4.0)
-    rspec-expectations (3.4.0)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.4.0)
-    rspec-mocks (3.4.0)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.4.0)
-    rspec-rails (3.4.0)
-      actionpack (>= 3.0, < 4.3)
-      activesupport (>= 3.0, < 4.3)
-      railties (>= 3.0, < 4.3)
-      rspec-core (~> 3.4.0)
-      rspec-expectations (~> 3.4.0)
-      rspec-mocks (~> 3.4.0)
-      rspec-support (~> 3.4.0)
-    rspec-support (3.4.1)
     ruby-graphviz (1.2.2)
     rubyzip (1.0.0)
     sass (3.4.19)
@@ -256,6 +244,7 @@ DEPENDENCIES
   devise-bootstrap-views
   devise-two-factor
   did_you_mean
+  dotenv-rails
   font-awesome-sass
   jbuilder
   jquery-rails
@@ -268,8 +257,8 @@ DEPENDENCIES
   rails (>= 4.1.8)
   rails-erd
   rails_12factor
+  recaptcha
   rqrcode-rails3
-  rspec-rails (>= 3.2.0)
   sass-rails (>= 3.2)
   sdoc
   sprockets-rails

@@ -19,3 +19,6 @@
 *.sublime-project
 
 *.sublime-workspace
+
+# Ignore environment file for development
+.env
