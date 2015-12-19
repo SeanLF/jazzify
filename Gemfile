@@ -86,8 +86,5 @@ gem 'upmin-admin'
 # Pagination
 gem 'kaminari'
 
-# Exception Handling
-gem 'airbrake'
-
 # reCaptcha by Google
 gem "recaptcha", :require => 'recaptcha/rails'
