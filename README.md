@@ -17,5 +17,5 @@ bundle exec rails server
 To generate an Entity Relationship Diagram, execute <code>rake erd</code>. Please don't commit the resulting PDF.
 
 Environments:
-* [Production](https://ottawajazzify.herokuapp.com/)
+* [Production](https://jazzify.ca/)
 * [Test](https://ottawajazzifytest.herokuapp.com/)
