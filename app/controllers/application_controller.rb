@@ -33,14 +33,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_festival_dates
-    year = Time.new.year
-    if Time.new > Time.new("#{year}/07/03")
-      @festivalStartDate = "#{year+1}/06/23"
-      @festivalEndDate = "#{year+1}/07/03"
-    else
-      @festivalStartDate = "#{year}/06/23"
-      @festivalEndDate = "#{year}/07/03"
-    end
+    @festivalStartDate = '2016/06/23'
+    @festivalEndDate = '2016/07/03'
   end
 
   def application_locked?
