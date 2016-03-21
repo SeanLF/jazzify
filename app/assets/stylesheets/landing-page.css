@@ -22,7 +22,7 @@ html {
     padding-bottom: 50px;
     text-align: center;
     color: #f8f8f8;
-    background: url(/assets/bg_suburb_1024.jpg) no-repeat center center;
+    background: url(/assets/ottawa-jazz-background-yellow-dog2016.jpg) no-repeat center center;
     background-size: cover;
 }
 
@@ -45,7 +45,7 @@ html {
 }
 
 .intro-message > h3 {
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+  color: #2C405A;
 }
 
 @media(max-width:767px) {
