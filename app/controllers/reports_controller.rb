@@ -65,14 +65,13 @@ class ReportsController < ApplicationController
     end
   end
 
-  # Pie chart showing frequency of users logged in during time frames
+  # Line chart showing frequency of users logged in during time frames
   def user_last_sign_in_at
-    @colors = ['#F7464A', '#46BFBD', '#FFC870', '#949FB1']
-    one_week_where_clause = "last_sign_in_at > LOCALTIMESTAMP - INTERVAL '1 WEEK'"
-    two_weeks_where_clause = "last_sign_in_at BETWEEN LOCALTIMESTAMP - INTERVAL '2 WEEKS' AND LOCALTIMESTAMP - INTERVAL '1 WEEK'"
-    under_a_month_where_clause = "last_sign_in_at BETWEEN LOCALTIMESTAMP - INTERVAL '1 MONTH' AND LOCALTIMESTAMP - INTERVAL '2 WEEKS'"
-    over_a_month_where_clause = "last_sign_in_at < LOCALTIMESTAMP - INTERVAL '1 MONTH'"
-    get_counts_for_users_sign_in_report(one_week_where_clause, two_weeks_where_clause, under_a_month_where_clause, over_a_month_where_clause)
+    @labels = [], @datapoints = []
+    values = User.where('last_sign_in_at IS NOT NULL').group('month, year').order('year, month').pluck('EXTRACT(MONTH FROM last_sign_in_at) as month, EXTRACT(YEAR FROM last_sign_in_at) as year, COUNT(last_sign_in_at)')
+    @labels = values.map { |v| "#{Date::MONTHNAMES[v[0]]} #{v[1].round}" }
+    @datapoints = values.map { |v| v[2] }
+    @number_of_users = User.count
   end
 
   def user_sign_up_distribution

@@ -2,20 +2,10 @@
   <div class="col-md-3">
     <fieldset>
       <legend>Last login</legend>
-      <ul class="list-unstyled">
-        <% @counts.each_with_index do |(key, value), index| %>
-          <li>
-            <span style="background-color: <%= @colors[index] %>; width: 10px; border: 1px solid <%= @colors[index] %>">
-              &nbsp;&nbsp;&nbsp;
-            </span>
-            &nbsp;
-            <%= key %>
-            <span class="text-right pull-right">
-              <%= value %>
-            </span>
-          </li>
-        <% end %>
-      </ul>
+      Total Users:
+      <span class="text-right pull-right">
+        <%= @number_of_users %>
+      </span>
       <hr/>
     </fieldset>
   </div>
@@ -25,20 +15,18 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function(){
-    var doughnutData = [
-      <% @counts.each_with_index do |(key, value), index| %>
-        {
-          value: <%= value %>,
-          color: "<%= @colors[index] %>",
-          highlight: "<%= @colors[index] %>",
-          label: "<%= key %>"
-        }
-        <% if index < @counts.count %>
-          ,
-        <% end %>
-      <% end %>
-      ];
-      var ctx = document.getElementById("canvas").getContext("2d");
-      window.myDoughnut = new Chart(ctx).Pie(doughnutData, {responsive : true});
+    var barData = {
+      labels: [<%= "'#{@labels.join("', '")}'".html_safe %>],
+      datasets: [{
+        label: "Last login",
+        fillColor: "rgba(151,187,205,0.5)",
+        strokeColor: "rgba(151,187,205,0.8)",
+        highlightFill: "rgba(151,187,205,0.75)",
+        highlightStroke: "rgba(151,187,205,1)",
+        data: [<%= @datapoints.join(', ') %>]
+      }]
+    };
+    var ctx = document.getElementById("canvas").getContext("2d");
+    window.myLine = new Chart(ctx).Bar(barData, {responsive : true});
   });
 </script>

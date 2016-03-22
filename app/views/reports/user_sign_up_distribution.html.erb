@@ -2,10 +2,10 @@
   <div class="col-md-3">
     <fieldset>
       <legend>Sign Up Distribution</legend>
-        Total Users:
-        <span class="text-right pull-right">
-          <%= @months.count %>
-        </span>
+      Total Users:
+      <span class="text-right pull-right">
+        <%= @months.count %>
+      </span>
       <hr/>
     </fieldset>
   </div>
@@ -15,23 +15,18 @@
 </div>
 <script type="text/javascript">
   $(document).ready(function(){
-    var lineData = {
-    labels: [<%= "'#{@month_names.join("', '")}'".html_safe %>],
-    datasets: [
-      {
-          label: "Sign Up",
-          fillColor: "rgba(50,177,80,0.2)",
-          strokeColor: "rgba(122,220,122,1)",
-          pointColor: "rgba(220,122,220,1)",
-          pointStrokeColor: "#fff",
-          pointHighlightFill: "#fff",
-          pointHighlightStroke: "rgba(220,220,220,1)",
-          // <%= @month_counts.keys.join(', ') %>
-          data: [<%= @month_counts.values.join(', ') %>]
-      }
-    ]
-  };
-      var ctx = document.getElementById("canvas").getContext("2d");
-      window.myLine = new Chart(ctx).Line(lineData, {responsive : true});
+    var barData = {
+      labels: [<%= "'#{@month_names.join("', '")}'".html_safe %>],
+      datasets: [{
+        label: "Sign Up",
+        fillColor: "rgba(50,177,80,0.2)",
+        strokeColor: "rgba(122,220,122,0.8)",
+        highlightFill: "rgba(50,177,80,0.5)",
+        highlightStroke: "rgba(122,220,122,1)",
+        data: [<%= @month_counts.values.join(', ') %>]
+      }]
+    };
+    var ctx = document.getElementById("canvas").getContext("2d");
+    window.myLine = new Chart(ctx).Bar(barData, {responsive : true});
   });
 </script>
