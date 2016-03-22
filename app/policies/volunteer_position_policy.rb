@@ -15,37 +15,37 @@ class VolunteerPositionPolicy < ApplicationPolicy
 
 	def index?
 		if @user and @user.is_elevated?
-			return true
+			true
 		else
-			return !volunteer_position.any? { |vp| vp.visible == false }
+			volunteer_position.all? { |vp| vp.visible == true }
 		end
 	end
 
 	def show?
 		if @user and @user.is_elevated?
-			return true
+			true
 		else
-			return @volunteer_position.visible
+			@volunteer_position.visible
 		end
 	end
 
 	def create?
-		return new? unless user.nil?
+		new? unless user.nil?
 	end
 
 	def edit?
-		return update? unless user.nil?
+		update? unless user.nil?
 	end
 
 	def new?
-		user.is_admin?
+		@user.is_admin? unless @user.nil?
 	end
 
 	def update?
-		user.is_elevated? unless user.nil?
+		@user.is_elevated? unless @user.nil?
 	end
 
 	def destroy?
-		return user.is_admin? unless user.nil?
+		@user.is_admin? unless @user.nil?
 	end
 end
