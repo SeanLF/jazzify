@@ -37,10 +37,10 @@ class ReportsController < ApplicationController
 
     # Get data
     all_applications = UserApplication.all
-    all_positions = VolunteerPosition.all
+    positions_applied_for = VolunteerPosition.positions_applied_for.order(:name)
 
     # Initialize hashes
-    initialize_hash_for_position_picks_chart(all_applications, all_positions)
+    initialize_hash_for_position_picks_chart(all_applications, positions_applied_for)
   end
 
   # bar plot how many users have registered, completed info, and applied
@@ -95,13 +95,13 @@ class ReportsController < ApplicationController
             'First Choice', 'Second Choice', 'Third Choice', 'Classification']
   end
 
-  def initialize_hash_for_position_picks_chart(all_applications, all_positions)
+  def initialize_hash_for_position_picks_chart(all_applications, positions_applied_for)
     @x = {first_choice_volunteer_position_id: "First Choice", second_choice_volunteer_position_id: "Second Choice", third_choice_volunteer_position_id: "Third Choice"}
     @choices = {}
     @x.each do |num|
       @choices[num[1]] = {}
-      all_positions.each do |position|
-        @choices[num[1]]["#{position.name}"] = UserApplication.where(num[0] => position.id.to_s).count
+      positions_applied_for.each do |position|
+        @choices[num[1]]["#{position.name}"] = all_applications.where(num[0] => position.id.to_s).count
       end
     end
   end

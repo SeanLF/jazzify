@@ -22,3 +22,6 @@
 
 # Ignore environment file for development
 .env
+
+# Ignore byebug history
+.byebug_history
