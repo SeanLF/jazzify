@@ -1,7 +1,7 @@
 class VolunteerPositionsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :set_user_if_logged_in, only: [:index, :show]
-  before_action :set_volunteer_position, except: [:index]
+  before_action :set_volunteer_position, except: [:index, :new, :create]
   after_action :verify_authorized
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
   respond_to :html
