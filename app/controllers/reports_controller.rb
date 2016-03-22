@@ -80,7 +80,7 @@ class ReportsController < ApplicationController
     @month_names = []
     @month_counts = {}
     @months.uniq.each_with_index do |date, index|
-      @month_names[index] = Date::MONTHNAMES[date.month]
+      @month_names[index] = "#{Date::MONTHNAMES[date.month]} #{date.year}"
       @month_counts[@month_names[index]] = @months.count(date)
     end
   end
