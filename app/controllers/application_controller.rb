@@ -33,7 +33,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_festival_dates
-    @festivalStartDate = '2016/06/23'
+    @festivalStartDate = '2016/06/22'
     @festivalEndDate = '2016/07/03'
   end
 
