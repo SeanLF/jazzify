@@ -43,6 +43,7 @@ class PagesController < ApplicationController
 
   def home
     @home = true
+    @number_of_applicants = UserApplication.count
   end
 
 end

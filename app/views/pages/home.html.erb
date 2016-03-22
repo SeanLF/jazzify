@@ -26,6 +26,8 @@
             <li><%= link_to "Sign in", new_user_session_path, :class => 'btn btn-primary btn-lg'  %></li>
             <% end %>
           </ul>
+          <hr class="intro-divider">
+          <h5><%= 'Applicant'.pluralize(@number_of_applicants) %> to date: <%= @number_of_applicants %></h5>
         </div>
       </div>
     </div>

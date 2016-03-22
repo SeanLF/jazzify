@@ -44,8 +44,10 @@ html {
     border-bottom: 1px solid rgba(0,0,0,0.2);
 }
 
-.intro-message > h3 {
-  color: #2C405A;
+.intro-message {
+  h3, h5{
+    color: #2C405A;
+  }
 }
 
 @media(max-width:767px) {
