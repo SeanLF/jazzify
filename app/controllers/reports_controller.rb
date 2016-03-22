@@ -68,7 +68,7 @@ class ReportsController < ApplicationController
   # Line chart showing frequency of users logged in during time frames
   def user_last_sign_in_at
     @labels = [], @datapoints = []
-    values = User.where('last_sign_in_at IS NOT NULL').group('month, year').order('year, month').pluck('EXTRACT(MONTH FROM last_sign_in_at) as month, EXTRACT(YEAR FROM last_sign_in_at) as year, COUNT(last_sign_in_at)')
+    values = User.where('last_sign_in_at IS NOT NULL').group('month, year').order('year, month').pluck('EXTRACT(MONTH FROM current_sign_in_at) as month, EXTRACT(YEAR FROM current_sign_in_at) as year, COUNT(current_sign_in_at)')
     @labels = values.map { |v| "#{Date::MONTHNAMES[v[0]]} #{v[1].round}" }
     @datapoints = values.map { |v| v[2] }
     @number_of_users = User.count
