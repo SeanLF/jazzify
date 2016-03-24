@@ -1,0 +1,28 @@
+<h1>Help Page</h1>
+<hr>
+<div class="row">
+  <div class="col-md-6 col-md-push-6">
+    <h2>Contact Us</h2>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p id="email_us_para">
+          If you're emailing us about an issue you're experiencing, please include the steps you've taken to resolve it and results. If you have signed up, the email address you used.
+        </p>
+        <a href="mailto:ottawajazzify@gmail.com" class="btn btn-default btn-lg" id="email_us">Email us</a>
+        <h4>
+          <small>The person receiving these emails is a volunteer and the creator of this website.</small>
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6 col-md-pull-6">
+    <%= render 'pages/faq' %>
+  </div>
+</div>
+
+<style media="screen">
+  p#email_us_para {
+    font-size: 17px;
+  }
+
+</style>

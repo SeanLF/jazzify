@@ -15,8 +15,6 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class=""><a href="/about">About <span class="sr-only"></span></a></li>
-        <!-- <li><a href="/volunteer">Volunteer</a></li> -->
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Volunteer<span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
@@ -54,7 +52,8 @@
           </ul>
         </li>
         <% end %>
-        <!-- <li><a href="mailto:sfloy029@uottawa.ca">Contact Us</a></li> -->
+        <li class=""><a href="/about">About <span class="sr-only"></span></a></li>
+        <li><%= link_to 'Help', help_path %></li>
       </ul>
       <!-- <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
