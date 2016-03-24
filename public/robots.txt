@@ -2,4 +2,10 @@
 #
 # To ban all spiders from the entire site uncomment the next two lines:
  User-agent: *
- Disallow: /
+ Disallow: /user_informations/
+ Disallow: /user_applications/
+ Disallow: /volunteer_position_contacts/
+ Disallow: /permissions
+ Disallow: /privacypolicy
+ Disallow: /two_factor_authentication/
+ Disallow: /reports/
