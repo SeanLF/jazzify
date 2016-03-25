@@ -14,7 +14,7 @@
   <p>
     <% if DateTime.now < @time %>
     You have until
-    <strong class="fa fa-clock-o"></strong> <u><%= @time %></u>
+    <strong class="fa fa-clock-o"></strong> <u><%= @time.to_formatted_s(:long) %></u>
     to edit any submitted information before it's sent to a volunteer coordinator.
     <i style="font-size:15px!important">If you require any changes to be made after your application is locked, please contact a coordinator.</i>
     <br/>

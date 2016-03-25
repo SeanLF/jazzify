@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
 
   def application_locked?
     unless current_user.is_elevated?
-      if @user.user_application and (@user.user_application.created_at + 1.days) <= DateTime.now
+      if @user.user_application and DateTime.now > (@user.user_application.created_at + 24.hours)
         redirect_because_application_is_locked
       end
     end

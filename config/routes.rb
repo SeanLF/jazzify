@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :user_applications, :concerns => :paginatable do
     collection do
       get 'success', action: :success
+      get ':id/review', action: :review, as: :review
       get ':id/view', action: :view, as: :view
       post 'accept_or_deny', action: :accept_or_deny
       post 'reset/:id', action: :reset

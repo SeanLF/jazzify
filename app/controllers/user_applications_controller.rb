@@ -5,7 +5,7 @@ class UserApplicationsController < ApplicationController
   before_action :set_user_applications, only: :index
   before_action :set_volunteer_positions
   before_action :set_user_application_statuses, except: [:destroy]
-  before_action :application_locked?, except: [:index, :show]
+  before_action :application_locked?, only: [:edit, :update, :destroy]
   after_action :verify_authorized, except: :index
   rescue_from Pundit::NotAuthorizedError, with: :not_authorized
   respond_to :html, :json
@@ -95,8 +95,15 @@ class UserApplicationsController < ApplicationController
     respond_with(@user_application)
   end
 
-  # Review application
+  # View application
   def view
+    @user_application = UserApplication.find(params[:id])
+    authorize @user_application
+    @user_information = @user_application.user.user_information
+    @time = (@user_application.created_at + 24.hours)
+  end
+
+  def review
     @user_application = UserApplication.find(params[:id])
     authorize @user_application
     @user_information = @user_application.user.user_information
@@ -123,7 +130,7 @@ class UserApplicationsController < ApplicationController
   def success
     @user_application = UserApplication.find_by(user_id: @user.id)
     authorize @user_application
-    @time = (@user_application.created_at + 1.days).to_formatted_s(:long)
+    @time = (@user_application.created_at + 24.hours)
   end
 
   # Private methods
@@ -189,4 +196,3 @@ class UserApplicationsController < ApplicationController
     end
   end
 end
-

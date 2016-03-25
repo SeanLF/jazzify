@@ -1,144 +1,131 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-3 application-div">
-      <h3>Contact Information</h3>
-      <div class="form-group">
-        <label class="control-label">Name</label>
-        <p class="well well-sm" name="user_information[Name]">
-          <%= "#{@user_information.first_name} #{@user_information.last_name}" %>
-        </p>
-      </div>
-      <div class="form-group">
-        <label class="control-label">City</label>
-        <p class="well well-sm" name="user_information[City]">
-          <%= @user_information.city %>
-        </p>
-      </div>
-      <div class="form-group">
-        <label class="control-label">Province</label>
-        <p class="well well-sm" name="user_information[Province]">
-          <%= @user_information.province %>
-        </p>
-      </div>
-      <% if @user_information.home_phone_number %>
-      <div class="form-group">
-        <label class="control-label">Home phone number</label>
-        <p class="well well-sm" name="user_information[Home phone number]">
-          <%= @user_information.home_phone_number %>
-        </p>
-      </div>
+    <div class="alert alert-info" role="alert">
+      The data presented on this page is extracted from your
+      <u><%= link_to "information", @user_information, class: "alert-link" %></u>
+      and
+      <u><%= link_to "application", @user_application, class: "alert-link" %></u>
+      forms.
+      <% if DateTime.now < @time %>
+      <i>Click on the links (bold and underlined text) to view or edit them.</i><br/>
+      You have until
+      <strong class="fa fa-clock-o"></strong>
+      <u><%= @time.to_formatted_s(:long) %></u>
+      to edit any submitted information before it's sent to a volunteer coordinator.
+      <i style="font-size:15px!important">If you require any changes to be made after your application is locked, please contact a <u><a href="mailto:ottawajazzifycoordinator@gmail.com" class="alert-link">coordinator</a></u>.</i>
+    <% else %>
+      Your application has been sent to a volunteer coordinator. If you need to change something, please contact them
+      <u><a href="mailto:ottawajazzifycoordinator@gmail.com" class="alert-link">here</a></u>.
       <% end %>
-      <% if @user_information.work_phone_number %>
-      <div class="form-group">
-        <label class="control-label">Work phone number</label>
-        <p class="well well-sm" name="user_information[Work phone number]">
-          <%= @user_information.work_phone_number %>
-        </p>
-      </div>
-      <% end %>
-      <% if @user_information.cell_phone_number %>
-      <div class="form-group">
-        <label class="control-label">Cell phone number</label>
-        <p class="well well-sm" name="user_information[Cell phone number]">
-          <%= @user_information.cell_phone_number %>
-        </p>
-      </div>
-      <% end %>
-      <div class="form-group">
-        <label class="control-label">Email</label>
-        <p class="well well-sm" name="user[Email]">
-          <%= @user_information.user.email %>
-        </p>
+    </div>
+    <p></p>
+    <h1><%= "#{@user_information.first_name} #{@user_information.last_name}" %></h1>
+    <div class="col-md-3">
+      <div class="application-div">
+        <h3>Contact details</h3>
+        <div class="form-group">
+          <label class="control-label">Home phone number</label>
+          <p class="well well-sm" name="user_information[Home phone number]">
+            <%= @user_information.home_phone_number %>
+          </p>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Work phone number</label>
+          <p class="well well-sm" name="user_information[Work phone number]">
+            <%= @user_information.work_phone_number %>
+          </p>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Cell phone number</label>
+          <p class="well well-sm" name="user_information[Cell phone number]">
+            <%= @user_information.cell_phone_number %>
+          </p>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Email</label>
+          <p class="well well-sm" name="user[Email]">
+            <%= @user_information.user.email %>
+          </p>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Address</label>
+          <p class="well well-sm" name="user_information[Address]">
+            <%= @user_information.address %><br/>
+            <%= @user_information.city %>,
+            <%= @user_information.province %>,
+            <%= @user_information.postal_code %>
+          </p>
+        </div>
       </div>
     </div>
-    <div class="col-sm-4 col-sm-offset-1 application-div">
-      <h3>Jazz specific Information</h3>
-      <div class="form-group">
-        <label class="control-label">Age group</label>
-        <p class="well well-sm" name="user_information[Age group]">
-          <%= @user_information.age_group %>
-        </p>
-      </div>
-      <div class="form-group">
-        <label class="control-label">Notes</label>
-        <p class="well well-sm" name="user_information[Notes]">
-          <%= @user_information.notes %>
-        </p>
-      </div>
-      <div class="form-group">
-        <label class="control-label">Availability</label>
-        <p class="well well-sm" name="user_information[Availability]">
-          <%= @user_information.availability %>
-        </p>
-      </div>
-    </div>
-    <div class="col-sm-3 col-sm-offset-1 application-div">
-      <h3>Choices</h3>
-      <div class="form-group">
-        <label class="control-label">#1</label>
-        <p class="well well-sm" name="user_application[First Choice]">
-          <%= @user_application.first_choice_volunteer_position.name %>
-        </p>
-      </div>
-      <div class="form-group">
-        <label class="control-label">#2</label>
-        <p class="well well-sm" name="user_application[Second Choice]">
-          <%= @user_application.second_choice_volunteer_position.name %>
-        </p>
-      </div>
-      <div class="form-group">
-        <label class="control-label">#3</label>
-        <p class="well well-sm" name="user_application[Third Choice]">
-          <%= @user_application.third_choice_volunteer_position.name %>
-        </p>
+    <div class="col-md-3">
+      <div class="application-div">
+        <h3>Festival related</h3>
+        <div class="form-group">
+          <label class="control-label">Availability</label>
+          <p class="well well-sm" name="user_information[Availability]">
+            <%= @user_information.availability %>
+          </p>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Notes</label>
+          <p class="well well-sm" name="user_information[Notes]">
+            <%= @user_information.notes %>
+          </p>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Age group</label>
+          <p class="well well-sm" name="user_information[Age group]">
+            <%= @user_information.age_group %>
+          </p>
+        </div>
+        <div class="form-group">
+          <label class="control-label">T shirt size</label>
+          <p class="well well-sm">
+            <%= @user_information.t_shirt_size %>
+          </p>
+        </div>
       </div>
     </div>
-    <% if current_user.is_admin? %>
-    <div class="col-sm-4 col-sm-offset-1 application-div">
-      <h5>Accept or Deny Application</h5>
-      <p class="home-buttons">
-        <%= form_tag(accept_or_deny_user_applications_path) do |f| %>
-        <%= hidden_field_tag(:user_application_id, @user_application.id) %>
-        <input type="hidden" id="accept_or_deny" name="accept_or_deny"/>
-        <%= render "view_application_add_comment", comments: @user_application.coordinator_notes %>
-        <% submit_tag("Export Applications", class: 'btn btn-primary') %>
-        <a href="#Accept" class="btn btn-success" data-toggle="modal" data-target="#add_comment_for_user_application" data-type="Accept" id="accept">Accept</a>
-        <a href="#Deny" class="btn btn-danger" data-toggle="modal" data-target="#add_comment_for_user_application" data-type="Deny" id="deny">Deny</a>
-        <%= link_to "Reset to Pending", "/user_applications/reset/#{@user_application.id}", method: :post, id:"reset", class: "btn btn-primary" %>
-        <% end %>
-      </p>
+    <div class="col-md-3">
+      <div class="application-div">
+        <h3>Choices</h3>
+        <div class="form-group">
+          <label class="control-label">#1</label>
+          <p class="well well-sm" name="user_application[First Choice]">
+            <%= @user_application.first_choice_volunteer_position.name %>
+          </p>
+        </div>
+        <div class="form-group">
+          <label class="control-label">#2</label>
+          <p class="well well-sm" name="user_application[Second Choice]">
+            <%= @user_application.second_choice_volunteer_position.name %>
+          </p>
+        </div>
+        <div class="form-group">
+          <label class="control-label">#3</label>
+          <p class="well well-sm" name="user_application[Third Choice]">
+            <%= @user_application.third_choice_volunteer_position.name %>
+          </p>
+        </div>
+      </div>
     </div>
-    <% end %>
+    <div class="col-md-3">
+      <div class="application-div">
+        <h3>Emergency contact</h3>
+        <div class="form-group">
+          <label class="control-label">Name</label>
+          <p class="well well-sm">
+            <%= @user_information.emergency_contact_name %>
+          </p>
+        </div>
+        <div class="form-group">
+          <label class="control-label">Phone Number</label>
+          <p class="well well-sm">
+            <%= @user_information.emergency_contact_number %>
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
-<script type="text/javascript">
-  $('#add_comment_for_user_application').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var type = button.data('type') // Extract info from data-* attributes
-    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-    var modal = $(this)
-    modal.find('.modal-title').text(type + " Application")
-    $("#button_submit").text(type)
-    if(type == "Accept"){
-      $("#button_submit").removeClass('btn-danger').addClass('btn-success')
-      $("#accept_or_deny").val("Accepted")
-    }else{
-      $("#button_submit").removeClass('btn-success').addClass('btn-danger')
-      $("#accept_or_deny").val("Denied")
-    }
-  });
-  $(function() {
-    var status = "<%= @user_application.user_application_status.status %>"
-    if(status == "Accepted"){
-      $("#accept").attr('disabled', true)
-    }
-    else if(status == "Denied"){
-      $("#deny").attr('disabled', true)
-    }
-    else{
-      $("#reset").attr('disabled', true)
-    }
-  });
-
-</script>

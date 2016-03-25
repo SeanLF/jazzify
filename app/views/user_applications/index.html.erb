@@ -42,7 +42,7 @@
           <td><%= user_application.third_choice %></td>
           <td><%= user_application.status %></td>
           <td><%= user_application.created_at.to_formatted_s(:long) %></td>
-          <td><%= link_to 'Review', "/user_applications/#{user_application.id}/view" %></td>
+          <td><%= link_to 'Review', review_user_applications_path(user_application.id) %></td>
           <% if current_user.is_admin? %>
           <td><%= link_to "Edit", edit_user_application_path(user_application) %></td>
           <td><%= link_to 'Delete', user_application, method: :delete, data: { confirm: 'Are you sure?' } %></td>
