@@ -77,7 +77,9 @@ class UserApplicationPolicy < ApplicationPolicy
       user_application_status_for_user = UserApplicationStatus.find_by(status: "Pending")
       granted = user_application_status_for_user.id == @user_application.user_application_status_id.to_i
       granted = granted and @user.id == @user_application.user_id
-      granted = granted and (DateTime.now < @user_application.created_at + 24.hours)
+      unless @user_application.created_at.nil?
+        granted = granted and (DateTime.now < (@user_application.created_at + 24.hours))
+      end
       return granted
     end
 	end
