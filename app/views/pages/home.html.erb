@@ -11,19 +11,25 @@
               <%= link_to "Volunteer Positions", volunteer_positions_path, class: 'btn btn-default btn-lg' %>
             </li>
             <% if user_signed_in? %>
-            <li>
-              <%= link_to new_user_application_path, class: 'btn btn-success btn-lg' do %>
-              <span class="network-name">Apply</span>
-              <% end %>
-            </li>
-            <li>
-              <%= link_to destroy_user_session_path, method: :delete, class: 'btn btn-danger btn-lg' do %>
-              <span class="network-name">Logout</span>
-              <% end %>
-            </li>
+              <li>
+                <% if current_user.user_application.nil? %>
+                  <%= link_to new_user_application_path, class: 'btn btn-success btn-lg' do %>
+                    <span class="network-name">Apply</span>
+                  <% end %>
+                <% else %>
+                  <%= link_to view_user_applications_path(current_user.user_application), class: 'btn btn-success btn-lg' do %>
+                    <span class="network-name">My Application</span>
+                  <% end %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to destroy_user_session_path, method: :delete, class: 'btn btn-danger btn-lg' do %>
+                  <span class="network-name">Logout</span>
+                <% end %>
+              </li>
             <% else %>
-            <li><%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-success btn-lg'  %></li>
-            <li><%= link_to "Sign in", new_user_session_path, :class => 'btn btn-primary btn-lg'  %></li>
+              <li><%= link_to "Sign up", new_user_registration_path, :class => 'btn btn-success btn-lg'  %></li>
+              <li><%= link_to "Sign in", new_user_session_path, :class => 'btn btn-primary btn-lg'  %></li>
             <% end %>
           </ul>
           <hr class="intro-divider">
