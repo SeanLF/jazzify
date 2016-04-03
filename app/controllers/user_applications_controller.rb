@@ -33,6 +33,7 @@ class UserApplicationsController < ApplicationController
 
   # Apply to position page
   def new
+    flash[:notice] = 'Due to an overwhelming response, we are running out of positions to fill. You may still apply, but doing so will add you to our waiting list. You will only be contacted if a position opens up and you are its next candidate.'
     @user_information = UserInformation.find_by(user_id: @user.id)
     new_user_application
     authorize @user_application

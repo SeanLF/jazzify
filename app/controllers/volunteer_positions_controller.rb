@@ -8,6 +8,7 @@ class VolunteerPositionsController < ApplicationController
 
   # Listing of all volunteering positions.
   def index
+    flash[:notice] = 'Due to an overwhelming response, we are running out of positions to fill. You may still apply, but doing so will add you to our waiting list. You will only be contacted if a position opens up and you are its next candidate.'
     if @user and @user.is_elevated?
       @volunteer_positions = VolunteerPosition.all.order(:name)
     else
