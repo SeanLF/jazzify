@@ -71,7 +71,7 @@ class ApplicationController < ActionController::Base
         "Authorization" => "Bearer #{ENV['PUSHBULLET_API_KEY']}"
         })
     request.set_form_data({
-            'target': "#{ENV['MANDRILL_USERNAME']}",
+            'target': "#{ENV['PUSHBULLET_USERNAME']}",
             'type': 'link',
             'title': "#{title}",
             'body': "#{body}",

@@ -40,7 +40,7 @@ Jazzify::Application.configure do
   # config.action_dispatch.x_sendfile_header = 'X-Accel-Redirect' # for nginx
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-    config.force_ssl = true
+  config.force_ssl = true
 
   # Set to :debug to see everything in the log.
   config.log_level = :info
@@ -81,11 +81,11 @@ Jazzify::Application.configure do
   config.action_mailer.default_url_options = { host: ENV['HOST'] }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:        "smtp.mandrillapp.com",
+    address:        'smtp.sparkpostmail.com',
     port:           587,
-    user_name:      ENV["MANDRILL_USERNAME"],
-    password:       ENV["MANDRILL_API_KEY"],
+    user_name:      ENV['SPARKPOST_USERNAME'],
+    password:       ENV['SPARKPOST_API_KEY'],
     enable_starttls_auto: true,
-    authentication: "login"
+    authentication: 'login'
   }
 end
