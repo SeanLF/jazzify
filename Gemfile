@@ -15,13 +15,13 @@ group :development do
   gem 'byebug'
   # Don't send emails
   gem 'letter_opener'
+  gem 'binding_of_caller'
+  # More useful error pages
+  gem "better_errors"
 end
 
 group :development, :test do
   gem 'dotenv-rails', :require => 'dotenv/rails-now'
-  gem 'binding_of_caller'
-  # More useful error pages
-  gem "better_errors"
 end
 
 group :production do
