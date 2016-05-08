@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   get '/reports/t_shirt_distribution'
   get '/reports/user_sign_up_distribution'
   get '/reports/user_last_sign_in_at'
-  get '/reports/volunteer_application_comments' => 'reports#volunteer_application_comments' , concerns: :paginatable
+  get '/reports/volunteer_application_comments', concerns: :paginatable
+  get '/reports/volunteer_application_comments_export'
 
 end

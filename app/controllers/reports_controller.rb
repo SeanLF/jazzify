@@ -89,6 +89,27 @@ class ReportsController < ApplicationController
     @rows = UserApplication.joins(:user, user: :user_information).joins(:first_choice_volunteer_position).joins(:second_choice_volunteer_position).joins(:third_choice_volunteer_position).order(created_at: :desc).page(params[:page]).select(:id, :first_name, :last_name, 'volunteer_positions.name AS choice1', 'second_choice_volunteer_positions_user_applications.name AS choice2', 'third_choice_volunteer_positions_user_applications.name AS choice3', :coordinator_notes)
   end
 
+  def volunteer_application_comments_export
+    title = String.new
+    xlsx = Axlsx::Package.new do |p|
+      p.workbook.add_worksheet(name: "User Application Comments") do |sheet|
+        p.use_shared_strings = true
+
+        # Headers
+        sheet.add_row ['Name', 'Choices', 'Comments']
+
+        # Get data
+        volunteer_application_comments
+        title = "Application comments"
+
+        # Export
+        @rows.each { |row| sheet.add_row [[row.first_name, row.last_name].join(' '), [row.choice1, row.choice2, row.choice3].join(', '), row.coordinator_notes] }
+      end
+    end
+    xlsx.serialize("/tmp/#{title}.xlsx")
+    send_file("/tmp/#{title}.xlsx")
+  end
+
   private
 
   def get_user_application_export_headers
