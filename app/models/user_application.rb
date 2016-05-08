@@ -31,6 +31,10 @@ class UserApplication < ActiveRecord::Base
     self.export.where("#{choice}_choice_volunteer_position_id = ?", volunteer_position_id)
   end
 
+  def self.comments_report
+    self.joins(:user, user: :user_information).joins(:first_choice_volunteer_position).joins(:second_choice_volunteer_position).joins(:third_choice_volunteer_position).order(created_at: :desc).select(:id, :first_name, :last_name, 'volunteer_positions.name AS choice1', 'second_choice_volunteer_positions_user_applications.name AS choice2', 'third_choice_volunteer_positions_user_applications.name AS choice3', :coordinator_notes)
+  end
+
   private
 	def set_default_status
       self.user_application_status = UserApplicationStatus.find_by({status: 'Pending'})
