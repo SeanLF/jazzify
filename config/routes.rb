@@ -42,12 +42,13 @@ Rails.application.routes.draw do
 
   # Reports routes
   get '/reports' => 'reports#index'
-  get "/reports/export_user_applications"
-  post "/reports/export_user_applications"
+  get '/reports/export_user_applications'
+  post '/reports/export_user_applications'
   get '/reports/position_popularity' => 'reports#position_picks'
   get '/reports/user_distribution' => 'reports#user_completion'
   get '/reports/t_shirt_distribution'
   get '/reports/user_sign_up_distribution'
   get '/reports/user_last_sign_in_at'
+  get '/reports/volunteer_application_comments' => 'reports#volunteer_application_comments' , concerns: :paginatable
 
 end
