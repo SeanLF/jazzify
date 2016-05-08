@@ -8,3 +8,4 @@ sean = User.find_or_create_by({email: "sfloy029@uottawa.ca"})
 sean.password = "1234567890"
 sean.role = Role.find_by({name: "Admin"})
 sean.save!
+puts "----- done seeds"

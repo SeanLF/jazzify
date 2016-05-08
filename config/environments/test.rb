@@ -29,20 +29,14 @@ Rails.application.configure do
   # Tell Action Mailer not to deliver emails to the real world.
   # The :test delivery method accumulates sent emails in the
   # ActionMailer::Base.deliveries array.
-  config.action_mailer.default_url_options = { host: 'ottawajazzifytest.herokuapp.com' }
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    address:        'smtp.sparkpostmail.com',
-    port:           587,
-    user_name:      ENV['SPARKPOST_USERNAME'],
-    password:       ENV['SPARKPOST_API_KEY'],
-    enable_starttls_auto: true,
-    authentication: 'login'
-  }
+  config.action_mailer.default_url_options = { host: 'test.jazzify.ca' }
+  config.action_mailer.delivery_method = :test
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  config.active_support.test_order = :random
 end

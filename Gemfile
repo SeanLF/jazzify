@@ -9,18 +9,19 @@ group :doc do
 end
 
 group :development do
-  gem 'dotenv-rails', :require => 'dotenv/rails-now'
-end
-
-group :development, :test do
   # This makes an entity relation diagram in PDF format
   gem "rails-erd"
   # Debugging the application
   gem 'byebug'
-  # To help debugging
-  gem 'did_you_mean'
-  # Don't send emails when not in production
+  # Don't send emails
   gem 'letter_opener'
+end
+
+group :development, :test do
+  gem 'dotenv-rails', :require => 'dotenv/rails-now'
+  gem 'binding_of_caller'
+  # More useful error pages
+  gem "better_errors"
 end
 
 group :production do
