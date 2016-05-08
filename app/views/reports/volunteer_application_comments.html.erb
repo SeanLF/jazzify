@@ -1,0 +1,27 @@
+<h1>Volunteer Application Comments</h1>
+
+
+<div class="table-responsive">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+            <th class="hidden">Volunteer Application ID</th>
+            <th>Name</th>
+            <th>Choices</th>
+            <th>Coordinator notes</th>
+            <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <%= content_tag_for(:tr, @rows) do |row| %>
+            <td class="hidden"><%= row.id %></td>
+            <td><%= [row.first_name, row.last_name].join(' ') %></td>
+            <td><%= [row.choice1, row.choice2, row.choice3].join(', ') %></td>
+            <td><%= row.coordinator_notes %></td>
+            <td><%= link_to content_tag(:span, content_tag(:i, '&nbsp;'.html_safe, :class => "fa fa-external-link") + 'Review Application'), review_user_applications_path(row.id) %></td>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%= paginate @rows %>
