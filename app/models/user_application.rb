@@ -12,24 +12,19 @@ class UserApplication < ActiveRecord::Base
   validates :first_choice_volunteer_position_id, :second_choice_volunteer_position_id, :third_choice_volunteer_position_id, presence: true
 
   def self.data_for_index
-    self.joins(:user)
-    .joins(:user_application_status)
-    .joins('inner join user_informations on users.id = user_informations.user_id')
-    .joins('inner join volunteer_positions as c1 on c1.id = first_choice_volunteer_position_id')
-    .joins('inner join volunteer_positions as c2 on c2.id = second_choice_volunteer_position_id')
-    .joins('inner join volunteer_positions as c3 on c3.id = third_choice_volunteer_position_id')
+    self.joins(:user, user: :user_information)
+    .joins(:user_application_status).joins(:first_choice_volunteer_position).joins(:second_choice_volunteer_position).joins(:third_choice_volunteer_position)
     .order(created_at: :desc)
-    .select(user_applications_select_clause)
+    .select(:id, :created_at, :status, "concat(user_informations.first_name, ' ', user_informations.last_name) AS name", 'volunteer_positions.name AS first_choice', 'second_choice_volunteer_positions_user_applications.name AS second_choice', 'third_choice_volunteer_positions_user_applications.name AS third_choice')
   end
 
   def self.export
-    self.joins(:user)
+    self.joins(:user, user: :user_information)
     .joins(:user_application_status)
-    .joins('inner join user_informations on users.id = user_informations.user_id')
-    .joins('inner join volunteer_positions as c1 on c1.id = first_choice_volunteer_position_id')
-    .joins('inner join volunteer_positions as c2 on c2.id = second_choice_volunteer_position_id')
-    .joins('inner join volunteer_positions as c3 on c3.id = third_choice_volunteer_position_id')
-    .select(export_select)
+    .joins(:first_choice_volunteer_position)
+    .joins(:second_choice_volunteer_position)
+    .joins(:third_choice_volunteer_position)
+    .select(:first_name, :last_name, :address, :city, :province, :postal_code, :home_phone_number, :work_phone_number, :cell_phone_number, :email, :t_shirt_size, :age_group, :emergency_contact_name, :emergency_contact_number, :notes, :availability, 'volunteer_positions.name AS first_choice', 'second_choice_volunteer_positions_user_applications.name AS second_choice', 'third_choice_volunteer_positions_user_applications.name AS third_choice')
   end
 
   def self.export_for_position(volunteer_position_id, choice)
@@ -45,24 +40,5 @@ class UserApplication < ActiveRecord::Base
     if self.first_choice_volunteer_position_id == self.second_choice_volunteer_position_id or self.first_choice_volunteer_position_id == self.third_choice_volunteer_position_id or self.second_choice_volunteer_position_id == self.third_choice_volunteer_position_id
         errors.add :base, "You must select three distinct choices."
     end
-  end
-
-  def self.user_applications_select_clause
-    return "user_applications.id,
-            concat(user_informations.first_name, ' ', user_informations.last_name) AS name,
-            user_applications.created_at,
-            user_application_statuses.status,
-            c1.name AS first_choice,
-            c2.name AS second_choice,
-            c3.name AS third_choice"
-  end
-
-  def self.export_select
-    return "first_name, last_name, address, city, province, postal_code,
-          home_phone_number, work_phone_number, cell_phone_number,email,
-          t_shirt_size, age_group, emergency_contact_name,
-          emergency_contact_number, notes, availability,
-          c1.name as first_choice, c2.name as second_choice,
-          c3.name as third_choice"
   end
 end
