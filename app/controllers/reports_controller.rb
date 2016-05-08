@@ -86,8 +86,8 @@ class ReportsController < ApplicationController
 
   # HTML table containing the name, choices and coordinator comments
   def volunteer_application_comments
-    @rows = UserApplication.joins(:user, user: :user_information).joins(:first_choice_volunteer_position).joins(:second_choice_volunteer_position).joins(:third_choice_volunteer_position).page(params[:page]).select(:id, :first_name, :last_name, 'volunteer_positions.name AS choice1', 'second_choice_volunteer_positions_user_applications.name AS choice2', 'third_choice_volunteer_positions_user_applications.name AS choice3', :coordinator_notes)
-end
+    @rows = UserApplication.joins(:user, user: :user_information).joins(:first_choice_volunteer_position).joins(:second_choice_volunteer_position).joins(:third_choice_volunteer_position).order(created_at: :desc).page(params[:page]).select(:id, :first_name, :last_name, 'volunteer_positions.name AS choice1', 'second_choice_volunteer_positions_user_applications.name AS choice2', 'third_choice_volunteer_positions_user_applications.name AS choice3', :coordinator_notes)
+  end
 
   private
 
