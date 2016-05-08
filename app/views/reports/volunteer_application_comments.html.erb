@@ -1,5 +1,10 @@
 <h1>Volunteer Application Comments</h1>
 
+<% if @rows.nil? or @rows.length == 0 %>
+
+  <h3>No data to display. <i class="fa fa-frown-o">&nbsp;</i></h3>
+
+<% else %>
 
 <div class="table-responsive">
   <table class="table table-striped table-hover">
@@ -25,3 +30,4 @@
   </table>
 </div>
 <%= paginate @rows %>
+<% end %>
