@@ -72,6 +72,7 @@ GEM
       execjs
     coffee-script-source (1.11.1)
     concurrent-ruby (1.0.2)
+    crass (1.0.5)
     debug_inspector (0.0.2)
     devise (3.5.10)
       bcrypt (~> 3.0)
@@ -128,7 +129,8 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.4.1)
       launchy (~> 2.2)
-    loofah (2.0.3)
+    loofah (2.3.1)
+      crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
