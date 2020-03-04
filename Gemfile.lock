@@ -144,7 +144,7 @@ GEM
     pg (0.18.4)
     polyamorous (1.3.0)
       activerecord (>= 3.0)
-    puma (3.4.0)
+    puma (3.12.4)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (1.6.5)
